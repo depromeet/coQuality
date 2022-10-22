@@ -5,8 +5,9 @@ import com.depromeet.coquality.inner.post.port.driven.InsertPostPort;
 import com.depromeet.coquality.outer.post.entity.JpaPost;
 import com.depromeet.coquality.outer.post.infrastructure.JpaPostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
-//@Component
+@Component
 @RequiredArgsConstructor
 public class JpaInsertPostAdapter implements InsertPostPort {
 

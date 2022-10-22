@@ -6,9 +6,8 @@ import com.depromeet.coquality.outer.post.entity.RedisPost;
 import java.time.Duration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 @RequiredArgsConstructor
 public class RedisInsertPostAdapter implements InsertPostPort {
 
