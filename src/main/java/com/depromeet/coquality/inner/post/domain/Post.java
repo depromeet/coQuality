@@ -1,6 +1,5 @@
 package com.depromeet.coquality.inner.post.domain;
 
-import com.depromeet.coquality.inner.post.application.command.CreatePostCommand;
 import lombok.Getter;
 
 @Getter
@@ -16,7 +15,7 @@ public class Post {
         this.title = title;
     }
 
-    public static Post of(CreatePostCommand createPostCommand) {
-        return new Post(createPostCommand.getTitle());
+    public static Post of(String title) {
+        return new Post(title);
     }
 }

@@ -1,7 +1,6 @@
 package com.depromeet.coquality.inner.post.application.service;
 
 import com.depromeet.coquality.inner.post.application.command.CreatePostCommand;
-import com.depromeet.coquality.inner.post.domain.Post;
 import com.depromeet.coquality.inner.post.port.driven.InsertPostPort;
 import com.depromeet.coquality.inner.post.port.driving.CreatePostUseCase;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +14,7 @@ public class CreatePostService implements CreatePostUseCase {
 
     @Override
     public void create(CreatePostCommand createPostCommand) {
-        final var post = Post.of(createPostCommand);
+        final var post = createPostCommand.toPost();
 
         insertPostPort.insert(post);
     }
