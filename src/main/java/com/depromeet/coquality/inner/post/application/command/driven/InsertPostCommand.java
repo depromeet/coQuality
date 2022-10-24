@@ -10,6 +10,6 @@ public class InsertPostCommand {
     private final String title;
 
     public InsertPostCommand(@NonNull Post post) {
-        this.title = post.title();
+        this.title = post.getTitle();
     }
 }

@@ -1,6 +1,15 @@
 package com.depromeet.coquality.inner.post.domain;
 
-public record Post(String title) {
+import lombok.Getter;
+
+@Getter
+public class Post {
+
+    private String title;
+
+    public Post(String title) {
+        this.title = title;
+    }
 
     public static Post of(final String title) {
         return new Post(title);
