@@ -1,7 +1,7 @@
 package com.depromeet.coquality.outer.post.dto;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 
-public record CreatePostDTO(@NotEmpty String title) {
+public record CreatePostDTO(@NotBlank String title) {
 
 }
