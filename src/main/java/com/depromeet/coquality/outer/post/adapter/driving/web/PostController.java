@@ -1,8 +1,8 @@
 package com.depromeet.coquality.outer.post.adapter.driving.web;
 
-import com.depromeet.coquality.inner.post.application.command.CreatePostCommand;
-import com.depromeet.coquality.inner.post.port.driving.CreatePostUseCase;
-import com.depromeet.coquality.outer.post.dto.CreatePostRecord;
+import com.depromeet.coquality.inner.post.application.command.driving.CreatePostCommand;
+import com.depromeet.coquality.inner.post.port.driving.PostUseCase;
+import com.depromeet.coquality.outer.post.dto.CreatePostDTO;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class PostController {
 
-    private final CreatePostUseCase createPostUseCase;
+    private final PostUseCase postUseCase;
 
     @PostMapping("/posts")
-    public void createPost(@Valid @RequestBody final CreatePostRecord createPostRecord) {
+    public void createPost(@Valid @RequestBody final CreatePostDTO createPostDTO) {
         final var createPostCommand = CreatePostCommand.factory()
-            .title(createPostRecord.title())
+            .title(createPostDTO.title())
             .newInstance();
 
-        createPostUseCase.create(createPostCommand);
+        postUseCase.create(createPostCommand);
     }
 }
