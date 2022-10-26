@@ -6,11 +6,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 @Entity(name = "Post")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class JpaPost {
 
     @Id
@@ -20,7 +22,8 @@ public class JpaPost {
     private String title;
 
     @Builder(builderMethodName = "factory", buildMethodName = "newInstance")
-    public JpaPost(@NonNull String title) {
+    public JpaPost(Long id, @NonNull String title) {
+        this.id = id;
         this.title = title;
     }
 }
