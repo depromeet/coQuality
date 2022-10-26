@@ -1,7 +1,5 @@
 package com.depromeet.coquality.outer.post.adapter.driven.persistence;
 
-import com.depromeet.coquality.inner.post.application.command.driven.FetchPostCommand;
-import com.depromeet.coquality.inner.post.application.command.driven.InsertPostCommand;
 import com.depromeet.coquality.inner.post.application.command.driven.UpdatePostCommand;
 import com.depromeet.coquality.inner.post.domain.Post;
 import com.depromeet.coquality.inner.post.port.driven.PostPort;
@@ -17,9 +15,9 @@ public class JpaPostAdapter implements PostPort {
     private final JpaPostRepository jpaPostRepository;
 
     @Override
-    public void insert(final InsertPostCommand insertPostCommand) {
+    public void insert(final Post post) {
         final var jpaPost = JpaPost.factory()
-            .title(insertPostCommand.getTitle())
+            .title(post.getTitle())
             .newInstance();
 
         jpaPostRepository.save(jpaPost);
@@ -36,8 +34,7 @@ public class JpaPostAdapter implements PostPort {
     }
 
     @Override
-    public Post fetch(FetchPostCommand fetchPostCommand) {
-        final var id = fetchPostCommand.getId();
+    public Post fetch(Long id) {
         final var jpaPost = jpaPostRepository.findById(id).orElseThrow();
 
         return new Post(jpaPost.getTitle());
