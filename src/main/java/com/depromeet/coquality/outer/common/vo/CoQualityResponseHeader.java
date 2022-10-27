@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CoqualityResponseHeader {
+public class CoQualityResponseHeader {
 
     private int resultCode = 0;
     private String resultMessage = "";

@@ -6,25 +6,25 @@ import java.util.List;
 import lombok.Getter;
 
 @Getter
-public class CoqualityDomainException extends RuntimeException {
+public class CoQualityDomainException extends RuntimeException {
 
     private final int code;
 
     private final List<Object> args;
 
-    public CoqualityDomainException(int code, String message, Throwable ex) {
+    public CoQualityDomainException(int code, String message, Throwable ex) {
         super(message, ex);
         this.code = code;
         this.args = new ArrayList<>();
     }
 
-    public CoqualityDomainException(int code, String message, Object... args) {
+    public CoQualityDomainException(int code, String message, Object... args) {
         super(message);
         this.code = code;
         this.args = Arrays.asList(args);
     }
 
-    public CoqualityDomainException(int code, String message) {
+    public CoQualityDomainException(int code, String message) {
         super(message);
         this.code = code;
         this.args = new ArrayList<>();

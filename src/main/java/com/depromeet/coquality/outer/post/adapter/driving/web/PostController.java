@@ -3,7 +3,7 @@ package com.depromeet.coquality.outer.post.adapter.driving.web;
 import com.depromeet.coquality.inner.post.application.command.driving.ModifyPostCommand;
 import com.depromeet.coquality.inner.post.domain.Post;
 import com.depromeet.coquality.inner.post.port.driving.PostUseCase;
-import com.depromeet.coquality.outer.common.vo.CoqualityResponse;
+import com.depromeet.coquality.outer.common.vo.CoQualityResponse;
 import com.depromeet.coquality.outer.post.dto.CreatePostDTO;
 import com.depromeet.coquality.outer.post.dto.ModifyPostDTO;
 import com.depromeet.coquality.outer.post.vo.PostResponse;
@@ -22,7 +22,7 @@ public class PostController {
     private final PostUseCase postUseCase;
 
     @PostMapping("/posts")
-    public CoqualityResponse createPost(@Valid @RequestBody final CreatePostDTO createPostDTO) {
+    public CoQualityResponse createPost(@Valid @RequestBody final CreatePostDTO createPostDTO) {
         final var post = Post.of(createPostDTO.title());
         postUseCase.create(post);
 
@@ -30,13 +30,13 @@ public class PostController {
     }
 
     @PatchMapping("/posts/{id}")
-    public CoqualityResponse modifyPost(@PathVariable Long id,
-        @Valid @RequestBody final ModifyPostDTO modifyPostDTO) {
+    public CoQualityResponse modifyPost(@PathVariable Long id,
+                                        @Valid @RequestBody final ModifyPostDTO modifyPostDTO) {
         final var modifyPostCommand = ModifyPostCommand.factory()
             .titleOpt(modifyPostDTO.title())
             .newInstance();
         postUseCase.modify(id, modifyPostCommand);
 
-        return new CoqualityResponse();
+        return new CoQualityResponse();
     }
 }

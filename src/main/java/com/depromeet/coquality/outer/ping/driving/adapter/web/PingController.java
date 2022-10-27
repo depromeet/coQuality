@@ -1,6 +1,6 @@
 package com.depromeet.coquality.outer.ping.driving.adapter.web;
 
-import com.depromeet.coquality.outer.common.vo.CoqualityResponse;
+import com.depromeet.coquality.outer.common.vo.CoQualityResponse;
 import com.depromeet.coquality.outer.ping.vo.PingTestResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PingController {
 
     @GetMapping("/ping")
-    public CoqualityResponse pingTest() {
+    public CoQualityResponse pingTest() {
         return new PingTestResponse();
     }
 }
