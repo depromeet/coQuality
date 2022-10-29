@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class JpaPostAdapter {
+public class JpaPostAdapter{
 
     private final JpaPostRepository jpaPostRepository;
 
