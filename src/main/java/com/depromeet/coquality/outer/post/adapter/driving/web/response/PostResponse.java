@@ -1,4 +1,4 @@
-package com.depromeet.coquality.outer.post.vo;
+package com.depromeet.coquality.outer.post.adapter.driving.web.response;
 
 import com.depromeet.coquality.outer.common.vo.CoQualityResponse;
 import lombok.Getter;

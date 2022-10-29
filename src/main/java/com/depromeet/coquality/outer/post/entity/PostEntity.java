@@ -1,19 +1,20 @@
 package com.depromeet.coquality.outer.post.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 @Entity(name = "Post")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class JpaPost {
+public class PostEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +23,7 @@ public class JpaPost {
     private String title;
 
     @Builder(builderMethodName = "factory", buildMethodName = "newInstance")
-    public JpaPost(Long id, @NonNull String title) {
+    private PostEntity(Long id, @NonNull String title) {
         this.id = id;
         this.title = title;
     }
