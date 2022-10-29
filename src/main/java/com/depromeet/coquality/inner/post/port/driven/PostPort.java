@@ -7,4 +7,9 @@ public interface PostPort {
     void insert(final Post post);
 
     Post fetch(final Long id);
+
+    void delete(final Long id);
+
+    void update(final Post post);
+
 }
