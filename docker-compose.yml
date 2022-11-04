@@ -1,10 +1,14 @@
-version: '3'
+version: '3.7'
 services:
-  mysql:
-    image: mysql:8-oracle
-    container_name: db_container
-    ports:
-      - "3307:3306"
+  db:
+    image: mysql/mysql-server:8.0.23
+    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: coquality
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=coquality
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+    ports:
+      - 3307:3306
+    volumes:
+      - ./scripts/db:/docker-entrypoint-initdb.d

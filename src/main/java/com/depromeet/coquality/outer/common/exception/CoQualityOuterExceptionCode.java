@@ -1,4 +1,4 @@
-package com.depromeet.coquality.outer.common.error;
+package com.depromeet.coquality.outer.common.exception;
 
 import lombok.RequiredArgsConstructor;
 

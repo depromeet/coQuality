@@ -1,4 +1,4 @@
-package com.depromeet.coquality.inner.common.domain.error;
+package com.depromeet.coquality.inner.common.domain.exception;
 
 import java.util.ArrayList;
 import java.util.Arrays;
