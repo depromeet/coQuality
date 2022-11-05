@@ -15,16 +15,16 @@ import java.util.Map;
 public class SignUpUserProvider {
     private static final Map<UserSocialType, SignUpUserUseCase> signUserServiceMap = new HashMap<>();
 
-    private final KaKaoSignUpService kaKaoAuthService;
+    private final KaKaoSignUpService kaKaoSignUpService;
     //TODO 애플, 구글 확장 고려
-//    private final AppleAuthService appleAuthService;
-//    private final GoogleAuthService googleAuthService;
+//    private final AppleAuthService appleSignUpService;
+//    private final GoogleAuthService googleSignUpService;
 
     @PostConstruct
     void initializeAuthServicesMap() {
-        signUserServiceMap.put(UserSocialType.KAKAO, kaKaoAuthService);
-//        authServiceMap.put(UserSocialType.APPLE, appleAuthService);
-//        authServiceMap.put(UserSocialType.GOOGLE, googleAuthService);
+        signUserServiceMap.put(UserSocialType.KAKAO, kaKaoSignUpService);
+//        authServiceMap.put(UserSocialType.APPLE, appleSignUpService);
+//        authServiceMap.put(UserSocialType.GOOGLE, googleSignUpService);
     }
     public SignUpUserUseCase getSignUpService(final UserSocialType socialType) {
         return signUserServiceMap.get(socialType);
