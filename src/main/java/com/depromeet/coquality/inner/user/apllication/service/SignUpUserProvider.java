@@ -26,7 +26,7 @@ public class SignUpUserProvider {
 //        authServiceMap.put(UserSocialType.APPLE, appleAuthService);
 //        authServiceMap.put(UserSocialType.GOOGLE, googleAuthService);
     }
-    public SignUpUserUseCase getSignUpService(UserSocialType socialType) {
+    public SignUpUserUseCase getSignUpService(final UserSocialType socialType) {
         return signUserServiceMap.get(socialType);
     }
 }
