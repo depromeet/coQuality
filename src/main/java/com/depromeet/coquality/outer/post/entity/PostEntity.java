@@ -2,6 +2,8 @@ package com.depromeet.coquality.outer.post.entity;
 
 import com.depromeet.coquality.inner.post.domain.code.PrimaryPostCategoryCode;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,6 +25,7 @@ public class PostEntity {
     private String title;
 
     private String contents;
+    @Enumerated(value = EnumType.STRING)
     private PrimaryPostCategoryCode primaryPostCategoryCode;
     private String summary;
     private Long views;
