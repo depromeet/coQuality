@@ -1,11 +1,10 @@
 package com.depromeet.coquality.inner.user.port.driven;
 
-import com.depromeet.coquality.inner.post.domain.Post;
+
+import com.depromeet.coquality.inner.user.domain.User;
 
 public interface UserPort {
-    void insert();
-
-    Post fetch(final Long id);
+    Long insert(User user);
 
     void delete(final Long id);
 
