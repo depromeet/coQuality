@@ -10,9 +10,11 @@ import com.depromeet.coquality.outer.user.external.client.kakao.KaKaoAuthApiClie
 import com.depromeet.coquality.outer.user.external.client.kakao.dto.response.KaKaoProfileResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Service
 @RequiredArgsConstructor
+@Transactional
+@Service
 public class KaKaoSignUpService implements SignUpUserUseCase {
 
     private static final UserSocialType socialType = UserSocialType.KAKAO;
