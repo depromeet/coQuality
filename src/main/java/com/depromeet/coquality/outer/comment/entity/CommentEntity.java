@@ -8,9 +8,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
@@ -21,10 +18,6 @@ import java.time.LocalDateTime;
 public class CommentEntity extends BaseEntity {
     public static final String TABLE_NAME = "comments";
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Column(length = 200)
     private String contents;
 
@@ -34,13 +27,13 @@ public class CommentEntity extends BaseEntity {
     // TODO, mapped when postEntity is ready
     private Long postId;
 
-    private final LocalDateTime deletedAt = null;
+    private LocalDateTime deletedAt;
 
     @Builder(builderMethodName = "factory", buildMethodName = "newInstance")
     private CommentEntity(Long id, String contents, Long userId, Long postId) {
-        this.id = id;
         this.contents = contents;
         this.userId = userId;
         this.postId = postId;
+        this.deletedAt = null;
     }
 }
