@@ -7,15 +7,17 @@ import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/posts")
 public class PostController {
 
     private final IssuePostUseCase issuePostUseCase;
 
-    @PostMapping("/api/v1/posts")
+    @PostMapping
     public void issuePost(
         @Valid @RequestBody final IssuePostRequest issuePostRequest) {
         final var post = Post.of(
