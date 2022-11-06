@@ -24,6 +24,6 @@ public class KaKaoSignUpService implements SignUpUserUseCase {
     @Override
     public Long execute(final SignUpDto request) {
         final KaKaoProfileResponse response = kakaoAuthApiCaller.getProfileInfo(HttpHeaderUtils.withBearerToken(request.getToken()));
-        return userPort.insert(User.of(response.getId(), response.getAccount().getEmail(), String.valueOf(socialType)));
+        return userPort.insert(User.of(response.getId(), response.getAccount().getEmail()), socialType);
     }
 }

@@ -14,8 +14,8 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/user")
-public class UserController {
+@RequestMapping("/api/v1/auth")
+public class AuthController {
     private final SignUpUserProvider userProvider;
 
     @PostMapping("/signup") // 동작확인을 위해 id 리턴시켰습니다~

@@ -10,10 +10,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class KaKaoProfileResponse {
 
-    @JsonProperty("id")
     private String id;
     @JsonProperty("kakao_account")
     private KakaoAccount account;

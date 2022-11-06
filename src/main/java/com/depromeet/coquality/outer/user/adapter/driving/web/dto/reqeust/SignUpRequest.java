@@ -18,13 +18,6 @@ public class SignUpRequest {
     @NotNull(message = "{user.socialType.notNull}")
     private UserSocialType socialType;
 
-    private SignUpRequest(final String token, final UserSocialType socialType) {
-        this.token = token;
-        this.socialType = socialType;
-    }
-    public static SignUpRequest of(final String token, final UserSocialType socialType){
-        return new SignUpRequest(token, socialType);
-    }
     public SignUpDto toInnerDto(){
         return SignUpDto.of(token, String.valueOf(socialType));
     }

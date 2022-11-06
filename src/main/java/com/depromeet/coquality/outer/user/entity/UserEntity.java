@@ -12,7 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
+@Entity(name = "User")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserEntity {

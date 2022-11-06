@@ -13,7 +13,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Component
 public class SignUpUserProvider {
-    private static final Map<UserSocialType, SignUpUserUseCase> signUserServiceMap = new HashMap<>();
+    private final Map<UserSocialType, SignUpUserUseCase> signUserServiceMap = new HashMap<>();
 
     private final KaKaoSignUpService kaKaoSignUpService;
     //TODO 애플, 구글 확장 고려

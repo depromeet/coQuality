@@ -16,12 +16,12 @@ public class JpaUserAdapter implements UserPort {
 
 
     @Override
-    public Long insert(final User user) {
+    public Long insert(final User user, UserSocialType socialType) {
         final UserEntity saveUser = jpaUserRepository.save(
                 UserEntity.factory()
                         .socialId(user.getSocialId())
                         .socialEmail(user.getSocialEmail())
-                        .socialType(UserSocialType.valueOf(user.getSocialType()))
+                        .socialType(socialType)
                         .newInstance()
         );
         return saveUser.getId();
