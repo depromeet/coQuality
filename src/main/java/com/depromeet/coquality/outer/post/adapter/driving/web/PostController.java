@@ -36,7 +36,7 @@ public class PostController {
 
     @GetMapping("/{id}")
     public PostResponse readPost(@PathVariable final Long id) {
-        Post post = readPostUseCase.execute(id);
+        final var post = readPostUseCase.execute(id);
         return new PostResponse(post);
     }
 
