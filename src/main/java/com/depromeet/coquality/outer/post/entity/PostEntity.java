@@ -38,4 +38,8 @@ public class PostEntity extends BaseEntity {
         this.summary = summary;
         this.views = views;
     }
+
+    public void increaseViews(Long count) {
+        views += count;
+    }
 }
