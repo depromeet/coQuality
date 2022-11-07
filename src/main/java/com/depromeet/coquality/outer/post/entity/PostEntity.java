@@ -1,12 +1,10 @@
 package com.depromeet.coquality.outer.post.entity;
 
 import com.depromeet.coquality.inner.post.domain.code.PrimaryPostCategoryCode;
+import com.depromeet.coquality.outer.common.entity.BaseEntity;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,11 +14,7 @@ import lombok.NonNull;
 @Entity(name = "Post")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class PostEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class PostEntity extends BaseEntity {
 
     private String title;
 
