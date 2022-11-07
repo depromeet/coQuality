@@ -19,6 +19,6 @@ public class CreateCommentService implements CreateCommentUseCase {
 
         // TODO, add validation of user and post existence
 
-        commentAdapter.insert(comment);
+        commentAdapter.save(comment);
     }
 }
