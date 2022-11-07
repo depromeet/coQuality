@@ -1,6 +1,6 @@
 package com.depromeet.coquality.outer.common.vo;
 
-import com.depromeet.coquality.outer.common.error.CoQualityOuterException;
+import com.depromeet.coquality.outer.common.exception.CoQualityOuterException;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

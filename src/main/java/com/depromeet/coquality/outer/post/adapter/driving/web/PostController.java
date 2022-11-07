@@ -28,4 +28,5 @@ public class PostController {
         );
         issuePostUseCase.execute(post);
     }
+
 }

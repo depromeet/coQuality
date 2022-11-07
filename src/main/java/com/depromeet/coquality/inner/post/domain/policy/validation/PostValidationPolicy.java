@@ -1,6 +1,6 @@
 package com.depromeet.coquality.inner.post.domain.policy.validation;
 
-import com.depromeet.coquality.inner.common.domain.error.CoQualityDomainExceptionCode;
+import com.depromeet.coquality.inner.common.domain.exception.CoQualityDomainExceptionCode;
 import com.depromeet.coquality.inner.post.domain.Post;
 import com.depromeet.coquality.inner.post.domain.code.PrimaryPostCategoryCode;
 

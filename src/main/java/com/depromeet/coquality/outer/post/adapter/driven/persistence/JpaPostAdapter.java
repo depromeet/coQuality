@@ -27,17 +27,17 @@ public class JpaPostAdapter implements PostPort {
     }
 
     @Override
-    public Post fetch(final Long id) {
+    public Post fetch(Long id) {
         return null;
     }
 
     @Override
-    public void delete(final Long id) {
+    public void delete(Long id) {
 
     }
 
     @Override
-    public void update(final Post post) {
+    public void update(Post post) {
 
     }
 }
