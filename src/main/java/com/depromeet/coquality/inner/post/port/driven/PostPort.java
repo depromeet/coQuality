@@ -4,7 +4,7 @@ import com.depromeet.coquality.inner.post.domain.Post;
 
 public interface PostPort {
 
-    void insert(final Post post);
+    void create(final Post post);
 
     Post fetch(final Long id);
 

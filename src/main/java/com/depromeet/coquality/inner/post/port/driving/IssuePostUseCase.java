@@ -2,8 +2,8 @@ package com.depromeet.coquality.inner.post.port.driving;
 
 import com.depromeet.coquality.inner.post.domain.Post;
 
-public interface CreatePostUseCase {
+public interface IssuePostUseCase {
 
-    void execute(final Post createPostCommand);
+    void execute(final Post post);
 
 }
