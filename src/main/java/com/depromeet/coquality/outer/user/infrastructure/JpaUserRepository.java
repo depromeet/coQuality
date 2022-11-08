@@ -10,5 +10,5 @@ import java.util.Optional;
 
 public interface JpaUserRepository extends JpaRepository<UserEntity, Long> {
     @Query("select u from User u where u.socialInfo.socialId = :socialId and u.socialInfo.socialType = :socialType")
-    Optional<UserEntity> existsBySocialIdAndSocialType(@Param("socialId") String socialId, @Param("socialType") UserSocialType socialType);
+    Optional<UserEntity> findBySocialIdAndSocialType(@Param("socialId") String socialId, @Param("socialType") UserSocialType socialType);
 }
