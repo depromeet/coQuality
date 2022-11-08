@@ -5,6 +5,7 @@ import com.depromeet.coquality.inner.user.port.driven.UserPort;
 import com.depromeet.coquality.outer.user.entity.UserEntity;
 import com.depromeet.coquality.outer.user.entity.UserSocialType;
 import com.depromeet.coquality.outer.user.infrastructure.JpaUserRepository;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +26,16 @@ public class JpaUserAdapter implements UserPort {
                         .newInstance()
         );
         return saveUser.getId();
+    }
+
+    @Override
+    public Long selectUserWhereSocialIdAndSocialType(final String socialId, final UserSocialType socialType) {
+        final UserEntity findUser = jpaUserRepository.findBySocialIdAndSocialType(socialId, socialType)
+                .orElseThrow(() -> new IllegalArgumentException());
+        if (Objects.isNull(findUser)){
+            throw new IllegalArgumentException(String.format("존재하지 않는 유저 (%s - %s) 입니다", socialId, socialType));
+        }
+        return findUser.getId();
     }
 
     @Override
