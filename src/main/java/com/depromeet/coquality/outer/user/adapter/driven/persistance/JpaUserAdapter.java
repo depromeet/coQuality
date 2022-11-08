@@ -5,7 +5,6 @@ import com.depromeet.coquality.inner.user.port.driven.UserPort;
 import com.depromeet.coquality.outer.user.entity.UserEntity;
 import com.depromeet.coquality.outer.user.entity.UserSocialType;
 import com.depromeet.coquality.outer.user.infrastructure.JpaUserRepository;
-import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -10,7 +10,6 @@ import com.depromeet.coquality.outer.user.adapter.driving.web.dto.reqeust.LoginR
 import com.depromeet.coquality.outer.user.adapter.driving.web.dto.reqeust.SignUpRequest;
 import com.depromeet.coquality.outer.user.adapter.driving.web.dto.response.LoginResponse;
 import com.depromeet.coquality.outer.user.adapter.driving.web.dto.response.SignUpResponse;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
