@@ -23,6 +23,6 @@ public class KakaoSignInService implements SignInUserUseCase {
     @Override
     public Long execute(final LoginDto request) {
         final KaKaoProfileResponse response = kakaoAuthApiCaller.getProfileInfo(HttpHeaderUtils.withBearerToken(request.getToken()));
-        return userPort.selectUserWhereSocialIdAndSocialType(response.getId(), socialType);
+        return userPort.findUserBySocialIdAndSocialType(response.getId(), socialType);
     }
 }
