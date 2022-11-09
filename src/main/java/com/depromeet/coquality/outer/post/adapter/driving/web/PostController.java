@@ -2,14 +2,17 @@ package com.depromeet.coquality.outer.post.adapter.driving.web;
 
 import com.depromeet.coquality.inner.post.domain.Post;
 import com.depromeet.coquality.inner.post.port.driving.IssuePostUseCase;
+import com.depromeet.coquality.inner.post.port.driving.ModifyPostUseCase;
 import com.depromeet.coquality.inner.post.port.driving.ReadPostUseCase;
 import com.depromeet.coquality.outer.post.adapter.driving.web.request.IssuePostRequest;
+import com.depromeet.coquality.outer.post.adapter.driving.web.request.ModifyPostRequest;
 import com.depromeet.coquality.outer.post.adapter.driving.web.response.PostResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +24,7 @@ public class PostController {
 
     private final IssuePostUseCase issuePostUseCase;
     private final ReadPostUseCase readPostUseCase;
+    private final ModifyPostUseCase modifyPostUseCase;
 
     @PostMapping
     public void issuePost(
@@ -38,6 +42,21 @@ public class PostController {
     public PostResponse readPost(@PathVariable final Long id) {
         final var post = readPostUseCase.execute(id);
         return new PostResponse(post);
+    }
+
+    @PutMapping("/{id}")
+    public void modifyPost(@PathVariable final Long id,
+        @RequestBody ModifyPostRequest modifyPostRequest) {
+
+        final var post = Post.of(
+            modifyPostRequest.title(),
+            modifyPostRequest.contents(),
+            modifyPostRequest.primaryPostCategoryCode(),
+            modifyPostRequest.summary(),
+            modifyPostRequest.views()
+        );
+
+        modifyPostUseCase.execute(id, post);
     }
 
 }

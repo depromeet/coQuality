@@ -47,8 +47,11 @@ public class Post {
         return new Post(title, contents, primaryPostCategoryCode, summary, views);
     }
 
-    public void modifyTitle(final String title) {
-        // 비즈니스 정책 검증 생략
-        this.title = title;
+    public void modifyPost(final Post post) {
+        this.title = post.getTitle();
+        this.contents = post.getContents();
+        this.primaryPostCategoryCode = post.getPrimaryPostCategoryCode();
+        this.summary = post.getSummary();
+        this.views = post.getViews();
     }
 }

@@ -50,7 +50,15 @@ public class JpaPostAdapter implements PostPort {
     }
 
     @Override
-    public void update(Post post) {
+    public void update(final Long id, final Post post) {
+        final var postEntity = jpaPostRepository.findById(id)
+            .orElseThrow(() -> CoQualityOuterExceptionCode.POST_ENTITY_IS_NULL.newInstance(id));
 
+        postEntity.setTitle(post.getTitle());
+        postEntity.setContents(post.getContents());
+        postEntity.setPrimaryPostCategoryCode(post.getPrimaryPostCategoryCode());
+        postEntity.setSummary(post.getSummary());
+
+        jpaPostRepository.save(postEntity);
     }
 }
