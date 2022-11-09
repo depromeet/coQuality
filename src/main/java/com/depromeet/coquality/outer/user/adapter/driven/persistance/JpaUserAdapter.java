@@ -16,7 +16,7 @@ public class JpaUserAdapter implements UserPort {
 
 
     @Override
-    public Long insert(final User user, UserSocialType socialType) {
+    public Long insert(final User user, final UserSocialType socialType) {
         final UserEntity saveUser = jpaUserRepository.save(
                 UserEntity.factory()
                         .socialId(user.getSocialId())
@@ -25,6 +25,13 @@ public class JpaUserAdapter implements UserPort {
                         .newInstance()
         );
         return saveUser.getId();
+    }
+
+    @Override
+    public Long findUserBySocialIdAndSocialType(final String socialId, final UserSocialType socialType) {
+        final UserEntity findUser = jpaUserRepository.findBySocialIdAndSocialType(socialId, socialType)
+                .orElseThrow(() -> new IllegalArgumentException(String.format("존재하지 않는 유저 (%s - %s) 입니다", socialId, socialType)));
+        return findUser.getId();
     }
 
     @Override
