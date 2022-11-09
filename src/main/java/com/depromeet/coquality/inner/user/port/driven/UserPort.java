@@ -1,11 +1,13 @@
 package com.depromeet.coquality.inner.user.port.driven;
 
-import com.depromeet.coquality.inner.post.domain.Post;
+
+import com.depromeet.coquality.inner.user.domain.User;
+import com.depromeet.coquality.outer.user.entity.UserSocialType;
 
 public interface UserPort {
-    void insert();
+    Long insert(User user, UserSocialType socialType);
 
-    Post fetch(final Long id);
+    Long findUserBySocialIdAndSocialType(String socialId, UserSocialType userSocialType);
 
     void delete(final Long id);
 

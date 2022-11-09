@@ -1,6 +1,7 @@
 package com.depromeet.coquality.outer.post.adapter.driving.web;
 
 import com.depromeet.coquality.inner.post.domain.Post;
+import com.depromeet.coquality.inner.post.port.driving.DeletePostUseCase;
 import com.depromeet.coquality.inner.post.port.driving.IssuePostUseCase;
 import com.depromeet.coquality.inner.post.port.driving.ModifyPostUseCase;
 import com.depromeet.coquality.inner.post.port.driving.ReadPostUseCase;
@@ -9,6 +10,7 @@ import com.depromeet.coquality.outer.post.adapter.driving.web.request.ModifyPost
 import com.depromeet.coquality.outer.post.adapter.driving.web.response.PostResponse;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +27,7 @@ public class PostController {
     private final IssuePostUseCase issuePostUseCase;
     private final ReadPostUseCase readPostUseCase;
     private final ModifyPostUseCase modifyPostUseCase;
+    private final DeletePostUseCase deletePostUseCase;
 
     @PostMapping
     public void issuePost(
@@ -57,6 +60,11 @@ public class PostController {
         );
 
         modifyPostUseCase.execute(id, post);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletePost(@PathVariable final Long id) {
+        deletePostUseCase.execute(id);
     }
 
 }
