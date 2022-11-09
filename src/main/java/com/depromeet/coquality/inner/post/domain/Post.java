@@ -47,11 +47,4 @@ public class Post {
         return new Post(title, contents, primaryPostCategoryCode, summary, views);
     }
 
-    public void modifyPost(final Post post) {
-        this.title = post.getTitle();
-        this.contents = post.getContents();
-        this.primaryPostCategoryCode = post.getPrimaryPostCategoryCode();
-        this.summary = post.getSummary();
-        this.views = post.getViews();
-    }
 }
