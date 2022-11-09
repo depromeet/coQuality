@@ -19,7 +19,7 @@ public class UserController {
 
     @Auth
     @GetMapping("/read")
-    public UserResponse readUser(@UserId final Long userId) {
+    public UserResponse readMyInfo(@UserId final Long userId) {
         final User user = readUserUserCase.execute(userId);
         return UserResponse.of(userId, user.getNickname());
     }
