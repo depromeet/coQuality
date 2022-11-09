@@ -5,7 +5,6 @@ import com.depromeet.coquality.outer.common.entity.BaseEntity;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.validation.constraints.Min;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -57,7 +56,7 @@ public class PostEntity extends BaseEntity {
         this.summary = summary;
     }
 
-    public void increaseViews(@Min(1) Long count) {
+    public void increaseViews(Long count) {
         views += count;
     }
 }
