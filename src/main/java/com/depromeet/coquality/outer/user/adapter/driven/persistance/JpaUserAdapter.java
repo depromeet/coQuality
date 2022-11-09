@@ -30,7 +30,8 @@ public class JpaUserAdapter implements UserPort {
     @Override
     public Long findUserBySocialIdAndSocialType(final String socialId, final UserSocialType socialType) {
         final UserEntity findUser = jpaUserRepository.findBySocialIdAndSocialType(socialId, socialType)
-                .orElseThrow(() -> new IllegalArgumentException(String.format("존재하지 않는 유저 (%s - %s) 입니다", socialId, socialType)));
+                .orElseThrow(() -> new IllegalArgumentException(
+                        String.format("존재하지 않는 유저 (%s - %s) 입니다", socialId, socialType)));
         return findUser.getId();
     }
 
@@ -42,5 +43,17 @@ public class JpaUserAdapter implements UserPort {
     @Override
     public void update() {
 
+    }
+
+    @Override
+    public User fetch(final Long userId) {
+        final UserEntity findUser = jpaUserRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 유저입니다."));
+
+        return User.of(
+                findUser.getNickname(),
+                findUser.getSocialInfo().getSocialId(),
+                findUser.getSocialInfo().getSocialEmail()
+        );
     }
 }
