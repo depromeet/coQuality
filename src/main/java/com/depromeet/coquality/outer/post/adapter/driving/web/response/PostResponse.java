@@ -1,13 +1,7 @@
 package com.depromeet.coquality.outer.post.adapter.driving.web.response;
 
-import com.depromeet.coquality.outer.common.vo.CoQualityResponse;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import com.depromeet.coquality.inner.post.domain.Post;
 
-@Getter
-@RequiredArgsConstructor
-public class PostResponse extends CoQualityResponse {
-
-    private final String title;
+public record PostResponse(Post post) {
 
 }

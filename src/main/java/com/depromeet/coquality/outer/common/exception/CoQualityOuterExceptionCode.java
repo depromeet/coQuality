@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public enum CoQualityOuterExceptionCode {
-    HTTP_STATUS_404(404, "404 Not found");
-
+    HTTP_STATUS_404(404, "404 Not found"),
+    POST_ENTITY_IS_NULL(404, "Post entity is null for id %s");
     private final int code;
     private final String message;
 

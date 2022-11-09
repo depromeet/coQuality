@@ -37,6 +37,16 @@ public class Post {
         return new Post(title, contents, primaryPostCategoryCode, summary, 0L);
     }
 
+    public static Post of(
+        final String title,
+        final String contents,
+        final PrimaryPostCategoryCode primaryPostCategoryCode,
+        final String summary,
+        final Long views
+    ) {
+        return new Post(title, contents, primaryPostCategoryCode, summary, views);
+    }
+
     public void modifyTitle(final String title) {
         // 비즈니스 정책 검증 생략
         this.title = title;
