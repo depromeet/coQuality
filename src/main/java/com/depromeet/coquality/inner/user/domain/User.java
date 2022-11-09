@@ -9,12 +9,18 @@ public class User {
     private String socialId;
     private String socialEmail;
 
-    private User(final String socialId, final String socialEmail) {
+    private User(final String nickname, final String socialId, final String socialEmail) {
+        this.nickname = nickname;
         this.socialId = socialId;
         this.socialEmail = socialEmail;
         UserValidationPolicy.validate(this);
     }
-    public static User of(final String socialId, final String socialEmail){
-        return new User(socialId, socialEmail);
+
+    public static User of(final String socialId, final String socialEmail) {
+        return new User(null, socialId, socialEmail);
+    }
+
+    public static User of(final String nickname, final String socialId, final String socialEmail){
+        return new User(nickname, socialId, socialEmail);
     }
 }
