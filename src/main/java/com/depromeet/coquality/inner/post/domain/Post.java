@@ -47,8 +47,4 @@ public class Post {
         return new Post(title, contents, primaryPostCategoryCode, summary, views);
     }
 
-    public void modifyTitle(final String title) {
-        // 비즈니스 정책 검증 생략
-        this.title = title;
-    }
 }

@@ -39,6 +39,23 @@ public class PostEntity extends BaseEntity {
         this.views = views;
     }
 
+    public void modifyTitle(@NonNull String title) {
+        this.title = title;
+    }
+
+    public void modifyContents(@NonNull String contents) {
+        this.contents = contents;
+    }
+
+    public void changePrimaryPostCategoryCode(
+        @NonNull PrimaryPostCategoryCode primaryPostCategoryCode) {
+        this.primaryPostCategoryCode = primaryPostCategoryCode;
+    }
+
+    public void modifySummary(@NonNull String summary) {
+        this.summary = summary;
+    }
+
     public void increaseViews(Long count) {
         views += count;
     }

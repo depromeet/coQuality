@@ -10,6 +10,6 @@ public interface PostPort {
 
     void delete(final Long id);
 
-    void update(final Post post);
+    void update(Long id, final Post post);
 
 }
