@@ -39,20 +39,20 @@ public class PostEntity extends BaseEntity {
         this.views = views;
     }
 
-    public void setTitle(@NonNull String title) {
+    public void modifyTitle(@NonNull String title) {
         this.title = title;
     }
 
-    public void setContents(@NonNull String contents) {
+    public void modifyContents(@NonNull String contents) {
         this.contents = contents;
     }
 
-    public void setPrimaryPostCategoryCode(
+    public void changePrimaryPostCategoryCode(
         @NonNull PrimaryPostCategoryCode primaryPostCategoryCode) {
         this.primaryPostCategoryCode = primaryPostCategoryCode;
     }
 
-    public void setSummary(@NonNull String summary) {
+    public void modifySummary(@NonNull String summary) {
         this.summary = summary;
     }
 
