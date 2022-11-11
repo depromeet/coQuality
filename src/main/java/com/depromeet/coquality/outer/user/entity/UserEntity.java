@@ -28,7 +28,8 @@ public class UserEntity {
     private SocialInfo socialInfo;
 
     @Builder(builderMethodName = "factory", buildMethodName = "newInstance")
-    private UserEntity(final String socialId, final UserSocialType socialType, final String socialEmail) {
+    private UserEntity(final String nickname, final String socialId, final UserSocialType socialType, final String socialEmail) {
+        this.nickname = nickname;
         this.socialInfo = SocialInfo.of(socialId, socialEmail, socialType);
     }
 }
