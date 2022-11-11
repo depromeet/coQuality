@@ -27,6 +27,6 @@ public class KaKaoSignUpService implements SignUpUserUseCase {
     public Long execute(final SignUpDto request) {
         final KaKaoProfileResponse response = kakaoAuthApiCaller.getProfileInfo(HttpHeaderUtils.withBearerToken(request.getToken()));
         signUpUserServiceUtils.validateNotExistsUser(response.getId(), socialType);
-        return userPort.insert(User.of(response.getId(), response.getAccount().getEmail()), socialType);
+        return userPort.insert(User.of(request.getNickname(), response.getId(), request.getEmail()), socialType);
     }
 }
