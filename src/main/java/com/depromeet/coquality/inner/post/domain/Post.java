@@ -7,6 +7,7 @@ import lombok.Getter;
 @Getter
 public class Post {
 
+    private final Long id;
     private String title;
     private String contents;
     private PrimaryPostCategoryCode primaryPostCategoryCode;
@@ -14,12 +15,14 @@ public class Post {
     private Long views;
 
     private Post(
+        final Long id,
         final String title,
         final String contents,
         final PrimaryPostCategoryCode primaryPostCategoryCode,
         final String summary,
         final Long views
     ) {
+        this.id = id;
         this.title = title;
         this.contents = contents;
         this.primaryPostCategoryCode = primaryPostCategoryCode;
@@ -29,22 +32,24 @@ public class Post {
     }
 
     public static Post of(
+        final Long id,
         final String title,
         final String contents,
         final PrimaryPostCategoryCode primaryPostCategoryCode,
         final String summary
     ) {
-        return new Post(title, contents, primaryPostCategoryCode, summary, 0L);
+        return new Post(id, title, contents, primaryPostCategoryCode, summary, 0L);
     }
 
     public static Post of(
+        final Long id,
         final String title,
         final String contents,
         final PrimaryPostCategoryCode primaryPostCategoryCode,
         final String summary,
         final Long views
     ) {
-        return new Post(title, contents, primaryPostCategoryCode, summary, views);
+        return new Post(id, title, contents, primaryPostCategoryCode, summary, views);
     }
 
 }
