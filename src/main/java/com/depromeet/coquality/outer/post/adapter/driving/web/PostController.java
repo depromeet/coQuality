@@ -51,7 +51,7 @@ public class PostController {
 
     @GetMapping
     public PostsResponse readPosts(
-        @NonNull @RequestParam PostSortCode sort,
+        @RequestParam PostSortCode sort,
         @RequestParam(required = false) PrimaryPostCategoryCode primaryCategory
     ) {
         final var postReadInfo = new PostsReadInfo(sort, primaryCategory);
