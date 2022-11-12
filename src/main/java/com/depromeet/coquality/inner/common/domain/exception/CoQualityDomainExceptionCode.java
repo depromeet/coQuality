@@ -13,7 +13,8 @@ public enum CoQualityDomainExceptionCode {
     POST_PRIMARY_CATEGORY_IS_NULL(POST.code + 6, "Post's primary category should not be null"),
     POST_SUMMARY_IS_NULL(POST.code + 7, "Post's summary should not be null"),
     POST_VIEWS_IS_NULL(POST.code + 8, "Post's views is null"),
-    POST_VIEWS_MIN_SIZE_VIOLATE(POST.code + 9, "Posts's view's value is smaller than %s");
+    POST_VIEWS_MIN_SIZE_VIOLATE(POST.code + 9, "Posts's view's value is smaller than %s"),
+    POST_STATUS_CODE_IS_NULL(POST.code + 10, "Post's status code is null");
 
     private final int code;
     private final String message;
