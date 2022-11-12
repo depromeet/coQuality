@@ -14,6 +14,7 @@ public class IssuePostService implements IssuePostUseCase {
 
     private final PostPort postPort;
 
+    @Transactional
     @Override
     public void execute(final Post post) {
         postPort.create(post);

@@ -7,6 +7,7 @@ import com.depromeet.coquality.inner.post.vo.PostsReadInfo;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -14,6 +15,7 @@ public class ReadPostsService implements ReadPostsUseCase {
 
     private final PostPort postPort;
 
+    @Transactional
     @Override
     public List<Post> execute(PostsReadInfo postsReadInfo) {
         return postPort.fetch(postsReadInfo);
