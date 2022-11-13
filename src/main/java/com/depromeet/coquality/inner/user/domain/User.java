@@ -16,10 +16,6 @@ public class User {
         UserValidationPolicy.validate(this);
     }
 
-    public static User of(final String socialId, final String socialEmail) {
-        return new User(null, socialId, socialEmail);
-    }
-
     public static User of(final String nickname, final String socialId, final String socialEmail){
         return new User(nickname, socialId, socialEmail);
     }
