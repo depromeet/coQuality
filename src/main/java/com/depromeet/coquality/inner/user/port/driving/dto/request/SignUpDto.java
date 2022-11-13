@@ -10,7 +10,7 @@ public class SignUpDto {
 
     private String nickname;
 
-    private String email;
+    private final String email;
 
     private SignUpDto(final String token, final String socialType, final String nickname, final String email) {
         this.token = token;
