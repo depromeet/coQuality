@@ -34,4 +34,8 @@ public class SocialInfo {
     public static SocialInfo of(final String socialId, final String socialEmail, final UserSocialType socialType) {
         return new SocialInfo(socialId, socialEmail, socialType);
     }
+
+    public void modifySocialEmail(final String socialEmail) {
+        this.socialEmail = socialEmail;
+    }
 }
