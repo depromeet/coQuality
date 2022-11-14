@@ -6,7 +6,7 @@ public interface PostPort {
 
     void create(final Post post);
 
-    Post fetch(final Long id);
+    Post fetchOne(final Long id);
 
     void delete(final Long id);
 

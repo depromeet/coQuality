@@ -2,6 +2,7 @@ package com.depromeet.coquality.inner.post.domain.policy.validation;
 
 import com.depromeet.coquality.inner.common.domain.exception.CoQualityDomainExceptionCode;
 import com.depromeet.coquality.inner.post.domain.Post;
+import com.depromeet.coquality.inner.post.domain.code.PostStatusCode;
 import com.depromeet.coquality.inner.post.domain.code.PrimaryPostCategoryCode;
 
 public final class PostValidationPolicy {
@@ -20,6 +21,7 @@ public final class PostValidationPolicy {
         validateTitle(post.getTitle());
         validateContents(post.getContents());
         validatePrimaryCategory(post.getPrimaryPostCategoryCode());
+        validatePostStatusCode(post.getPostStatusCode());
         validateSummary(post.getSummary());
         validateViews(post.getViews());
     }
@@ -61,6 +63,12 @@ public final class PostValidationPolicy {
         final PrimaryPostCategoryCode primaryPostCategoryCode) {
         if (primaryPostCategoryCode == null) {
             throw CoQualityDomainExceptionCode.POST_PRIMARY_CATEGORY_IS_NULL.newInstance();
+        }
+    }
+
+    public static void validatePostStatusCode(final PostStatusCode postStatusCode) {
+        if (postStatusCode == null) {
+            throw CoQualityDomainExceptionCode.POST_STATUS_CODE_IS_NULL.newInstance();
         }
     }
 

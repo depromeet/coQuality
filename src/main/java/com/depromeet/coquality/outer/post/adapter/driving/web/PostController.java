@@ -1,6 +1,7 @@
 package com.depromeet.coquality.outer.post.adapter.driving.web;
 
 import com.depromeet.coquality.inner.post.domain.Post;
+import com.depromeet.coquality.inner.post.domain.code.PostStatusCode;
 import com.depromeet.coquality.inner.post.port.driving.DeletePostUseCase;
 import com.depromeet.coquality.inner.post.port.driving.IssuePostUseCase;
 import com.depromeet.coquality.inner.post.port.driving.ModifyPostUseCase;
@@ -36,6 +37,7 @@ public class PostController {
             issuePostRequest.title(),
             issuePostRequest.contents(),
             issuePostRequest.primaryPostCategoryCode(),
+            PostStatusCode.ISSUED,
             issuePostRequest.summary()
         );
         issuePostUseCase.execute(post);
@@ -55,6 +57,7 @@ public class PostController {
             modifyPostRequest.title(),
             modifyPostRequest.contents(),
             modifyPostRequest.primaryPostCategoryCode(),
+            modifyPostRequest.postStatusCode(),
             modifyPostRequest.summary(),
             modifyPostRequest.views()
         );
