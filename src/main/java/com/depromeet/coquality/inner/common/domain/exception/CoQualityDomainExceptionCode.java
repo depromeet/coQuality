@@ -14,14 +14,13 @@ public enum CoQualityDomainExceptionCode {
     POST_SUMMARY_IS_NULL(POST.code + 7, "Post's summary should not be null"),
     POST_VIEWS_IS_NULL(POST.code + 8, "Post's views is null"),
     POST_VIEWS_MIN_SIZE_VIOLATE(POST.code + 9, "Posts's view's value is smaller than %s"),
-
+    POST_STATUS_CODE_IS_NULL(POST.code + 10, "Post's status code is null"),
+    
     USER(2000, "user"),
     USER_ENTITY_IS_NULL(USER.code + 1, "User Entity is null"),
     User_SOCIAL_EMAIL_IS_NULL(USER.code + 2, "User's title is null"),
     USER_SOCIAL_ID_IS_NULL(USER.code + 3, "User's social id is null"),
-    USER_SOCIAL_NICKNAME_IS_NULL(USER.code + 4, "User's social nickname is null")
-    ;
-
+    USER_SOCIAL_NICKNAME_IS_NULL(USER.code + 4, "User's social nickname is null");
 
     private final int code;
     private final String message;
