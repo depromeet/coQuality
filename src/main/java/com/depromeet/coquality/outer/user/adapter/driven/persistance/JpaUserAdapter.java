@@ -44,14 +44,14 @@ public class JpaUserAdapter implements UserPort {
 
     @Override
     public void update(final Long userId, final User user) {
-        final UserEntity findUser = jpaUserRepository.findById(userId)
+        final UserEntity foundUser = jpaUserRepository.findById(userId)
                 .orElseThrow(CoQualityDomainExceptionCode.USER_ENTITY_IS_NULL::newInstance);
 
-        findUser.modifyNickname(user.getNickname());
-        findUser.modifyUserSummary(user.getUserSummary());
-        findUser.getSocialInfo().modifySocialEmail(user.getSocialEmail());
+        foundUser.modifyNickname(user.getNickname());
+        foundUser.modifyUserSummary(user.getUserSummary());
+        foundUser.getSocialInfo().modifySocialEmail(user.getSocialEmail());
 
-        jpaUserRepository.save(findUser);
+        jpaUserRepository.save(foundUser);
     }
 
     @Override
