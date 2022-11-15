@@ -1,5 +1,6 @@
 package com.depromeet.coquality.outer.user.adapter.driven.persistance;
 
+import com.depromeet.coquality.inner.common.domain.exception.CoQualityDomainExceptionCode;
 import com.depromeet.coquality.inner.user.domain.User;
 import com.depromeet.coquality.inner.user.port.driven.UserPort;
 import com.depromeet.coquality.outer.user.entity.UserEntity;
@@ -42,8 +43,15 @@ public class JpaUserAdapter implements UserPort {
     }
 
     @Override
-    public void update() {
+    public void update(final Long userId, final User user) {
+        final UserEntity foundUser = jpaUserRepository.findById(userId)
+                .orElseThrow(CoQualityDomainExceptionCode.USER_ENTITY_IS_NULL::newInstance);
 
+        foundUser.modifyNickname(user.getNickname());
+        foundUser.modifyUserSummary(user.getUserSummary());
+        foundUser.getSocialInfo().modifySocialEmail(user.getSocialEmail());
+
+        jpaUserRepository.save(foundUser);
     }
 
     @Override
