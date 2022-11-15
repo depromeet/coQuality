@@ -14,7 +14,7 @@ public class ModifyUserService implements ModifyUserUseCase {
     private final UserPort userPort;
 
     @Override
-    public void execute(Long userId, User user) {
-        userPort.update(userId, user);
+    public User execute(final Long userId, final User user) {
+        return userPort.update(userId, user);
     }
 }

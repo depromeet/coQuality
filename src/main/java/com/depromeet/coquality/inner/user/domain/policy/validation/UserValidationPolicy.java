@@ -9,7 +9,7 @@ public final class UserValidationPolicy {
     }
 
     public static void validate(final User user) {
-        validateSocialId(user.getSocialId());
+//        validateSocialId(user.getSocialId());
         validateSocialEmail(user.getSocialEmail());
         validateNickname(user.getNickname());
     }

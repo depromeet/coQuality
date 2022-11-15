@@ -43,15 +43,20 @@ public class JpaUserAdapter implements UserPort {
     }
 
     @Override
-    public void update(final Long userId, final User user) {
+    public User update(final Long userId, final User user) {
         final UserEntity foundUser = jpaUserRepository.findById(userId)
                 .orElseThrow(CoQualityDomainExceptionCode.USER_ENTITY_IS_NULL::newInstance);
 
+        foundUser.getSocialInfo().modifySocialEmail(user.getSocialEmail());
         foundUser.modifyNickname(user.getNickname());
         foundUser.modifyUserSummary(user.getUserSummary());
-        foundUser.getSocialInfo().modifySocialEmail(user.getSocialEmail());
 
-        jpaUserRepository.save(foundUser);
+        final UserEntity saveUser = jpaUserRepository.save(foundUser);
+        return User.ofUpdate(
+                saveUser.getNickname(),
+                saveUser.getSocialInfo().getSocialEmail(),
+                saveUser.getUserSummary()
+        );
     }
 
     @Override
@@ -62,7 +67,9 @@ public class JpaUserAdapter implements UserPort {
         return User.of(
                 findUser.getNickname(),
                 findUser.getSocialInfo().getSocialId(),
-                findUser.getSocialInfo().getSocialEmail()
+                findUser.getSocialInfo().getSocialEmail(),
+                findUser.getProfileImageUrl(),
+                findUser.getUserSummary()
         );
     }
 }
