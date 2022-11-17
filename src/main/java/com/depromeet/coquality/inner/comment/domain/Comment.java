@@ -13,8 +13,6 @@ public class Comment {
     private Long userId;
     private Long postId;
 
-    // TODO, consider to have the time and commentId
-
     public Comment update(Long userId, Long postId, String contents) {
         applyUpdateValidation(userId, postId);
 
