@@ -3,9 +3,11 @@ package com.depromeet.coquality.outer.post.adapter.driven.persistence;
 import com.depromeet.coquality.inner.post.domain.Post;
 import com.depromeet.coquality.inner.post.domain.code.PostStatusCode;
 import com.depromeet.coquality.inner.post.port.driven.PostPort;
+import com.depromeet.coquality.inner.post.vo.PostsReadInfo;
 import com.depromeet.coquality.outer.common.exception.CoQualityOuterExceptionCode;
 import com.depromeet.coquality.outer.post.entity.PostEntity;
 import com.depromeet.coquality.outer.post.infrastructure.JpaPostRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -38,14 +40,15 @@ public class JpaPostAdapter implements PostPort {
         postEntity.increaseViews(1L);
         jpaPostRepository.save(postEntity);
 
-        return Post.of(
-            postEntity.getTitle(),
-            postEntity.getContents(),
-            postEntity.getPrimaryPostCategoryCode(),
-            postEntity.getPostStatusCode(),
-            postEntity.getSummary(),
-            postEntity.getViews()
-        );
+        return postEntity.toPost();
+    }
+
+    @Override
+    public List<Post> fetch(PostsReadInfo postsReadInfo) {
+        return jpaPostRepository.findByPostsReadInfo(postsReadInfo)
+            .stream()
+            .map(PostEntity::toPost)
+            .toList();
     }
 
     @Override

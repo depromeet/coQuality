@@ -1,5 +1,6 @@
 package com.depromeet.coquality.outer.post.entity;
 
+import com.depromeet.coquality.inner.post.domain.Post;
 import com.depromeet.coquality.inner.post.domain.code.PostStatusCode;
 import com.depromeet.coquality.inner.post.domain.code.PrimaryPostCategoryCode;
 import com.depromeet.coquality.outer.common.entity.BaseEntity;
@@ -42,6 +43,18 @@ public class PostEntity extends BaseEntity {
         this.postStatusCode = postStatusCode;
         this.summary = summary;
         this.views = views;
+    }
+
+    public Post toPost() {
+        return Post.of(
+            this.getId(),
+            this.title,
+            this.contents,
+            this.primaryPostCategoryCode,
+            this.postStatusCode,
+            this.summary,
+            this.views
+        );
     }
 
     public void modifyTitle(@NonNull String title) {
