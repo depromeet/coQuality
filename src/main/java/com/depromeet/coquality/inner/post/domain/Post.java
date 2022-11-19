@@ -1,5 +1,6 @@
 package com.depromeet.coquality.inner.post.domain;
 
+import com.depromeet.coquality.inner.post.domain.code.PostStatusCode;
 import com.depromeet.coquality.inner.post.domain.code.PrimaryPostCategoryCode;
 import com.depromeet.coquality.inner.post.domain.policy.validation.PostValidationPolicy;
 import lombok.Getter;
@@ -11,6 +12,7 @@ public class Post {
     private String title;
     private String contents;
     private PrimaryPostCategoryCode primaryPostCategoryCode;
+    private PostStatusCode postStatusCode;
     private String summary;
     private Long views;
 
@@ -19,6 +21,7 @@ public class Post {
         final String title,
         final String contents,
         final PrimaryPostCategoryCode primaryPostCategoryCode,
+        final PostStatusCode postStatusCode,
         final String summary,
         final Long views
     ) {
@@ -26,6 +29,7 @@ public class Post {
         this.title = title;
         this.contents = contents;
         this.primaryPostCategoryCode = primaryPostCategoryCode;
+        this.postStatusCode = postStatusCode;
         this.summary = summary;
         this.views = views;
         PostValidationPolicy.validatePost(this);
@@ -36,9 +40,10 @@ public class Post {
         final String title,
         final String contents,
         final PrimaryPostCategoryCode primaryPostCategoryCode,
+        final PostStatusCode postStatusCode,
         final String summary
     ) {
-        return new Post(id, title, contents, primaryPostCategoryCode, summary, 0L);
+        return new Post(id, title, contents, primaryPostCategoryCode, postStatusCode, summary, 0L);
     }
 
     public static Post of(
@@ -46,10 +51,12 @@ public class Post {
         final String title,
         final String contents,
         final PrimaryPostCategoryCode primaryPostCategoryCode,
+        final PostStatusCode postStatusCode,
         final String summary,
         final Long views
     ) {
-        return new Post(id, title, contents, primaryPostCategoryCode, summary, views);
+        return new Post(id, title, contents, primaryPostCategoryCode, postStatusCode, summary,
+            views);
     }
 
 }

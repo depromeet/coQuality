@@ -1,6 +1,7 @@
 package com.depromeet.coquality.outer.post.adapter.driving.web;
 
 import com.depromeet.coquality.inner.post.application.code.PostSortCode;
+import com.depromeet.coquality.inner.post.domain.code.PostStatusCode;
 import com.depromeet.coquality.inner.post.domain.code.PrimaryPostCategoryCode;
 import com.depromeet.coquality.inner.post.port.driving.DeletePostUseCase;
 import com.depromeet.coquality.inner.post.port.driving.IssuePostUseCase;
@@ -12,8 +13,8 @@ import com.depromeet.coquality.outer.post.adapter.driving.web.request.IssuePostR
 import com.depromeet.coquality.outer.post.adapter.driving.web.request.ModifyPostRequest;
 import com.depromeet.coquality.outer.post.adapter.driving.web.response.PostResponse;
 import com.depromeet.coquality.outer.post.adapter.driving.web.response.PostsResponse;
+import java.util.Set;
 import javax.validation.Valid;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +41,7 @@ public class PostController {
     public void issuePost(
         @Valid @RequestBody final IssuePostRequest issuePostRequest) {
         final var post = issuePostRequest.toPost();
+
         issuePostUseCase.execute(post);
     }
 
@@ -54,7 +56,9 @@ public class PostController {
         @RequestParam PostSortCode sort,
         @RequestParam(required = false) PrimaryPostCategoryCode primaryCategory
     ) {
-        final var postReadInfo = new PostsReadInfo(sort, primaryCategory);
+        final var postReadInfo = new PostsReadInfo(sort, primaryCategory,
+            Set.of(PostStatusCode.ISSUED));
+
         final var posts = readPostsUseCase.execute(postReadInfo);
 
         return new PostsResponse(posts);

@@ -21,6 +21,10 @@ public class JpaPostRepositoryImpl extends QuerydslRepositorySupport implements
     public List<PostEntity> findByPostsReadInfo(PostsReadInfo postsReadInfo) {
         final var where = new BooleanBuilder();
 
+        where.and(
+            postEntity.postStatusCode.in(postsReadInfo.getPostStatusCodes())
+        );
+
         if (!postsReadInfo.noCategory()) {
             where.and(
                 postEntity.primaryPostCategoryCode.eq(postsReadInfo.getPrimaryPostCategoryCode())

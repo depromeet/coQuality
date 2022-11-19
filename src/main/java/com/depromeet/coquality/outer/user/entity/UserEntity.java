@@ -24,11 +24,28 @@ public class UserEntity {
     @Column(length = 50)
     private String nickname;
 
+    @Column
+    private String profileImageUrl;
+
+    @Column
+    private String userSummary;
+
     @Embedded
     private SocialInfo socialInfo;
 
     @Builder(builderMethodName = "factory", buildMethodName = "newInstance")
-    private UserEntity(final String socialId, final UserSocialType socialType, final String socialEmail) {
+    private UserEntity(final String nickname, final String socialId, final UserSocialType socialType, final String socialEmail) {
+        this.nickname = nickname;
         this.socialInfo = SocialInfo.of(socialId, socialEmail, socialType);
     }
+
+    public void modifyUserSummary(final String userSummary) {
+        this.userSummary = userSummary;
+    }
+
+    public void modifyNickname(final String nickname) {
+        //TODO 닉네임 중복 체크 API 필요.
+        this.nickname = nickname;
+    }
+
 }

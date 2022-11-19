@@ -11,7 +11,7 @@ public interface UserPort {
 
     void delete(final Long id);
 
-    void update();
+    void update(final Long userId, final User user);
 
     User fetch(Long userId);
 }
