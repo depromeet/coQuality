@@ -1,5 +1,6 @@
 package com.depromeet.coquality.outer.user.entity;
 
+import com.depromeet.coquality.outer.common.entity.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import javax.persistence.Id;
 @Entity(name = "User")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class UserEntity {
+public class UserEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
