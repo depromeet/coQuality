@@ -3,27 +3,33 @@ package com.depromeet.coquality.outer.comment.adapter.driven.persistence;
 import com.depromeet.coquality.inner.comment.domain.Comment;
 import com.depromeet.coquality.inner.comment.exception.CommentNotFoundException;
 import com.depromeet.coquality.inner.comment.port.driven.CommentPort;
+import com.depromeet.coquality.inner.common.domain.exception.CoQualityDomainExceptionCode;
 import com.depromeet.coquality.outer.comment.entity.CommentEntity;
 import com.depromeet.coquality.outer.comment.infrastructure.JpaCommentRepository;
+import com.depromeet.coquality.outer.user.entity.UserEntity;
+import com.depromeet.coquality.outer.user.infrastructure.JpaUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.text.MessageFormat;
 import java.util.Optional;
 
-import static java.text.MessageFormat.*;
+import static java.text.MessageFormat.format;
 
 @Component
 @RequiredArgsConstructor
 public class JpaCommentAdapter implements CommentPort {
     private final JpaCommentRepository jpaCommentRepository;
+    private final JpaUserRepository jpaUserRepository;
 
     @Override
     public void save(Comment comment) {
+        final UserEntity user = jpaUserRepository.findById(comment.getUserId())
+                .orElseThrow(CoQualityDomainExceptionCode.USER_ENTITY_IS_NULL::newInstance);
+
         jpaCommentRepository.save(
                 CommentEntity.factory()
                         .contents(comment.getContents())
-                        .userId(comment.getUserId())
+                        .user(user)
                         .postId(comment.getPostId())
                         .newInstance()
         );
@@ -37,7 +43,7 @@ public class JpaCommentAdapter implements CommentPort {
             CommentEntity commentEntity = optionalCommentEntity.get();
             return new Comment(
                     commentEntity.getContents(),
-                    commentEntity.getUserId(),
+                    commentEntity.getUser().getId(),
                     commentEntity.getPostId()
             );
         }

@@ -1,14 +1,13 @@
 package com.depromeet.coquality.outer.comment.entity;
 
 import com.depromeet.coquality.outer.common.entity.BaseEntity;
+import com.depromeet.coquality.outer.user.entity.UserEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,8 +20,9 @@ public class CommentEntity extends BaseEntity {
     @Column(length = 200)
     private String contents;
 
-    // TODO, mapped when userEntity is ready
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
     // TODO, mapped when postEntity is ready
     private Long postId;
@@ -30,9 +30,9 @@ public class CommentEntity extends BaseEntity {
     private LocalDateTime deletedAt;
 
     @Builder(builderMethodName = "factory", buildMethodName = "newInstance")
-    private CommentEntity(Long id, String contents, Long userId, Long postId) {
+    private CommentEntity(Long id, String contents, UserEntity user, Long postId) {
         this.contents = contents;
-        this.userId = userId;
+        this.user = user;
         this.postId = postId;
         this.deletedAt = null;
     }
