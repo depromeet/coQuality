@@ -12,8 +12,8 @@ import com.depromeet.coquality.outer.post.adapter.driving.web.request.IssuePostR
 import com.depromeet.coquality.outer.post.adapter.driving.web.request.ModifyPostRequest;
 import com.depromeet.coquality.outer.post.adapter.driving.web.response.PostResponse;
 import com.depromeet.coquality.outer.post.adapter.driving.web.response.PostsResponse;
+import com.depromeet.coquality.outer.resolver.UserId;
 import javax.validation.Valid;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,9 +54,19 @@ public class PostController {
         @RequestParam PostSortCode sort,
         @RequestParam(required = false) PrimaryPostCategoryCode primaryCategory
     ) {
-        final var postReadInfo = new PostsReadInfo(sort, primaryCategory);
-        final var posts = readPostsUseCase.execute(postReadInfo);
+        final var postsReadInfo = new PostsReadInfo(null, sort, primaryCategory);
+        final var posts = readPostsUseCase.execute(postsReadInfo);
 
+        return new PostsResponse(posts);
+    }
+
+    @GetMapping("/me")
+    public PostsResponse readMyPosts(
+        @UserId Long tokenId,
+        @RequestParam PostSortCode sort
+    ) {
+        final var postsReadInfo = new PostsReadInfo(tokenId, sort, null);
+        final var posts = readPostsUseCase.execute(postsReadInfo);
         return new PostsResponse(posts);
     }
 

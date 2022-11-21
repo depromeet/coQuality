@@ -19,17 +19,23 @@ public class JpaPostRepositoryImpl extends QuerydslRepositorySupport implements
 
     public List<PostEntity> findByPostsReadInfo(PostsReadInfo postsReadInfo) {
         final var postEntity = QPostEntity.postEntity;
-
         final var where = new BooleanBuilder();
 
-        if (!postsReadInfo.noCategory()) {
-            where.and(
-                postEntity.primaryPostCategoryCode.eq(postsReadInfo.getPrimaryPostCategoryCode())
-            );
+        if (postsReadInfo.isCategorySpecified()) {
+            final var categoryPredicate = postEntity.primaryPostCategoryCode
+                .eq(postsReadInfo.primaryPostCategoryCode());
+
+            where.and(categoryPredicate);
+        }
+
+        if (postsReadInfo.isUserSpecified()) {
+            final var userPredicate = postEntity.userId.eq(postsReadInfo.id());
+
+            where.and(userPredicate);
         }
 
         final var orderBy =
-            postsReadInfo.getPostSortCode() == PostSortCode.LATEST ?
+            postsReadInfo.postSortCode() == PostSortCode.LATEST ?
                 postEntity.createdAt.desc() :
                 postEntity.views.desc();
 

@@ -25,19 +25,23 @@ public class PostEntity extends BaseEntity {
     private String summary;
     private Long views;
 
+    private Long userId;
+
     @Builder(builderMethodName = "factory", buildMethodName = "newInstance")
     private PostEntity(
         @NonNull String title,
         @NonNull String contents,
         @NonNull PrimaryPostCategoryCode primaryPostCategoryCode,
         @NonNull String summary,
-        @NonNull Long views
+        @NonNull Long views,
+        @NonNull Long userId
     ) {
         this.title = title;
         this.contents = contents;
         this.primaryPostCategoryCode = primaryPostCategoryCode;
         this.summary = summary;
         this.views = views;
+        this.userId = userId;
     }
 
     public Post toPost() {
