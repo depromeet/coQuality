@@ -49,9 +49,22 @@ public class PostEntity extends BaseEntity {
         this.userId = userId;
     }
 
+    public static PostEntity from(Post post) {
+        return PostEntity.factory()
+            .title(post.getTitle())
+            .userId(post.getUserId())
+            .contents(post.getContents())
+            .primaryPostCategoryCode(post.getPrimaryPostCategoryCode())
+            .postStatusCode(post.getPostStatusCode())
+            .summary(post.getSummary())
+            .views(post.getViews())
+            .newInstance();
+    }
+
     public Post toPost() {
         return Post.of(
             this.getId(),
+            this.userId,
             this.title,
             this.contents,
             this.primaryPostCategoryCode,
