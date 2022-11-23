@@ -3,18 +3,22 @@ package com.depromeet.coquality.outer.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 @RequiredArgsConstructor
+@Profile("prod")
 @Component
 public class AuthInterceptor implements HandlerInterceptor {
+
     private final LoginCheckHandler loginCheckHandler;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-            throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
+        Object handler)
+        throws Exception {
         if (!(handler instanceof HandlerMethod)) {
             return true;
         }

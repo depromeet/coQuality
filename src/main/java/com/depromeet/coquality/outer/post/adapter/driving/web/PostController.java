@@ -1,6 +1,7 @@
 package com.depromeet.coquality.outer.post.adapter.driving.web;
 
 import com.depromeet.coquality.inner.post.application.code.PostSortCode;
+import com.depromeet.coquality.inner.post.domain.code.PostStatusCode;
 import com.depromeet.coquality.inner.post.domain.code.PrimaryPostCategoryCode;
 import com.depromeet.coquality.inner.post.port.driving.DeletePostUseCase;
 import com.depromeet.coquality.inner.post.port.driving.IssuePostUseCase;
@@ -8,6 +9,7 @@ import com.depromeet.coquality.inner.post.port.driving.ModifyPostUseCase;
 import com.depromeet.coquality.inner.post.port.driving.ReadPostDetailUseCase;
 import com.depromeet.coquality.inner.post.port.driving.ReadPostsUseCase;
 import com.depromeet.coquality.inner.post.vo.PostsReadInfo;
+import com.depromeet.coquality.outer.interceptor.Auth;
 import com.depromeet.coquality.outer.post.adapter.driving.web.request.IssuePostRequest;
 import com.depromeet.coquality.outer.post.adapter.driving.web.request.ModifyPostRequest;
 import com.depromeet.coquality.outer.post.adapter.driving.web.response.PostResponse;
@@ -36,10 +38,13 @@ public class PostController {
     private final ModifyPostUseCase modifyPostUseCase;
     private final DeletePostUseCase deletePostUseCase;
 
+    @Auth
     @PostMapping
     public void issuePost(
+        @UserId Long userId,
         @Valid @RequestBody final IssuePostRequest issuePostRequest) {
-        final var post = issuePostRequest.toPost();
+        final var post = issuePostRequest.toPost(userId);
+
         issuePostUseCase.execute(post);
     }
 
@@ -54,19 +59,22 @@ public class PostController {
         @RequestParam PostSortCode sort,
         @RequestParam(required = false) PrimaryPostCategoryCode primaryCategory
     ) {
-        final var postsReadInfo = new PostsReadInfo(null, sort, primaryCategory);
-        final var posts = readPostsUseCase.execute(postsReadInfo);
+        final var postReadInfo = PostsReadInfo.of(sort, primaryCategory,
+            PostStatusCode.POST_ISSUED);
+        final var posts = readPostsUseCase.execute(postReadInfo);
 
         return new PostsResponse(posts);
     }
 
+    @Auth
     @GetMapping("/me")
     public PostsResponse readMyPosts(
         @UserId Long tokenId,
         @RequestParam PostSortCode sort
     ) {
-        final var postsReadInfo = new PostsReadInfo(tokenId, sort, null);
+        final var postsReadInfo = PostsReadInfo.of(tokenId, sort, PostStatusCode.POST_NOT_DELETED);
         final var posts = readPostsUseCase.execute(postsReadInfo);
+
         return new PostsResponse(posts);
     }
 

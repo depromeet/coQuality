@@ -1,9 +1,10 @@
 package com.depromeet.coquality.outer.post.infrastructure;
 
+import static com.depromeet.coquality.outer.post.entity.QPostEntity.postEntity;
+
 import com.depromeet.coquality.inner.post.application.code.PostSortCode;
 import com.depromeet.coquality.inner.post.vo.PostsReadInfo;
 import com.depromeet.coquality.outer.post.entity.PostEntity;
-import com.depromeet.coquality.outer.post.entity.QPostEntity;
 import com.querydsl.core.BooleanBuilder;
 import java.util.List;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
@@ -18,11 +19,12 @@ public class JpaPostRepositoryImpl extends QuerydslRepositorySupport implements
     }
 
     public List<PostEntity> findByPostsReadInfo(PostsReadInfo postsReadInfo) {
-        final var postEntity = QPostEntity.postEntity;
-        final var where = new BooleanBuilder();
+        final var where = new BooleanBuilder()
+            .and(postEntity.postStatusCode.in(postsReadInfo.postStatusCodes()));
 
         if (postsReadInfo.isCategorySpecified()) {
-            final var categoryPredicate = postEntity.primaryPostCategoryCode
+            final var categoryPredicate = postEntity
+                .primaryPostCategoryCode
                 .eq(postsReadInfo.primaryPostCategoryCode());
 
             where.and(categoryPredicate);
@@ -32,6 +34,7 @@ public class JpaPostRepositoryImpl extends QuerydslRepositorySupport implements
             final var userPredicate = postEntity.userId.eq(postsReadInfo.id());
 
             where.and(userPredicate);
+
         }
 
         final var orderBy =

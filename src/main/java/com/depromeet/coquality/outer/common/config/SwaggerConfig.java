@@ -1,7 +1,10 @@
 package com.depromeet.coquality.outer.common.config;
 
+import static springfox.documentation.builders.RequestHandlerSelectors.withClassAnnotation;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -27,7 +30,7 @@ public class SwaggerConfig {
                 .consumes(getConsumeContentTypes())
                 .produces(getProduceContentTypes())
                 .apiInfo(swaggerInfo()).select()
-                .apis(RequestHandlerSelectors.basePackage("com.depromeet.coquality.outer.*.adapter.driving.web"))
+                .apis(withClassAnnotation(RestController.class))
                 .paths(PathSelectors.any())
                 .build()
                 .useDefaultResponseMessages(false);
