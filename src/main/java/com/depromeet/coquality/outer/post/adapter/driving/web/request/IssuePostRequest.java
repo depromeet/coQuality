@@ -11,9 +11,10 @@ public record IssuePostRequest(@NotBlank String title,
                                @NotNull PrimaryPostCategoryCode primaryPostCategoryCode,
                                @NotNull String summary) {
 
-    public Post toPost() {
+    public Post toPost(final Long userId) {
         return Post.of(
             null,
+            userId,
             this.title(),
             this.contents(),
             this.primaryPostCategoryCode(),
