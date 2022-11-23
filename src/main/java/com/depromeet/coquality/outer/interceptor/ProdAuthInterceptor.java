@@ -6,12 +6,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.HandlerInterceptor;
 
 @RequiredArgsConstructor
 @Profile("prod")
 @Component
-public class AuthInterceptor implements HandlerInterceptor {
+public class ProdAuthInterceptor implements AuthInterceptor {
 
     private final LoginCheckHandler loginCheckHandler;
 
