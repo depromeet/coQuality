@@ -13,16 +13,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    private final AuthInterceptor prodAuthInterceptor;
-    private final UserIdResolver prodUserIdResolver;
+    private final AuthInterceptor authInterceptor;
+    private final UserIdResolver userIdResolver;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(prodAuthInterceptor);
+        registry.addInterceptor(authInterceptor);
     }
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(prodUserIdResolver);
+        resolvers.add(userIdResolver);
     }
 }
