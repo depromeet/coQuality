@@ -9,11 +9,12 @@ import com.depromeet.coquality.inner.post.port.driving.ModifyPostUseCase;
 import com.depromeet.coquality.inner.post.port.driving.ReadPostDetailUseCase;
 import com.depromeet.coquality.inner.post.port.driving.ReadPostsUseCase;
 import com.depromeet.coquality.inner.post.vo.PostsReadInfo;
+import com.depromeet.coquality.outer.interceptor.Auth;
 import com.depromeet.coquality.outer.post.adapter.driving.web.request.IssuePostRequest;
 import com.depromeet.coquality.outer.post.adapter.driving.web.request.ModifyPostRequest;
 import com.depromeet.coquality.outer.post.adapter.driving.web.response.PostResponse;
 import com.depromeet.coquality.outer.post.adapter.driving.web.response.PostsResponse;
-import java.util.Set;
+import com.depromeet.coquality.outer.resolver.UserId;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,10 +38,12 @@ public class PostController {
     private final ModifyPostUseCase modifyPostUseCase;
     private final DeletePostUseCase deletePostUseCase;
 
+    @Auth
     @PostMapping
     public void issuePost(
+        @UserId Long userId,
         @Valid @RequestBody final IssuePostRequest issuePostRequest) {
-        final var post = issuePostRequest.toPost();
+        final var post = issuePostRequest.toPost(userId);
 
         issuePostUseCase.execute(post);
     }
@@ -56,10 +59,21 @@ public class PostController {
         @RequestParam PostSortCode sort,
         @RequestParam(required = false) PrimaryPostCategoryCode primaryCategory
     ) {
-        final var postReadInfo = new PostsReadInfo(sort, primaryCategory,
-            Set.of(PostStatusCode.ISSUED));
-
+        final var postReadInfo = PostsReadInfo.of(sort, primaryCategory,
+            PostStatusCode.POST_ISSUED);
         final var posts = readPostsUseCase.execute(postReadInfo);
+
+        return new PostsResponse(posts);
+    }
+
+    @Auth
+    @GetMapping("/me")
+    public PostsResponse readMyPosts(
+        @UserId Long tokenId,
+        @RequestParam PostSortCode sort
+    ) {
+        final var postsReadInfo = PostsReadInfo.of(tokenId, sort, PostStatusCode.POST_NOT_DELETED);
+        final var posts = readPostsUseCase.execute(postsReadInfo);
 
         return new PostsResponse(posts);
     }

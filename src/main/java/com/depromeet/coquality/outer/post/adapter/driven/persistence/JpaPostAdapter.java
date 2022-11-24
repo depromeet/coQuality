@@ -19,14 +19,7 @@ public class JpaPostAdapter implements PostPort {
 
     @Override
     public void create(final Post post) {
-        final var postEntity = PostEntity.factory()
-            .title(post.getTitle())
-            .contents(post.getContents())
-            .primaryPostCategoryCode(post.getPrimaryPostCategoryCode())
-            .postStatusCode(post.getPostStatusCode())
-            .summary(post.getSummary())
-            .views(post.getViews())
-            .newInstance();
+        final var postEntity = PostEntity.from(post);
 
         jpaPostRepository.save(postEntity);
     }
