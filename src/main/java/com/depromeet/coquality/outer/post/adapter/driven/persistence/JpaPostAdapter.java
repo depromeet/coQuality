@@ -62,7 +62,7 @@ public class JpaPostAdapter implements PostPort {
 
         postEntity.modifyTitle(post.getTitle());
         postEntity.modifyContents(post.getContents());
-        postEntity.changePrimaryPostCategoryCode(post.getPrimaryPostCategoryCode());
+        postEntity.changePrimaryPostCategoryCode(post.getPrimaryCategory());
         postEntity.modifySummary(post.getSummary());
 
         jpaPostRepository.save(postEntity);

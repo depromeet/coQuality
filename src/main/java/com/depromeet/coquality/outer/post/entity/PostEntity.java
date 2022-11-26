@@ -4,6 +4,7 @@ import com.depromeet.coquality.inner.post.domain.Post;
 import com.depromeet.coquality.inner.post.domain.code.PostStatusCode;
 import com.depromeet.coquality.inner.post.domain.code.PrimaryPostCategoryCode;
 import com.depromeet.coquality.outer.common.entity.BaseEntity;
+import java.net.URI;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -19,10 +20,10 @@ import lombok.NonNull;
 public class PostEntity extends BaseEntity {
 
     private String title;
-
     private String contents;
+    private String thumbnail;
     @Enumerated(value = EnumType.STRING)
-    private PrimaryPostCategoryCode primaryPostCategoryCode;
+    private PrimaryPostCategoryCode primaryCategory;
     @Enumerated(value = EnumType.STRING)
     private PostStatusCode postStatusCode;
     private String summary;
@@ -34,7 +35,8 @@ public class PostEntity extends BaseEntity {
     private PostEntity(
         @NonNull String title,
         @NonNull String contents,
-        @NonNull PrimaryPostCategoryCode primaryPostCategoryCode,
+        String thumbnail,
+        @NonNull PrimaryPostCategoryCode primaryCategory,
         @NonNull PostStatusCode postStatusCode,
         @NonNull String summary,
         @NonNull Long views,
@@ -42,7 +44,8 @@ public class PostEntity extends BaseEntity {
     ) {
         this.title = title;
         this.contents = contents;
-        this.primaryPostCategoryCode = primaryPostCategoryCode;
+        this.thumbnail = thumbnail;
+        this.primaryCategory = primaryCategory;
         this.postStatusCode = postStatusCode;
         this.summary = summary;
         this.views = views;
@@ -54,7 +57,8 @@ public class PostEntity extends BaseEntity {
             .title(post.getTitle())
             .userId(post.getUserId())
             .contents(post.getContents())
-            .primaryPostCategoryCode(post.getPrimaryPostCategoryCode())
+            .thumbnail(String.valueOf(post.getThumbnail()))
+            .primaryCategory(post.getPrimaryCategory())
             .postStatusCode(post.getPostStatusCode())
             .summary(post.getSummary())
             .views(post.getViews())
@@ -63,14 +67,15 @@ public class PostEntity extends BaseEntity {
 
     public Post toPost() {
         return Post.of(
-            this.getId(),
-            this.userId,
-            this.title,
-            this.contents,
-            this.primaryPostCategoryCode,
-            this.postStatusCode,
-            this.summary,
-            this.views
+            getId(),
+            userId,
+            title,
+            contents,
+            URI.create(thumbnail),
+            primaryCategory,
+            postStatusCode,
+            summary,
+            views
         );
     }
 
@@ -83,8 +88,8 @@ public class PostEntity extends BaseEntity {
     }
 
     public void changePrimaryPostCategoryCode(
-        @NonNull PrimaryPostCategoryCode primaryPostCategoryCode) {
-        this.primaryPostCategoryCode = primaryPostCategoryCode;
+        @NonNull PrimaryPostCategoryCode primaryCategory) {
+        this.primaryCategory = primaryCategory;
     }
 
     public void changePostStatusCode(@NonNull PostStatusCode postStatusCode) {

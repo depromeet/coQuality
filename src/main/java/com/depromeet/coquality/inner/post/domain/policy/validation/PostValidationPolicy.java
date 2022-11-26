@@ -4,6 +4,8 @@ import com.depromeet.coquality.inner.common.domain.exception.CoQualityDomainExce
 import com.depromeet.coquality.inner.post.domain.Post;
 import com.depromeet.coquality.inner.post.domain.code.PostStatusCode;
 import com.depromeet.coquality.inner.post.domain.code.PrimaryPostCategoryCode;
+import java.net.MalformedURLException;
+import java.net.URI;
 
 public final class PostValidationPolicy {
 
@@ -20,10 +22,11 @@ public final class PostValidationPolicy {
     public static void validatePost(final Post post) {
         validateTitle(post.getTitle());
         validateContents(post.getContents());
-        validatePrimaryCategory(post.getPrimaryPostCategoryCode());
+        validatePrimaryCategory(post.getPrimaryCategory());
         validatePostStatusCode(post.getPostStatusCode());
         validateSummary(post.getSummary());
         validateViews(post.getViews());
+        validateThumbnail(post.getThumbnail());
     }
 
     public static void validateTitle(final String title) {
@@ -86,6 +89,14 @@ public final class PostValidationPolicy {
         if (views < VIEWS_MIN_SIZE) {
             throw CoQualityDomainExceptionCode.POST_VIEWS_MIN_SIZE_VIOLATE.newInstance(
                 VIEWS_MIN_SIZE);
+        }
+    }
+
+    public static void validateThumbnail(final URI uri) {
+        try {
+            uri.toURL();
+        } catch (MalformedURLException e) {
+            throw CoQualityDomainExceptionCode.POST_THUMBNAIL_NOT_VALID.newInstance(e);
         }
     }
 }

@@ -15,7 +15,8 @@ public enum CoQualityDomainExceptionCode {
     POST_VIEWS_IS_NULL(POST.code + 8, "Post's views is null"),
     POST_VIEWS_MIN_SIZE_VIOLATE(POST.code + 9, "Posts's view's value is smaller than %s"),
     POST_STATUS_CODE_IS_NULL(POST.code + 10, "Post's status code is null"),
-    
+    POST_THUMBNAIL_NOT_VALID(POST.code + 11, "Post's thumbnail is not valid"),
+
     USER(2000, "user"),
     USER_ENTITY_IS_NULL(USER.code + 1, "User Entity is null"),
     User_SOCIAL_EMAIL_IS_NULL(USER.code + 2, "User's title is null"),
