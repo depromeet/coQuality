@@ -93,6 +93,10 @@ public final class PostValidationPolicy {
     }
 
     public static void validateThumbnail(final URI uri) {
+        // uri nullable
+        if (uri == null) {
+            return;
+        }
         try {
             uri.toURL();
         } catch (MalformedURLException e) {
