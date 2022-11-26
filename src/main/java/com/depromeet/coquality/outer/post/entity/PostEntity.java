@@ -53,11 +53,15 @@ public class PostEntity extends BaseEntity {
     }
 
     public static PostEntity from(Post post) {
+        final var thumbnail = post.getThumbnail() == null ?
+            null :
+            String.valueOf(post.getThumbnail());
+
         return PostEntity.factory()
             .title(post.getTitle())
             .userId(post.getUserId())
             .contents(post.getContents())
-            .thumbnail(String.valueOf(post.getThumbnail()))
+            .thumbnail(thumbnail)
             .primaryCategory(post.getPrimaryCategory())
             .postStatusCode(post.getPostStatusCode())
             .summary(post.getSummary())
