@@ -79,6 +79,10 @@ compileQuerydsl {
     options.annotationProcessorPath = configurations.querydsl
 }
 
+test {
+    maxHeapSize = "1024m" //원하는 만큼 변경
+}
+
 // querydsl이 compileClassPath를 상속하도록 설정
 configurations {
     compileOnly {
