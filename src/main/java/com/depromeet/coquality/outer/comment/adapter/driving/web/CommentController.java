@@ -47,8 +47,7 @@ public class CommentController {
     public CommentResponse updateComment(@PathVariable final Long commentId,
                                          @Valid @RequestBody final UpdateCommentRequest updateCommentRequest,
                                          @UserId final Long userId) {
-        final Comment updatedComment = updateCommentUseCase.execute(commentId,
-                updateCommentRequest.toCommentDto(userId));
+        final Comment updatedComment = updateCommentUseCase.execute(commentId, updateCommentRequest.toCommentDto(userId));
         return CommentResponse.from(commentId, updatedComment);
     }
 
