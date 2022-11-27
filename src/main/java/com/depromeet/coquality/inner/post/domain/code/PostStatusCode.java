@@ -1,5 +1,6 @@
 package com.depromeet.coquality.inner.post.domain.code;
 
+import java.util.Set;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -14,4 +15,11 @@ public enum PostStatusCode {
 
     private final String statusName;
 
+    public static final Set<PostStatusCode> POST_NOT_DELETED = Set.of(
+        ISSUED,
+        PRIVATE,
+        TEMPORARY_SAVED
+    );
+
+    public static final Set<PostStatusCode> POST_ISSUED = Set.of(ISSUED);
 }

@@ -28,6 +28,8 @@ public class PostEntity extends BaseEntity {
     private String summary;
     private Long views;
 
+    private Long userId;
+
     @Builder(builderMethodName = "factory", buildMethodName = "newInstance")
     private PostEntity(
         @NonNull String title,
@@ -35,7 +37,8 @@ public class PostEntity extends BaseEntity {
         @NonNull PrimaryPostCategoryCode primaryPostCategoryCode,
         @NonNull PostStatusCode postStatusCode,
         @NonNull String summary,
-        @NonNull Long views
+        @NonNull Long views,
+        @NonNull Long userId
     ) {
         this.title = title;
         this.contents = contents;
@@ -43,11 +46,25 @@ public class PostEntity extends BaseEntity {
         this.postStatusCode = postStatusCode;
         this.summary = summary;
         this.views = views;
+        this.userId = userId;
+    }
+
+    public static PostEntity from(Post post) {
+        return PostEntity.factory()
+            .title(post.getTitle())
+            .userId(post.getUserId())
+            .contents(post.getContents())
+            .primaryPostCategoryCode(post.getPrimaryPostCategoryCode())
+            .postStatusCode(post.getPostStatusCode())
+            .summary(post.getSummary())
+            .views(post.getViews())
+            .newInstance();
     }
 
     public Post toPost() {
         return Post.of(
             this.getId(),
+            this.userId,
             this.title,
             this.contents,
             this.primaryPostCategoryCode,

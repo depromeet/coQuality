@@ -10,7 +10,7 @@ public record ModifyPostRequest(
     @NotBlank String title,
     @NotBlank String contents,
     @NotNull PrimaryPostCategoryCode primaryPostCategoryCode,
-    @NotNull PostStatusCode postStatusCode,
+    @NotNull PostStatusCode postStatus,
     @NotNull String summary,
     @NotNull Long views
 ) {
@@ -18,10 +18,11 @@ public record ModifyPostRequest(
     public Post toPost(Long id) {
         return Post.of(
             id,
+            null, // TODO 임시로 null 처리
             this.title,
             this.contents,
             this.primaryPostCategoryCode,
-            this.postStatusCode,
+            this.postStatus,
             this.summary,
             this.views
         );
