@@ -41,7 +41,7 @@ public class CommentController {
                                          @Valid @RequestBody final UpdateCommentRequest updateCommentRequest,
                                          @UserId final Long userId) {
         final Comment updatedComment = updateCommentUseCase.execute(commentId, updateCommentRequest.toCommentDto(userId));
-        return CommentResponse.from(updatedComment);
+        return CommentResponse.from(commentId, updatedComment);
     }
     @DeleteMapping("/{postId}/{commentId}")
     @Auth
