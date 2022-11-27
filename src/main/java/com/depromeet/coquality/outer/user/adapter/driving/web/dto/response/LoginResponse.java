@@ -5,14 +5,12 @@ import lombok.Getter;
 @Getter
 public class LoginResponse {
     private String token;
-    private Long userId;
 
-    private LoginResponse(final String token, final Long userId) {
+    private LoginResponse(final String token) {
         this.token = token;
-        this.userId = userId;
     }
 
-    public static LoginResponse of(final String token, final Long userId){
-        return new LoginResponse(token,userId);
+    public static LoginResponse of(final String token){
+        return new LoginResponse(token);
     }
 }

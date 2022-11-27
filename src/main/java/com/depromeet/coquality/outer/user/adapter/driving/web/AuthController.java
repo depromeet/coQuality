@@ -31,13 +31,13 @@ public class AuthController {
         final SignUpUserUseCase signUpUserUseCase = signUpUserProvider.getSignUpService(request.getSocialType());
         final Long userId = signUpUserUseCase.execute(request.toInnerDto());
         final String token = jwtService.issuedToken(String.valueOf(userId), "USER", 60 * 60 * 24 * 30L);
-        return SignUpResponse.of(token, userId);
+        return SignUpResponse.of(token);
     }
     @PostMapping("/singin")
     public LoginResponse signIn(@Valid @RequestBody final LoginRequest request){
         final SignInUserUseCase signInUserUseCase = signInUserProvider.getSignUpService(request.getSocialType());
         final Long userId = signInUserUseCase.execute(request.toInnerDto());
         final String token = jwtService.issuedToken(String.valueOf(userId), "USER", 60 * 60 * 24 * 30L);
-        return LoginResponse.of(token, userId);
+        return LoginResponse.of(token);
     }
 }
