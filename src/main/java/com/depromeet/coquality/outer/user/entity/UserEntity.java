@@ -1,22 +1,23 @@
 package com.depromeet.coquality.outer.user.entity;
 
 import com.depromeet.coquality.outer.common.entity.BaseEntity;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Entity(name = "User")
+@Entity(name = UserEntity.TABLE_NAME)
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserEntity extends BaseEntity {
+
+    public static final String TABLE_NAME = "users";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +36,8 @@ public class UserEntity extends BaseEntity {
     private SocialInfo socialInfo;
 
     @Builder(builderMethodName = "factory", buildMethodName = "newInstance")
-    private UserEntity(final String nickname, final String socialId, final UserSocialType socialType, final String socialEmail) {
+    private UserEntity(final String nickname, final String socialId,
+        final UserSocialType socialType, final String socialEmail) {
         this.nickname = nickname;
         this.socialInfo = SocialInfo.of(socialId, socialEmail, socialType);
     }

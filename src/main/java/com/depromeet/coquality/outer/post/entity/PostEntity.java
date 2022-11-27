@@ -14,10 +14,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-@Entity(name = "Post")
+@Entity(name = PostEntity.TABLE_NAME)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class PostEntity extends BaseEntity {
+
+    public static final String TABLE_NAME = "posts";
 
     private String title;
     private String contents;
