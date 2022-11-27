@@ -2,9 +2,6 @@ package com.depromeet.coquality.outer.comment.entity;
 
 import com.depromeet.coquality.inner.comment.domain.Comment;
 import com.depromeet.coquality.outer.common.entity.BaseEntity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
