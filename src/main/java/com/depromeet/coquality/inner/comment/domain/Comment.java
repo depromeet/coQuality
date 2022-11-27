@@ -13,7 +13,7 @@ public class Comment {
     private Long userId;
     private Long postId;
 
-    public Comment update(Long userId, Long postId, String contents) {
+    public Comment update(final Long userId, final Long postId, final String contents) {
         applyUpdateValidation(userId, postId);
 
         return new Comment(
@@ -23,7 +23,7 @@ public class Comment {
         );
     }
 
-    private void applyUpdateValidation(Long userId, Long postId) {
+    private void applyUpdateValidation(final Long userId, final Long postId) {
         if (!Objects.equals(this.userId, userId) || !Objects.equals(this.postId, postId)) {
             throw new UpdateCommentForbiddenException(0, "Edit comments forbidden.");
         }

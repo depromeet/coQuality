@@ -13,10 +13,10 @@ public class UpdateCommentService implements UpdateCommentUseCase {
     private final CommentPort commentPort;
 
     @Override
-    public Comment execute(Long commentId, CommentDto commentDto) {
-        Comment comment = commentPort.findById(commentId);
+    public Comment execute(final Long commentId, final CommentDto commentDto) {
+        final Comment comment = commentPort.findById(commentId);
 
-        Comment updatedComment = comment.update(
+        final Comment updatedComment = comment.update(
                 commentDto.userId(),
                 commentDto.postId(),
                 commentDto.contents()
