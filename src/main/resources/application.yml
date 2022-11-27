@@ -1,3 +1,6 @@
 spring:
   profiles:
     default: prod
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
