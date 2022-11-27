@@ -1,7 +1,7 @@
 package com.depromeet.coquality.inner.user.port.driving;
 
-import com.depromeet.coquality.inner.user.domain.User;
+import com.depromeet.coquality.inner.user.port.driving.dto.request.UserDto;
 
 public interface ModifyUserUseCase {
-    void execute(final Long userId, User user);
+    void execute(final Long userId, UserDto user);
 }

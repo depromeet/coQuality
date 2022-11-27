@@ -24,4 +24,10 @@ public class User {
     public static User of(final String nickname, final String socialEmail, final String profileImageUrl, final String userSummary){
         return new User( nickname,null, socialEmail, profileImageUrl, userSummary);
     }
+
+    public void updateUserInfo(final String nickname, final String socialEmail, final String userSummary) {
+        this.nickname = nickname;
+        this.socialEmail = socialEmail;
+        this.userSummary = userSummary;
+    }
 }
