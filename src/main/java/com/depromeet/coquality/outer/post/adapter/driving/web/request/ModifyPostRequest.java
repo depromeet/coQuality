@@ -3,12 +3,14 @@ package com.depromeet.coquality.outer.post.adapter.driving.web.request;
 import com.depromeet.coquality.inner.post.domain.Post;
 import com.depromeet.coquality.inner.post.domain.code.PostStatusCode;
 import com.depromeet.coquality.inner.post.domain.code.PrimaryPostCategoryCode;
+import java.net.URI;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public record ModifyPostRequest(
     @NotBlank String title,
     @NotBlank String contents,
+    URI thumbnail,
     @NotNull PrimaryPostCategoryCode primaryPostCategoryCode,
     @NotNull PostStatusCode postStatus,
     @NotNull String summary,
@@ -19,12 +21,13 @@ public record ModifyPostRequest(
         return Post.of(
             id,
             null, // TODO 임시로 null 처리
-            this.title,
-            this.contents,
-            this.primaryPostCategoryCode,
-            this.postStatus,
-            this.summary,
-            this.views
+            title,
+            contents,
+            thumbnail,
+            primaryPostCategoryCode,
+            postStatus,
+            summary,
+            views
         );
     }
 }
