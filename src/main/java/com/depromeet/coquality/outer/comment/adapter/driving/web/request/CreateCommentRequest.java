@@ -9,7 +9,7 @@ public record CreateCommentRequest(
         @NotNull Long postId,
         @NotBlank String contents
 ) {
-    public CommentDto toCommentDto(Long userId) {
+    public CommentDto toCommentDto(final Long userId) {
         return new CommentDto(
                 contents,
                 userId,

@@ -21,8 +21,11 @@ public enum CoQualityDomainExceptionCode {
     USER_ENTITY_IS_NULL(USER.code + 1, "User Entity is null"),
     User_SOCIAL_EMAIL_IS_NULL(USER.code + 2, "User's title is null"),
     USER_SOCIAL_ID_IS_NULL(USER.code + 3, "User's social id is null"),
-    USER_SOCIAL_NICKNAME_IS_NULL(USER.code + 4, "User's social nickname is null");
+    USER_SOCIAL_NICKNAME_IS_NULL(USER.code + 4, "User's social nickname is null"),
 
+    COMMENT(3000,"comment"),
+    COMMENT_ENTITY_IS_NULL(COMMENT.code + 1, "Comment Entity us null")
+        ;
     private final int code;
     private final String message;
 

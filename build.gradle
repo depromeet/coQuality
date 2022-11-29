@@ -10,6 +10,9 @@ plugins {
     id 'java'
     id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
+jar {
+    enabled = false
+}
 
 group = 'com.depromeet.coQuality'
 version = '0.0.1-SNAPSHOT'

@@ -6,4 +6,6 @@ public interface CommentPort {
     void save(final Comment comment);
 
     Comment findById(Long commentId);
+
+    void delete(Long commentId, Long postId, Long userId);
 }

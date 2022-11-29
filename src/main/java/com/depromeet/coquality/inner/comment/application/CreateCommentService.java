@@ -14,8 +14,8 @@ public class CreateCommentService implements CreateCommentUseCase {
     private final CommentPort commentPort;
 
     @Override
-    public void execute(CommentDto commentDto) {
-        Comment comment = commentDto.toComment();
+    public void execute(final CommentDto commentDto) {
+        final Comment comment = commentDto.toComment();
         commentPort.save(comment);
     }
 }

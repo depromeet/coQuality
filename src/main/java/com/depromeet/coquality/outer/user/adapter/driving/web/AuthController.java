@@ -31,9 +31,8 @@ public class AuthController {
         final SignUpUserUseCase signUpUserUseCase = signUpUserProvider.getSignUpService(
             request.getSocialType());
         final Long userId = signUpUserUseCase.execute(request.toInnerDto());
-        final String token = jwtService.issuedToken(String.valueOf(userId), "USER",
-            60 * 60 * 24 * 30L);
-        return SignUpResponse.of(token, userId);
+        final String token = jwtService.issuedToken(String.valueOf(userId), "USER", 60 * 60 * 24 * 30L);
+        return SignUpResponse.of(token);
     }
 
     @PostMapping("/singin")
@@ -42,8 +41,7 @@ public class AuthController {
         final SignInUserUseCase signInUserUseCase = signInUserProvider.getSignUpService(
             request.getSocialType());
         final Long userId = signInUserUseCase.execute(request.toInnerDto());
-        final String token = jwtService.issuedToken(String.valueOf(userId), "USER",
-            60 * 60 * 24 * 30L);
-        return LoginResponse.of(token, userId);
+        final String token = jwtService.issuedToken(String.valueOf(userId), "USER", 60 * 60 * 24 * 30L);
+        return LoginResponse.of(token);
     }
 }
