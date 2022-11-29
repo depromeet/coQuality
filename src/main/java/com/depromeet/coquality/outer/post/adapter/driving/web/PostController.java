@@ -9,11 +9,10 @@ import com.depromeet.coquality.inner.post.port.driving.ModifyPostUseCase;
 import com.depromeet.coquality.inner.post.port.driving.ReadPostDetailUseCase;
 import com.depromeet.coquality.inner.post.port.driving.ReadPostsUseCase;
 import com.depromeet.coquality.inner.post.vo.PostsReadInfo;
+import com.depromeet.coquality.outer.common.vo.ApiResponse;
 import com.depromeet.coquality.outer.interceptor.Auth;
 import com.depromeet.coquality.outer.post.adapter.driving.web.request.IssuePostRequest;
 import com.depromeet.coquality.outer.post.adapter.driving.web.request.ModifyPostRequest;
-import com.depromeet.coquality.outer.post.adapter.driving.web.response.PostResponse;
-import com.depromeet.coquality.outer.post.adapter.driving.web.response.PostsResponse;
 import com.depromeet.coquality.outer.resolver.UserId;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -49,13 +48,13 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    public PostResponse readPostDetail(@PathVariable final Long id) {
+    public ApiResponse readPostDetail(@PathVariable final Long id) {
         final var post = readPostDetailUseCase.execute(id);
-        return new PostResponse(post);
+        return ApiResponse.success(post);
     }
 
     @GetMapping
-    public PostsResponse readPosts(
+    public ApiResponse readPosts(
         @RequestParam PostSortCode sort,
         @RequestParam(required = false) PrimaryPostCategoryCode primaryCategory
     ) {
@@ -66,19 +65,19 @@ public class PostController {
         );
         final var posts = readPostsUseCase.execute(postReadInfo);
 
-        return new PostsResponse(posts);
+        return ApiResponse.success(posts);
     }
 
     @Auth
-    @GetMapping("/me")
-    public PostsResponse readMyPosts(
+    @GetMapping("/users/my")
+    public ApiResponse readMyPosts(
         @UserId Long tokenId,
         @RequestParam PostSortCode sort
     ) {
         final var postsReadInfo = PostsReadInfo.of(tokenId, sort, PostStatusCode.POST_NOT_DELETED);
         final var posts = readPostsUseCase.execute(postsReadInfo);
 
-        return new PostsResponse(posts);
+        return ApiResponse.success(posts);
     }
 
     @PutMapping("/{id}")
