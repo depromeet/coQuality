@@ -3,7 +3,10 @@ package com.depromeet.coquality.outer.post.adapter.driven.persistence;
 import com.depromeet.coquality.inner.post.domain.Post;
 import com.depromeet.coquality.inner.post.domain.code.PostStatusCode;
 import com.depromeet.coquality.inner.post.port.driven.PostPort;
+import com.depromeet.coquality.inner.post.vo.PostDetailResponse;
+import com.depromeet.coquality.inner.post.vo.PostResponse;
 import com.depromeet.coquality.inner.post.vo.PostsReadInfo;
+import com.depromeet.coquality.outer.comment.infrastructure.JpaCommentRepository;
 import com.depromeet.coquality.outer.common.exception.CoQualityOuterExceptionCode;
 import com.depromeet.coquality.outer.post.entity.PostEntity;
 import com.depromeet.coquality.outer.post.infrastructure.JpaPostRepository;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Component;
 public class JpaPostAdapter implements PostPort {
 
     private final JpaPostRepository jpaPostRepository;
+    private final JpaCommentRepository jpaCommentRepository;
 
     @Override
     public void create(final Post post) {
@@ -25,7 +29,7 @@ public class JpaPostAdapter implements PostPort {
     }
 
     @Override
-    public Post fetchOne(Long id) {
+    public PostDetailResponse fetchOne(Long id) {
         final var postEntity = jpaPostRepository.findByIdAndPostStatusCodeLike(id,
                 PostStatusCode.ISSUED)
             .orElseThrow(() -> CoQualityOuterExceptionCode.POST_ENTITY_IS_NULL.newInstance(id));
@@ -33,14 +37,17 @@ public class JpaPostAdapter implements PostPort {
         postEntity.increaseViews(1L);
         jpaPostRepository.save(postEntity);
 
-        return postEntity.toPost();
+        return postEntity.toPostDetailResponse();
     }
 
     @Override
-    public List<Post> fetch(PostsReadInfo postsReadInfo) {
+    public List<PostResponse> fetch(PostsReadInfo postsReadInfo) {
         return jpaPostRepository.findByPostsReadInfo(postsReadInfo)
             .stream()
-            .map(PostEntity::toPost)
+            .map(postEntity -> {
+                final var commentCount = jpaCommentRepository.countByPostId(postEntity.getId());
+                return postEntity.toPostResponse(commentCount);
+            })
             .toList();
     }
 
