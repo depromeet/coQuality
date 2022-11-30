@@ -15,15 +15,18 @@ public class ModifyPostService implements ModifyPostUseCase {
 
     @Transactional
     @Override
-    public void execute(final Long id, final ModifyPostCommand modifyPostCommand) {
+    public void execute(Long userId, final Long id,
+        final ModifyPostCommand modifyPostCommand) {
         final var post = postPort.fetchOne(id);
         post
-            .modifyTitle(modifyPostCommand.title().orElseGet(post::getTitle))
-            .modifyContents(modifyPostCommand.contents().orElseGet(post::getContents))
-            .modifySummary(modifyPostCommand.summary().orElseGet(post::getSummary))
-            .modifyPostStatusCode(modifyPostCommand.postStatus().orElseGet(post::getPostStatusCode))
-            .modifyThumbnail(modifyPostCommand.thumbnail().orElseGet(post::getThumbnail))
+            .modifyTitle(userId, modifyPostCommand.title().orElseGet(post::getTitle))
+            .modifyContents(userId, modifyPostCommand.contents().orElseGet(post::getContents))
+            .modifySummary(userId, modifyPostCommand.summary().orElseGet(post::getSummary))
+            .modifyPostStatusCode(userId,
+                modifyPostCommand.postStatus().orElseGet(post::getPostStatusCode))
+            .modifyThumbnail(userId, modifyPostCommand.thumbnail().orElseGet(post::getThumbnail))
             .modifyPrimaryCategory(
+                userId,
                 modifyPostCommand.primaryPostCategoryCode().orElseGet(post::getPrimaryCategory)
             )
         ;

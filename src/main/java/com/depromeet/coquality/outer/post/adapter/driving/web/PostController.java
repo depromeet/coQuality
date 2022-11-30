@@ -74,19 +74,22 @@ public class PostController {
     @Auth
     @GetMapping("/users/my")
     public ApiResponse readMyPosts(
-        @UserId Long tokenId,
+        @UserId Long userId,
         @RequestParam PostSortCode sort
     ) {
-        final var postsReadInfo = PostsReadInfo.of(tokenId, sort, PostStatusCode.POST_NOT_DELETED);
+        final var postsReadInfo = PostsReadInfo.of(userId, sort, PostStatusCode.POST_NOT_DELETED);
         final var postResponses = readPostsUseCase.execute(postsReadInfo);
 
         return ApiResponse.success(postResponses);
     }
 
+    @Auth
     @PutMapping("/{id}")
-    public void modifyPost(@PathVariable final Long id,
+    public void modifyPost(
+        @UserId Long userId,
+        @PathVariable final Long id,
         @RequestBody ModifyPostRequest modifyPostRequest) {
-        modifyPostUseCase.execute(id, modifyPostRequest.toModifyPostCommand());
+        modifyPostUseCase.execute(userId, id, modifyPostRequest.toModifyPostCommand());
     }
 
     @DeleteMapping("/{id}")

@@ -121,4 +121,13 @@ public final class PostValidationPolicy {
         }
     }
 
+    public static void validateUser(Long authId, Long userId) {
+        if (userId == null) {
+            throw CoQualityDomainExceptionCode.POST_MODIFIER_ID_IS_NULL.newInstance();
+        }
+
+        if (!userId.equals(authId)) {
+            throw CoQualityDomainExceptionCode.POST_PERMISSION.newInstance();
+        }
+    }
 }
