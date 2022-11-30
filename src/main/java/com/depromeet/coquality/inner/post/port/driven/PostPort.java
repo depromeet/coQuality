@@ -10,7 +10,7 @@ public interface PostPort {
 
     void create(final Post post);
 
-    PostDetailResponse readOne(final Long id);
+    PostDetailResponse readOne(Long userId, final Long id);
 
     List<PostResponse> readPosts(PostsReadInfo postsReadInfo);
 

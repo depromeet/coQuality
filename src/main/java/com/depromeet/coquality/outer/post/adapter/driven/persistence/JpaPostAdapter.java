@@ -29,12 +29,12 @@ public class JpaPostAdapter implements PostPort {
     }
 
     @Override
-    public PostDetailResponse readOne(Long id) {
+    public PostDetailResponse readOne(Long userId, Long id) {
         final var postEntity = jpaPostRepository.findByIdAndPostStatusCodeNotLike(id,
                 PostStatusCode.DELETED)
             .orElseThrow(() -> CoQualityOuterExceptionCode.POST_ENTITY_IS_NULL.newInstance(id));
 
-        if (!postEntity.getId().equals(id)) {
+        if (!postEntity.getUserId().equals(userId)) {
             postEntity.increaseViews(1L);
         }
         jpaPostRepository.save(postEntity);

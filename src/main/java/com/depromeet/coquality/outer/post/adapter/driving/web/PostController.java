@@ -47,9 +47,12 @@ public class PostController {
         issuePostUseCase.execute(post);
     }
 
+    @Auth
     @GetMapping("/{id}")
-    public ApiResponse readPostDetail(@PathVariable final Long id) {
-        final var post = readPostDetailUseCase.execute(id);
+    public ApiResponse readPostDetail(
+        @UserId final Long userId,
+        @PathVariable final Long id) {
+        final var post = readPostDetailUseCase.execute(userId, id);
         return ApiResponse.success(post);
     }
 
