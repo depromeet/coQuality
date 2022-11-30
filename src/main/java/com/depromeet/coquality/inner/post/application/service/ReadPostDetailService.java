@@ -16,6 +16,6 @@ public class ReadPostDetailService implements ReadPostDetailUseCase {
     @Transactional
     @Override
     public PostDetailResponse execute(final Long id) {
-        return postPort.fetchOne(id);
+        return postPort.readOne(id);
     }
 }

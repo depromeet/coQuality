@@ -29,19 +29,21 @@ public class JpaPostAdapter implements PostPort {
     }
 
     @Override
-    public PostDetailResponse fetchOne(Long id) {
-        final var postEntity = jpaPostRepository.findByIdAndPostStatusCodeLike(id,
-                PostStatusCode.ISSUED)
+    public PostDetailResponse readOne(Long id) {
+        final var postEntity = jpaPostRepository.findByIdAndPostStatusCodeNotLike(id,
+                PostStatusCode.DELETED)
             .orElseThrow(() -> CoQualityOuterExceptionCode.POST_ENTITY_IS_NULL.newInstance(id));
 
-        postEntity.increaseViews(1L);
+        if (!postEntity.getId().equals(id)) {
+            postEntity.increaseViews(1L);
+        }
         jpaPostRepository.save(postEntity);
 
         return postEntity.toPostDetailResponse();
     }
 
     @Override
-    public List<PostResponse> fetch(PostsReadInfo postsReadInfo) {
+    public List<PostResponse> readPosts(PostsReadInfo postsReadInfo) {
         return jpaPostRepository.findByPostsReadInfo(postsReadInfo)
             .stream()
             .map(postEntity -> {
@@ -49,6 +51,15 @@ public class JpaPostAdapter implements PostPort {
                 return postEntity.toPostResponse(commentCount);
             })
             .toList();
+    }
+
+    @Override
+    public Post fetchOne(Long id) {
+        final var postEntity = jpaPostRepository.findByIdAndPostStatusCodeNotLike(id,
+                PostStatusCode.DELETED)
+            .orElseThrow(() -> CoQualityOuterExceptionCode.POST_ENTITY_IS_NULL.newInstance(id));
+
+        return postEntity.toPost();
     }
 
     @Override
@@ -62,15 +73,18 @@ public class JpaPostAdapter implements PostPort {
     }
 
     @Override
-    public void update(final Long id, final Post post) {
-        final var postEntity = jpaPostRepository.findByIdAndPostStatusCodeNotLike(id,
-                PostStatusCode.DELETED)
-            .orElseThrow(() -> CoQualityOuterExceptionCode.POST_ENTITY_IS_NULL.newInstance(id));
+    public void update(final Post post) {
+        final var id = post.getId();
+        final var postEntity = jpaPostRepository.findById(id).orElseThrow(
+            () -> CoQualityOuterExceptionCode.POST_ENTITY_IS_NULL.newInstance(id)
+        );
 
         postEntity.modifyTitle(post.getTitle());
         postEntity.modifyContents(post.getContents());
-        postEntity.changePrimaryPostCategoryCode(post.getPrimaryCategory());
+        postEntity.modifyThumbnail(post.getThumbnail());
         postEntity.modifySummary(post.getSummary());
+        postEntity.changePostStatusCode(post.getPostStatusCode());
+        postEntity.changePrimaryPostCategoryCode(post.getPrimaryCategory());
 
         jpaPostRepository.save(postEntity);
     }

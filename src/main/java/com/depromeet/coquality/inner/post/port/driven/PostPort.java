@@ -10,12 +10,14 @@ public interface PostPort {
 
     void create(final Post post);
 
-    PostDetailResponse fetchOne(final Long id);
+    PostDetailResponse readOne(final Long id);
 
-    List<PostResponse> fetch(PostsReadInfo postsReadInfo);
+    List<PostResponse> readPosts(PostsReadInfo postsReadInfo);
+
+    Post fetchOne(final Long id);
 
     void delete(final Long id);
 
-    void update(Long id, final Post post);
+    void update(final Post post);
 
 }

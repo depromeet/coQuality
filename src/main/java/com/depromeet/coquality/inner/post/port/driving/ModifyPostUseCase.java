@@ -1,8 +1,8 @@
 package com.depromeet.coquality.inner.post.port.driving;
 
-import com.depromeet.coquality.inner.post.domain.Post;
+import com.depromeet.coquality.inner.post.vo.ModifyPostCommand;
 
 public interface ModifyPostUseCase {
 
-    void execute(final Long id, Post post);
+    void execute(Long id, ModifyPostCommand post);
 }

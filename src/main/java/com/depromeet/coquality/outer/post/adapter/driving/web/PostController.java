@@ -63,9 +63,9 @@ public class PostController {
             primaryCategory,
             PostStatusCode.POST_ISSUED
         );
-        final var posts = readPostsUseCase.execute(postReadInfo);
+        final var postResponses = readPostsUseCase.execute(postReadInfo);
 
-        return ApiResponse.success(posts);
+        return ApiResponse.success(postResponses);
     }
 
     @Auth
@@ -75,17 +75,15 @@ public class PostController {
         @RequestParam PostSortCode sort
     ) {
         final var postsReadInfo = PostsReadInfo.of(tokenId, sort, PostStatusCode.POST_NOT_DELETED);
-        final var posts = readPostsUseCase.execute(postsReadInfo);
+        final var postResponses = readPostsUseCase.execute(postsReadInfo);
 
-        return ApiResponse.success(posts);
+        return ApiResponse.success(postResponses);
     }
 
     @PutMapping("/{id}")
     public void modifyPost(@PathVariable final Long id,
         @RequestBody ModifyPostRequest modifyPostRequest) {
-        final var post = modifyPostRequest.toPost(id);
-
-        modifyPostUseCase.execute(id, post);
+        modifyPostUseCase.execute(id, modifyPostRequest.toModifyPostCommand());
     }
 
     @DeleteMapping("/{id}")
