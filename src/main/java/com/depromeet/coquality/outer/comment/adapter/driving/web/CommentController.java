@@ -25,7 +25,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/comments")
 public class CommentController {
 
     private final CreateCommentUseCase createCommentUseCase;
@@ -33,31 +33,32 @@ public class CommentController {
     private final DeleteCommentUseCase deleteCommentUseCase;
     private final ReadCommentsUserCase readCommentsUserCase;
 
-    @PostMapping("/comments")
+    @PostMapping
     @Auth
     public void createComment(@Valid @RequestBody final CreateCommentRequest createCommentRequest,
                               @UserId final Long userId) {
         createCommentUseCase.execute(createCommentRequest.toCommentDto(userId));
     }
 
-    @PutMapping("/comments/{commentId}")
+    @PutMapping("/{commentId}")
     @Auth
     public CommentResponse updateComment(@PathVariable final Long commentId,
                                          @Valid @RequestBody final UpdateCommentRequest updateCommentRequest,
                                          @UserId final Long userId) {
-        final Comment updatedComment = updateCommentUseCase.execute(commentId, updateCommentRequest.toCommentDto(userId));
+        final Comment updatedComment = updateCommentUseCase.execute(commentId,
+                updateCommentRequest.toCommentDto(userId));
         return CommentResponse.from(commentId, updatedComment);
     }
 
-    @DeleteMapping("/posts/{postId}/comments/{commentId}")
+    @DeleteMapping("/{postId}/{commentId}")
     @Auth
     public void deleteComment(@PathVariable final Long commentId,
                               @PathVariable final Long postId,
                               @UserId final Long userId) {
         deleteCommentUseCase.execute(commentId, postId, userId);
     }
-    
-    @GetMapping("/comments/{postId}")
+
+    @GetMapping("/{postId}")
     public ApiResponse getComments(@PathVariable final Long postId) {
         final var comments = readCommentsUserCase.execute(postId);
         return ApiResponse.success(comments);
