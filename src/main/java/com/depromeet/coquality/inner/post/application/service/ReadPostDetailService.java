@@ -1,8 +1,8 @@
 package com.depromeet.coquality.inner.post.application.service;
 
-import com.depromeet.coquality.inner.post.domain.Post;
 import com.depromeet.coquality.inner.post.port.driven.PostPort;
 import com.depromeet.coquality.inner.post.port.driving.ReadPostDetailUseCase;
+import com.depromeet.coquality.inner.post.vo.PostDetailResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +15,7 @@ public class ReadPostDetailService implements ReadPostDetailUseCase {
 
     @Transactional
     @Override
-    public Post execute(final Long id) {
+    public PostDetailResponse execute(final Long id) {
         return postPort.fetchOne(id);
     }
 }

@@ -1,8 +1,8 @@
 package com.depromeet.coquality.inner.post.port.driving;
 
-import com.depromeet.coquality.inner.post.domain.Post;
+import com.depromeet.coquality.inner.post.vo.PostDetailResponse;
 
 public interface ReadPostDetailUseCase {
 
-    Post execute(final Long id);
+    PostDetailResponse execute(final Long id);
 }
