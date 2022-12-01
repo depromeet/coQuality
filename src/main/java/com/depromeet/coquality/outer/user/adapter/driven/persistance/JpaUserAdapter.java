@@ -48,8 +48,8 @@ public class JpaUserAdapter implements UserPort {
                 .orElseThrow(CoQualityDomainExceptionCode.USER_ENTITY_IS_NULL::newInstance);
 
         foundUser.modifyNickname(user.getNickname());
-        foundUser.modifyUserSummary(user.getUserSummary());
         foundUser.getSocialInfo().modifySocialEmail(user.getSocialEmail());
+        foundUser.modifyUserSummary(user.getUserSummary());
 
         jpaUserRepository.save(foundUser);
     }

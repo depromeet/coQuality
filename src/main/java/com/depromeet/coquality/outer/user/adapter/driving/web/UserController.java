@@ -8,9 +8,13 @@ import com.depromeet.coquality.outer.resolver.UserId;
 import com.depromeet.coquality.outer.user.adapter.driving.web.dto.reqeust.ModifyUserRequest;
 import com.depromeet.coquality.outer.user.adapter.driving.web.dto.response.UserResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,12 +33,7 @@ public class UserController {
 
     @Auth
     @PutMapping("/update")
-    public void modifyUser(@UserId final Long userId, @RequestBody @Valid final ModifyUserRequest modifyUserRequest){
-        final var modifyUser = User.of(
-                modifyUserRequest.getNickname(),
-                modifyUserRequest.getEmail(),
-                modifyUserRequest.getUserSummary()
-        );
-        modifyUserUseCase.execute(userId, modifyUser);
+    public void modifyUser(@UserId final Long userId, @RequestBody @Valid final ModifyUserRequest request){
+        modifyUserUseCase.execute(userId, request.toUserDto());
     }
 }
