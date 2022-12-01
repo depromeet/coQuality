@@ -4,5 +4,5 @@ import com.depromeet.coquality.inner.post.vo.PostDetailResponse;
 
 public interface ReadPostDetailUseCase {
 
-    PostDetailResponse execute(final Long id);
+    PostDetailResponse execute(final Long userId, final Long id);
 }

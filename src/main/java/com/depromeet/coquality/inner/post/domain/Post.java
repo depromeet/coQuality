@@ -91,4 +91,45 @@ public class Post {
             .newInstance();
     }
 
+    public Post modifyTitle(Long userId, String title) {
+        PostValidationPolicy.validateUser(this.userId, userId);
+        PostValidationPolicy.validateTitle(title);
+        this.title = title;
+        return this;
+    }
+
+    public Post modifyContents(Long userId, String contents) {
+        PostValidationPolicy.validateContents(contents);
+        this.contents = contents;
+        return this;
+    }
+
+    public Post modifyThumbnail(Long userId, URI thumbnail) {
+        PostValidationPolicy.validateThumbnail(thumbnail);
+        this.thumbnail = thumbnail;
+        return this;
+    }
+
+    public Post modifyPrimaryCategory(
+        Long userId, PrimaryPostCategoryCode primaryCategory) {
+        PostValidationPolicy.validatePrimaryCategory(primaryCategory);
+        this.primaryCategory = primaryCategory;
+        return this;
+    }
+
+    public Post modifyPostStatusCode(
+        Long userId, PostStatusCode postStatusCode) {
+        PostValidationPolicy.validatePostStatusCodeModification(
+            this.postStatusCode,
+            postStatusCode
+        );
+        this.postStatusCode = postStatusCode;
+        return this;
+    }
+
+    public Post modifySummary(Long userId, String summary) {
+        PostValidationPolicy.validateSummary(summary);
+        this.summary = summary;
+        return this;
+    }
 }

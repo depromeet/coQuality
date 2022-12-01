@@ -16,6 +16,9 @@ public enum CoQualityDomainExceptionCode {
     POST_VIEWS_MIN_SIZE_VIOLATE(POST.code + 9, "Posts's view's value is smaller than %s"),
     POST_STATUS_CODE_IS_NULL(POST.code + 10, "Post's status code is null"),
     POST_THUMBNAIL_NOT_VALID(POST.code + 11, "Post's thumbnail is not valid"),
+    ILLEGAL_POST_STATUS(POST.code + 12, "Post's status should not be status (%s)"),
+    POST_MODIFIER_ID_IS_NULL(POST.code + 13, "Post's modifier's id is null"),
+    POST_PERMISSION(POST.code + 14, "Do not have permission to edit the post"),
 
     USER(2000, "user"),
     USER_ENTITY_IS_NULL(USER.code + 1, "User Entity is null"),
@@ -23,9 +26,8 @@ public enum CoQualityDomainExceptionCode {
     USER_SOCIAL_ID_IS_NULL(USER.code + 3, "User's social id is null"),
     USER_SOCIAL_NICKNAME_IS_NULL(USER.code + 4, "User's social nickname is null"),
 
-    COMMENT(3000,"comment"),
-    COMMENT_ENTITY_IS_NULL(COMMENT.code + 1, "Comment Entity us null")
-        ;
+    COMMENT(3000, "comment"),
+    COMMENT_ENTITY_IS_NULL(COMMENT.code + 1, "Comment Entity us null");
     private final int code;
     private final String message;
 

@@ -18,6 +18,6 @@ public class ReadPostsService implements ReadPostsUseCase {
     @Transactional
     @Override
     public List<PostResponse> execute(PostsReadInfo postsReadInfo) {
-        return postPort.fetch(postsReadInfo);
+        return postPort.readPosts(postsReadInfo);
     }
 }

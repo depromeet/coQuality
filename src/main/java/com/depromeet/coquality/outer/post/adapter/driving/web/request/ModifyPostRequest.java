@@ -1,33 +1,30 @@
 package com.depromeet.coquality.outer.post.adapter.driving.web.request;
 
-import com.depromeet.coquality.inner.post.domain.Post;
 import com.depromeet.coquality.inner.post.domain.code.PostStatusCode;
 import com.depromeet.coquality.inner.post.domain.code.PrimaryPostCategoryCode;
+import com.depromeet.coquality.inner.post.vo.ModifyPostCommand;
 import java.net.URI;
+import java.util.Optional;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public record ModifyPostRequest(
-    @NotBlank String title,
-    @NotBlank String contents,
-    URI thumbnail,
-    @NotNull PrimaryPostCategoryCode primaryPostCategoryCode,
-    @NotNull PostStatusCode postStatus,
-    @NotNull String summary,
-    @NotNull Long views
+    Optional<@NotBlank String> title,
+    Optional<@NotBlank String> contents,
+    Optional<URI> thumbnail,
+    Optional<@NotNull PrimaryPostCategoryCode> primaryPostCategoryCode,
+    Optional<@NotNull PostStatusCode> postStatus,
+    Optional<@NotNull String> summary
 ) {
 
-    public Post toPost(Long id) {
-        return Post.of(
-            id,
-            null, // TODO 임시로 null 처리
+    public ModifyPostCommand toModifyPostCommand() {
+        return ModifyPostCommand.of(
             title,
             contents,
             thumbnail,
             primaryPostCategoryCode,
             postStatus,
-            summary,
-            views
+            summary
         );
     }
 }

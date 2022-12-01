@@ -47,9 +47,12 @@ public class PostController {
         issuePostUseCase.execute(post);
     }
 
+    @Auth
     @GetMapping("/{id}")
-    public ApiResponse readPostDetail(@PathVariable final Long id) {
-        final var post = readPostDetailUseCase.execute(id);
+    public ApiResponse readPostDetail(
+        @UserId final Long userId,
+        @PathVariable final Long id) {
+        final var post = readPostDetailUseCase.execute(userId, id);
         return ApiResponse.success(post);
     }
 
@@ -63,29 +66,30 @@ public class PostController {
             primaryCategory,
             PostStatusCode.POST_ISSUED
         );
-        final var posts = readPostsUseCase.execute(postReadInfo);
+        final var postResponses = readPostsUseCase.execute(postReadInfo);
 
-        return ApiResponse.success(posts);
+        return ApiResponse.success(postResponses);
     }
 
     @Auth
     @GetMapping("/users/my")
     public ApiResponse readMyPosts(
-        @UserId Long tokenId,
+        @UserId Long userId,
         @RequestParam PostSortCode sort
     ) {
-        final var postsReadInfo = PostsReadInfo.of(tokenId, sort, PostStatusCode.POST_NOT_DELETED);
-        final var posts = readPostsUseCase.execute(postsReadInfo);
+        final var postsReadInfo = PostsReadInfo.of(userId, sort, PostStatusCode.POST_NOT_DELETED);
+        final var postResponses = readPostsUseCase.execute(postsReadInfo);
 
-        return ApiResponse.success(posts);
+        return ApiResponse.success(postResponses);
     }
 
+    @Auth
     @PutMapping("/{id}")
-    public void modifyPost(@PathVariable final Long id,
+    public void modifyPost(
+        @UserId Long userId,
+        @PathVariable final Long id,
         @RequestBody ModifyPostRequest modifyPostRequest) {
-        final var post = modifyPostRequest.toPost(id);
-
-        modifyPostUseCase.execute(id, post);
+        modifyPostUseCase.execute(userId, id, modifyPostRequest.toModifyPostCommand());
     }
 
     @DeleteMapping("/{id}")

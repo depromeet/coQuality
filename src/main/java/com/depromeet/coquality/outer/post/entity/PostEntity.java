@@ -57,9 +57,7 @@ public class PostEntity extends BaseEntity {
     }
 
     public static PostEntity from(Post post) {
-        final var thumbnail = post.getThumbnail() == null ?
-            null :
-            String.valueOf(post.getThumbnail());
+        final var thumbnail = convertURIToString(post.getThumbnail());
 
         return PostEntity.factory()
             .title(post.getTitle())
@@ -78,7 +76,7 @@ public class PostEntity extends BaseEntity {
             getId(),
             userId,
             title,
-            convertURI(thumbnail),
+            convertStringToURI(thumbnail),
             primaryCategory,
             postStatusCode,
             summary,
@@ -94,7 +92,7 @@ public class PostEntity extends BaseEntity {
             userId,
             title,
             contents,
-            convertURI(thumbnail),
+            convertStringToURI(thumbnail),
             primaryCategory,
             postStatusCode,
             summary,
@@ -109,7 +107,7 @@ public class PostEntity extends BaseEntity {
             userId,
             title,
             contents,
-            convertURI(thumbnail),
+            convertStringToURI(thumbnail),
             primaryCategory,
             postStatusCode,
             summary,
@@ -123,6 +121,10 @@ public class PostEntity extends BaseEntity {
 
     public void modifyContents(@NonNull String contents) {
         this.contents = contents;
+    }
+
+    public void modifyThumbnail(URI thumbnail) {
+        this.thumbnail = convertURIToString(thumbnail);
     }
 
     public void changePrimaryPostCategoryCode(
@@ -142,7 +144,11 @@ public class PostEntity extends BaseEntity {
         views += count;
     }
 
-    private URI convertURI(String uri) {
-        return uri == null ? null : URI.create(uri);
+    private static URI convertStringToURI(String str) {
+        return str == null ? null : URI.create(str);
+    }
+
+    private static String convertURIToString(URI uri) {
+        return uri == null ? null : String.valueOf(uri);
     }
 }

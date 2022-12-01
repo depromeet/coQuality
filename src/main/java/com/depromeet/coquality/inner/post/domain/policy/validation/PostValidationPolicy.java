@@ -75,10 +75,27 @@ public final class PostValidationPolicy {
         }
     }
 
+    public static void validatePostStatusCodeModification(
+        final PostStatusCode prevStatus,
+        final PostStatusCode currentStatus
+    ) {
+        if (prevStatus == null || currentStatus == null) {
+            throw CoQualityDomainExceptionCode.POST_STATUS_CODE_IS_NULL.newInstance();
+        }
+
+        if (prevStatus == PostStatusCode.DELETED || currentStatus == PostStatusCode.DELETED) {
+            throw CoQualityDomainExceptionCode.ILLEGAL_POST_STATUS.newInstance(
+                PostStatusCode.DELETED);
+        }
+
+
+    }
+
     public static void validateSummary(final String summary) {
         if (summary == null) {
             throw CoQualityDomainExceptionCode.POST_SUMMARY_IS_NULL.newInstance();
         }
+
     }
 
     public static void validateViews(final Long views) {
@@ -101,6 +118,16 @@ public final class PostValidationPolicy {
             uri.toURL();
         } catch (MalformedURLException e) {
             throw CoQualityDomainExceptionCode.POST_THUMBNAIL_NOT_VALID.newInstance(e);
+        }
+    }
+
+    public static void validateUser(Long authId, Long userId) {
+        if (userId == null) {
+            throw CoQualityDomainExceptionCode.POST_MODIFIER_ID_IS_NULL.newInstance();
+        }
+
+        if (!userId.equals(authId)) {
+            throw CoQualityDomainExceptionCode.POST_PERMISSION.newInstance();
         }
     }
 }
