@@ -42,11 +42,11 @@ public class CommentController {
 
     @PutMapping("/comments/{commentId}")
     @Auth
-    public CommentResponse updateComment(@PathVariable final Long commentId,
+    public ApiResponse<CommentResponse> updateComment(@PathVariable final Long commentId,
                                          @Valid @RequestBody final UpdateCommentRequest updateCommentRequest,
                                          @UserId final Long userId) {
         final Comment updatedComment = updateCommentUseCase.execute(commentId, updateCommentRequest.toCommentDto(userId));
-        return CommentResponse.from(commentId, updatedComment);
+        return ApiResponse.success(CommentResponse.from(commentId, updatedComment));
     }
 
     @DeleteMapping("/posts/{postId}/comments/{commentId}")
