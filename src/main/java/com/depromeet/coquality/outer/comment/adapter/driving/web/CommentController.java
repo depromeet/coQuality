@@ -20,14 +20,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/comments")
+@RequestMapping("/api/v1")
 public class CommentController {
 
     private final CreateCommentUseCase createCommentUseCase;
@@ -35,14 +34,14 @@ public class CommentController {
     private final DeleteCommentUseCase deleteCommentUseCase;
     private final ReadCommentsUserCase readCommentsUserCase;
 
-    @PostMapping
+    @PostMapping("/comments")
     @Auth
     public void createComment(@Valid @RequestBody final CreateCommentRequest createCommentRequest,
                               @UserId final Long userId) {
         createCommentUseCase.execute(createCommentRequest.toCommentDto(userId));
     }
 
-    @PutMapping("/{commentId}")
+    @PutMapping("/comments/{commentId}")
     @Auth
     public CommentResponse updateComment(@PathVariable final Long commentId,
                                          @Valid @RequestBody final UpdateCommentRequest updateCommentRequest,
@@ -51,7 +50,7 @@ public class CommentController {
         return CommentResponse.from(commentId, updatedComment);
     }
 
-    @DeleteMapping("/{postId}/{commentId}")
+    @DeleteMapping("/posts/{postId}/comments/{commentId}")
     @Auth
     public void deleteComment(@PathVariable final Long commentId,
                               @PathVariable final Long postId,
@@ -59,7 +58,7 @@ public class CommentController {
         deleteCommentUseCase.execute(commentId, postId, userId);
     }
 
-    @GetMapping("/{postId}")
+    @GetMapping("/comments/{postId}")
     public CommentsResponse getComments(@PathVariable final Long postId) {
         final List<Comment> comments = readCommentsUserCase.execute(postId);
         return new CommentsResponse(comments);
