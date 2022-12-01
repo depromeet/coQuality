@@ -1,20 +1,22 @@
 package com.depromeet.coquality.inner.comment.application;
 
 import com.depromeet.coquality.inner.comment.port.driven.CommentPort;
-import com.depromeet.coquality.inner.comment.port.driving.DeleteCommentUseCase;
+import com.depromeet.coquality.inner.comment.port.driving.ReadCommentsUserCase;
+import com.depromeet.coquality.inner.comment.vo.CommentResponse;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
 @RequiredArgsConstructor
-public class DeleteCommentService implements DeleteCommentUseCase {
+@Service
+public class ReadCommentsService implements ReadCommentsUserCase {
 
     private final CommentPort commentPort;
 
-    @Override
     @Transactional
-    public void execute(final Long commentId, final Long postId, final Long userId) {
-        commentPort.delete(commentId, postId, userId);
+    @Override
+    public List<CommentResponse> execute(final Long postId) {
+        return commentPort.fetch(postId);
     }
 }

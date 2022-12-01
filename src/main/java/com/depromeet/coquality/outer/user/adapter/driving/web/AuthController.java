@@ -5,6 +5,7 @@ import com.depromeet.coquality.inner.user.apllication.service.SignInUserProvider
 import com.depromeet.coquality.inner.user.apllication.service.SignUpUserProvider;
 import com.depromeet.coquality.inner.user.port.driving.SignInUserUseCase;
 import com.depromeet.coquality.inner.user.port.driving.SignUpUserUseCase;
+import com.depromeet.coquality.outer.common.vo.ApiResponse;
 import com.depromeet.coquality.outer.jwt.JwtService;
 import com.depromeet.coquality.outer.user.adapter.driving.web.dto.reqeust.LoginRequest;
 import com.depromeet.coquality.outer.user.adapter.driving.web.dto.reqeust.SignUpRequest;
@@ -27,21 +28,20 @@ public class AuthController {
     private final JwtService jwtService;
 
     @PostMapping("/signup")
-    public SignUpResponse signUp(@Valid @RequestBody final SignUpRequest request) {
+    public ApiResponse<SignUpResponse> signUp(@Valid @RequestBody final SignUpRequest request) {
         final SignUpUserUseCase signUpUserUseCase = signUpUserProvider.getSignUpService(
             request.getSocialType());
         final Long userId = signUpUserUseCase.execute(request.toInnerDto());
         final String token = jwtService.issuedToken(String.valueOf(userId), "USER", 60 * 60 * 24 * 30L);
-        return SignUpResponse.of(token);
+        return ApiResponse.success(SignUpResponse.of(token));
     }
 
     @PostMapping("/singin")
-    public LoginResponse
-    signIn(@Valid @RequestBody final LoginRequest request) {
+    public ApiResponse<LoginResponse> signIn(@Valid @RequestBody final LoginRequest request) {
         final SignInUserUseCase signInUserUseCase = signInUserProvider.getSignUpService(
             request.getSocialType());
         final Long userId = signInUserUseCase.execute(request.toInnerDto());
         final String token = jwtService.issuedToken(String.valueOf(userId), "USER", 60 * 60 * 24 * 30L);
-        return LoginResponse.of(token);
+        return ApiResponse.success(LoginResponse.of(token));
     }
 }
