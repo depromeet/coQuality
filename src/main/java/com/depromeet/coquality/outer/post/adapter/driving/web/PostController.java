@@ -59,8 +59,11 @@ public class PostController {
         @RequestParam PostSortCode sort,
         @RequestParam(required = false) PrimaryPostCategoryCode primaryCategory
     ) {
-        final var postReadInfo = PostsReadInfo.of(sort, primaryCategory,
-            PostStatusCode.POST_ISSUED);
+        final var postReadInfo = PostsReadInfo.of(
+            sort,
+            primaryCategory,
+            PostStatusCode.POST_ISSUED
+        );
         final var posts = readPostsUseCase.execute(postReadInfo);
 
         return new PostsResponse(posts);

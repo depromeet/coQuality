@@ -13,9 +13,6 @@ spring:
     url: jdbc:mysql://localhost:3307/coquality
     username: root
     password: root
-  redis:
-    host: localhost
-    port: 6379
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher

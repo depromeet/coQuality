@@ -1,6 +1,7 @@
 package com.depromeet.coquality.outer.comment.entity;
 
 import com.depromeet.coquality.inner.comment.domain.Comment;
+import com.depromeet.coquality.inner.comment.vo.CommentResponse;
 import com.depromeet.coquality.outer.common.entity.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -39,6 +40,15 @@ public class CommentEntity extends BaseEntity {
                 this.contents,
                 this.userId,
                 this.postId
+        );
+    }
+    public CommentResponse toCommentResponse(){
+        return CommentResponse.of(
+                getId(),
+                contents,
+                userId,
+                postId,
+                getCreatedAt()
         );
     }
 }

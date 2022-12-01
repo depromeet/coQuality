@@ -1,6 +1,7 @@
 package com.depromeet.coquality.inner.comment.port.driven;
 
 import com.depromeet.coquality.inner.comment.domain.Comment;
+import com.depromeet.coquality.inner.comment.vo.CommentResponse;
 import java.util.List;
 
 public interface CommentPort {
@@ -10,5 +11,5 @@ public interface CommentPort {
 
     void delete(Long commentId, Long postId, Long userId);
 
-    List<Comment> fetch(Long postId);
+    List<CommentResponse> fetch(Long postId);
 }

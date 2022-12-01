@@ -24,7 +24,7 @@ public class JpaPostRepositoryImpl extends QuerydslRepositorySupport implements
 
         if (postsReadInfo.isCategorySpecified()) {
             final var categoryPredicate = postEntity
-                .primaryPostCategoryCode
+                .primaryCategory
                 .eq(postsReadInfo.primaryPostCategoryCode());
 
             where.and(categoryPredicate);
