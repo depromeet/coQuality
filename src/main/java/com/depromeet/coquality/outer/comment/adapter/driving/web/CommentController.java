@@ -8,10 +8,9 @@ import com.depromeet.coquality.inner.comment.port.driving.UpdateCommentUseCase;
 import com.depromeet.coquality.outer.comment.adapter.driving.web.request.CreateCommentRequest;
 import com.depromeet.coquality.outer.comment.adapter.driving.web.request.UpdateCommentRequest;
 import com.depromeet.coquality.outer.comment.adapter.driving.web.response.CommentResponse;
-import com.depromeet.coquality.outer.comment.adapter.driving.web.response.CommentsResponse;
+import com.depromeet.coquality.outer.common.vo.ApiResponse;
 import com.depromeet.coquality.outer.interceptor.Auth;
 import com.depromeet.coquality.outer.resolver.UserId;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -61,8 +59,8 @@ public class CommentController {
     }
 
     @GetMapping("/{postId}")
-    public CommentsResponse getComments(@PathVariable final Long postId) {
-        final List<Comment> comments = readCommentsUserCase.execute(postId);
-        return new CommentsResponse(comments);
+    public ApiResponse getComments(@PathVariable final Long postId) {
+        final var comments = readCommentsUserCase.execute(postId);
+        return ApiResponse.success(comments);
     }
 }

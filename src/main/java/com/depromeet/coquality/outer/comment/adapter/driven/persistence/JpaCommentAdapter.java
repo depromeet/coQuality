@@ -3,16 +3,15 @@ package com.depromeet.coquality.outer.comment.adapter.driven.persistence;
 import com.depromeet.coquality.inner.comment.domain.Comment;
 import com.depromeet.coquality.inner.comment.exception.CommentNotFoundException;
 import com.depromeet.coquality.inner.comment.port.driven.CommentPort;
+import com.depromeet.coquality.inner.comment.vo.CommentResponse;
 import com.depromeet.coquality.inner.common.domain.exception.CoQualityDomainExceptionCode;
 import com.depromeet.coquality.outer.comment.entity.CommentEntity;
 import com.depromeet.coquality.outer.comment.infrastructure.JpaCommentRepository;
 import com.depromeet.coquality.outer.common.exception.CoQualityOuterExceptionCode;
-import com.depromeet.coquality.outer.post.entity.PostEntity;
 import com.depromeet.coquality.outer.post.infrastructure.JpaPostRepository;
 import com.depromeet.coquality.outer.user.entity.UserEntity;
 import com.depromeet.coquality.outer.user.infrastructure.JpaUserRepository;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -73,13 +72,13 @@ public class JpaCommentAdapter implements CommentPort {
     }
 
     @Override
-    public List<Comment> fetch(final Long postId) {
+    public List<CommentResponse> fetch(final Long postId) {
         jpaPostRepository.findById(postId)
                 .orElseThrow(CoQualityOuterExceptionCode.POST_ENTITY_IS_NULL::newInstance);
 
         List<CommentEntity> comments = jpaCommentRepository.findAllByPostId(postId);
         return comments.stream()
-                .map(CommentEntity::toComment)
+                .map(CommentEntity::toCommentResponse)
                 .toList();
     }
 }
