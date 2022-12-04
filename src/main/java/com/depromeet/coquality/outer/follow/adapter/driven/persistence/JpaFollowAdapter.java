@@ -48,4 +48,13 @@ public class JpaFollowAdapter implements FollowPort {
         jpaFollowRepository.delete(findFollowEntity);
     }
 
+    @Override
+    public Long fetchFollowCount(final Long userId) {
+        final UserEntity findUserEntity = jpaUserRepository.findById(userId)
+                .orElseThrow(CoQualityDomainExceptionCode.USER_ENTITY_IS_NULL::newInstance);
+
+        final Long followCount = jpaFollowRepository.countByToUserId(findUserEntity.getId());
+        return followCount;
+    }
+
 }

@@ -21,6 +21,7 @@ public class FollowController {
 
     private final CreateFollowUseCase createFollowUseCase;
     private final DeleteFollowUseCase deleteFollowUseCase;
+    private final GetFollowCountUserCase getFollowCountUserCase;
 
     @PostMapping("/{id}")
     @Auth
@@ -33,3 +34,9 @@ public class FollowController {
     public void deleteFollow(@UserId final Long fromUserId, @PathVariable("id") final Long toUserId){
         deleteFollowUseCase.execute(fromUserId, toUserId);
     }
+
+    @GetMapping("/user/{id}")
+    public ApiResponse getFollowCount(@PathVariable("id") final Long userId){
+        return ApiResponse.success(getFollowCountUserCase.execute(userId));
+    }
+}
