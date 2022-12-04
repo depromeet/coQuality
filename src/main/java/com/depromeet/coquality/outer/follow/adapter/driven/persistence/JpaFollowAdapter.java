@@ -18,6 +18,7 @@ public class JpaFollowAdapter implements FollowPort {
 
     private final JpaFollowRepository jpaFollowRepository;
     private final JpaUserRepository jpaUserRepository;
+
     @Override
     public void save(final Follow follow) {
         jpaUserRepository.findById(follow.getToUserId())
@@ -36,6 +37,15 @@ public class JpaFollowAdapter implements FollowPort {
                 .newInstance();
 
         jpaFollowRepository.save(followEntity);
+    }
+
+    @Override
+    public void delete(final Long fromUserId, final Long toUserId) {
+        final FollowEntity findFollowEntity = jpaFollowRepository
+                .findFollowByFromUserIdAndToUserId(fromUserId, toUserId)
+                .orElseThrow(CoQualityDomainExceptionCode.FOLLOW_ENTITY_IS_NULL::newInstance);
+
+        jpaFollowRepository.delete(findFollowEntity);
     }
 
 }

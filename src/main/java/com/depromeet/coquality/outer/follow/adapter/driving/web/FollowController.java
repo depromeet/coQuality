@@ -20,9 +20,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class FollowController {
 
     private final CreateFollowUseCase createFollowUseCase;
+    private final DeleteFollowUseCase deleteFollowUseCase;
 
     @PostMapping("/{id}")
     @Auth
     public void createFollow(@UserId final Long fromUserId, @PathVariable("id") final Long toUserId){
         createFollowUseCase.execute(fromUserId, toUserId);
+    }
+
+    @DeleteMapping("/{id}")
+    @Auth
+    public void deleteFollow(@UserId final Long fromUserId, @PathVariable("id") final Long toUserId){
+        deleteFollowUseCase.execute(fromUserId, toUserId);
     }
