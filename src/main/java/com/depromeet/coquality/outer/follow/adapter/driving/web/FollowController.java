@@ -2,7 +2,7 @@ package com.depromeet.coquality.outer.follow.adapter.driving.web;
 
 import com.depromeet.coquality.inner.follow.port.driving.CreateFollowUseCase;
 import com.depromeet.coquality.inner.follow.port.driving.DeleteFollowUseCase;
-import com.depromeet.coquality.inner.follow.port.driving.GetFollowCountUserCase;
+import com.depromeet.coquality.inner.follow.port.driving.GetFollowCountUseCase;
 import com.depromeet.coquality.outer.common.vo.ApiResponse;
 import com.depromeet.coquality.outer.interceptor.Auth;
 import com.depromeet.coquality.outer.resolver.UserId;
@@ -21,7 +21,7 @@ public class FollowController {
 
     private final CreateFollowUseCase createFollowUseCase;
     private final DeleteFollowUseCase deleteFollowUseCase;
-    private final GetFollowCountUserCase getFollowCountUserCase;
+    private final GetFollowCountUseCase getFollowCountUseCase;
 
     @PostMapping("/{id}")
     @Auth
@@ -37,6 +37,6 @@ public class FollowController {
 
     @GetMapping("/user/{id}")
     public ApiResponse getFollowCount(@PathVariable("id") final Long userId){
-        return ApiResponse.success(getFollowCountUserCase.execute(userId));
+        return ApiResponse.success(getFollowCountUseCase.execute(userId));
     }
 }
