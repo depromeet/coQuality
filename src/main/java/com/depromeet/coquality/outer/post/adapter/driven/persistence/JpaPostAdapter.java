@@ -22,10 +22,11 @@ public class JpaPostAdapter implements PostPort {
     private final JpaCommentRepository jpaCommentRepository;
 
     @Override
-    public void create(final Post post) {
+    public Post create(final Post post) {
         final var postEntity = PostEntity.from(post);
 
         jpaPostRepository.save(postEntity);
+        return postEntity.toPost();
     }
 
     @Override

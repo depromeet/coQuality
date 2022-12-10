@@ -4,6 +4,6 @@ import com.depromeet.coquality.inner.post.domain.Post;
 
 public interface IssuePostUseCase {
 
-    void execute(final Post post);
+    Post execute(final Post post);
 
 }

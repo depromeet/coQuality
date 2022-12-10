@@ -39,12 +39,13 @@ public class PostController {
 
     @Auth
     @PostMapping
-    public void issuePost(
+    public ApiResponse issuePost(
         @UserId Long userId,
         @Valid @RequestBody final IssuePostRequest issuePostRequest) {
         final var post = issuePostRequest.toPost(userId);
 
-        issuePostUseCase.execute(post);
+        final var newPost = issuePostUseCase.execute(post);
+        return ApiResponse.success(newPost);
     }
 
     @Auth

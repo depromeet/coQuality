@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PostPort {
 
-    void create(final Post post);
+    Post create(final Post post);
 
     PostDetailResponse readOne(Long userId, final Long id);
 
