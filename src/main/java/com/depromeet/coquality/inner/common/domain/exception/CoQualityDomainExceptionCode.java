@@ -25,9 +25,17 @@ public enum CoQualityDomainExceptionCode {
     User_SOCIAL_EMAIL_IS_NULL(USER.code + 2, "User's title is null"),
     USER_SOCIAL_ID_IS_NULL(USER.code + 3, "User's social id is null"),
     USER_SOCIAL_NICKNAME_IS_NULL(USER.code + 4, "User's social nickname is null"),
+    USER_IS_NOT_EXIST(USER.code + 5, "User is not exist"),
 
     COMMENT(3000, "comment"),
-    COMMENT_ENTITY_IS_NULL(COMMENT.code + 1, "Comment Entity us null");
+    COMMENT_ENTITY_IS_NULL(COMMENT.code + 1, "Comment Entity is null"),
+
+    FOLLOW(4000, "follow"),
+    FOLLOW_ENTITY_IS_DUPLICATE(FOLLOW.code + 1, "follow entity is duplicate"),
+    FOLLOW_ENTITY_IS_NULL(FOLLOW.code + 2, "follow entity is null" ),
+    FOLLOW_TO_USER_IS_NULL(FOLLOW.code + 3, "follow Target is null")
+    ;
+
     private final int code;
     private final String message;
 
