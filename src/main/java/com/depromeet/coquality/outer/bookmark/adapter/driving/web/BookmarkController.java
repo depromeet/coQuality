@@ -2,7 +2,7 @@ package com.depromeet.coquality.outer.bookmark.adapter.driving.web;
 
 import com.depromeet.coquality.inner.bookmark.port.driving.CreateBookmarkUseCase;
 import com.depromeet.coquality.inner.bookmark.port.driving.DeleteBookmarkUseCase;
-import com.depromeet.coquality.inner.bookmark.port.driving.PutBookmarkUseCase;
+import com.depromeet.coquality.inner.bookmark.port.driving.ModifyBookmarkUseCase;
 import com.depromeet.coquality.outer.bookmark.adapter.driving.web.request.BookmarkRequest;
 import com.depromeet.coquality.outer.common.vo.ApiResponse;
 import com.depromeet.coquality.outer.interceptor.Auth;
@@ -10,6 +10,7 @@ import com.depromeet.coquality.outer.resolver.UserId;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,7 +25,7 @@ public class BookmarkController {
 
     private final CreateBookmarkUseCase createBookmarkUseCase;
     private final DeleteBookmarkUseCase deleteBookmarkUseCase;
-    private final PutBookmarkUseCase putBookmarkUseCase;
+    private final ModifyBookmarkUseCase modifyBookmarkUseCase;
 
     @Auth
     @PostMapping("/{id}")
@@ -40,7 +41,8 @@ public class BookmarkController {
 
     @PutMapping("/{id}")
     public void putBookmark(@PathVariable("id") final Long bookmarkId, @RequestBody @Valid final BookmarkRequest request){
-        putBookmarkUseCase.execute(bookmarkId, request.toBookmarkDto());
+        modifyBookmarkUseCase.execute(bookmarkId, request.toBookmarkDto());
+    }
     }
 
 }
