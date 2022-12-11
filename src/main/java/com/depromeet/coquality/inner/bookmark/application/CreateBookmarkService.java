@@ -14,8 +14,8 @@ public class CreateBookmarkService implements CreateBookmarkUseCase {
     private final BookmarkPort bookmarkPort;
 
     @Override
-    public void execute(final Long userId, final Long postId) {
+    public Long execute(final Long userId, final Long postId) {
         final Bookmark saveBookmark = Bookmark.of(userId, postId);
-        bookmarkPort.save(saveBookmark);
+        return bookmarkPort.save(saveBookmark);
     }
 }

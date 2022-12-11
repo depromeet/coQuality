@@ -2,6 +2,7 @@ package com.depromeet.coquality.outer.bookmark.adapter.driven.persistence;
 
 import com.depromeet.coquality.inner.bookmark.domain.Bookmark;
 import com.depromeet.coquality.inner.bookmark.port.driven.BookmarkPort;
+import com.depromeet.coquality.inner.common.domain.exception.CoQualityDomainExceptionCode;
 import com.depromeet.coquality.outer.bookmark.entity.BookmarkEntity;
 import com.depromeet.coquality.outer.bookmark.infrastructure.JpaBookmarkRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,12 +15,14 @@ public class JpaBookmarkAdapter implements BookmarkPort {
     private final JpaBookmarkRepository jpaBookmarkRepository;
 
     @Override
-    public void save(final Bookmark bookmark) {
+    public Long save(final Bookmark bookmark) {
         final BookmarkEntity saveBookmarkEntity = BookmarkEntity.factory()
                 .userId(bookmark.getUserId())
                 .postId(bookmark.getPostId())
                 .description(bookmark.getDescription())
                 .newInstance();
         jpaBookmarkRepository.save(saveBookmarkEntity);
+        return saveBookmarkEntity.getId();
+    }
     }
 }

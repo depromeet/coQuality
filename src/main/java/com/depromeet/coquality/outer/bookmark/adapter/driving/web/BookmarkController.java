@@ -18,7 +18,7 @@ public class BookmarkController {
 
     @Auth
     @PostMapping("/{id}")
-    public void createBookmark(@UserId final Long userId, @PathVariable("id") final Long postId){
-        createBookmarkUseCase.execute(userId, postId);
+    public ApiResponse createBookmark(@UserId final Long userId, @PathVariable("id") final Long postId){
+        return ApiResponse.success(createBookmarkUseCase.execute(userId, postId));
     }
 }
