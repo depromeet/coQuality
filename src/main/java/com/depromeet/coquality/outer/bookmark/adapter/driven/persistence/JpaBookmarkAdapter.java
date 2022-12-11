@@ -24,5 +24,12 @@ public class JpaBookmarkAdapter implements BookmarkPort {
         jpaBookmarkRepository.save(saveBookmarkEntity);
         return saveBookmarkEntity.getId();
     }
+
+    @Override
+    public void delete(final Bookmark bookmark) {
+        final BookmarkEntity findBookmarkEntity = jpaBookmarkRepository.findBookmarkByUserIdAndPostId(bookmark.getUserId(),
+                        bookmark.getPostId())
+                .orElseThrow(CoQualityDomainExceptionCode.BOOKMARK_ENTITY_IS_NULL::newInstance);
+        jpaBookmarkRepository.delete(findBookmarkEntity);
     }
 }
