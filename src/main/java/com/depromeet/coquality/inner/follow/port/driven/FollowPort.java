@@ -10,4 +10,5 @@ public interface FollowPort {
     Long fetchFollowCount(Long userId);
 
     List<UserEntity> fetchFollowers(Long toUserId);
+    List<UserEntity> fetchFollowings(Long fromUserId);
 }
