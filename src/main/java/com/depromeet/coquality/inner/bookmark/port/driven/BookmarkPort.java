@@ -4,4 +4,5 @@ import com.depromeet.coquality.inner.bookmark.domain.Bookmark;
 
 public interface BookmarkPort {
     Long save(Bookmark bookmark);
+    void delete(Bookmark bookmark);
 }
