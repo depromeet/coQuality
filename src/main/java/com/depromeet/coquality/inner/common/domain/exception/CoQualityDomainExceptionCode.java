@@ -33,7 +33,11 @@ public enum CoQualityDomainExceptionCode {
     FOLLOW(4000, "follow"),
     FOLLOW_ENTITY_IS_DUPLICATE(FOLLOW.code + 1, "follow entity is duplicate"),
     FOLLOW_ENTITY_IS_NULL(FOLLOW.code + 2, "follow entity is null" ),
-    FOLLOW_TO_USER_IS_NULL(FOLLOW.code + 3, "follow Target is null")
+    FOLLOW_TO_USER_IS_NULL(FOLLOW.code + 3, "follow Target is null"),
+
+    BOOKMARK(5000, "bookmark"),
+    BOOKMARK_USERID_IS_NULL(BOOKMARK.code + 1, "bookmark userId is null"),
+    BOOKMARK_POSTID_IS_NULL(BOOKMARK.code + 2, "bookmark postId is null")
     ;
 
     private final int code;
