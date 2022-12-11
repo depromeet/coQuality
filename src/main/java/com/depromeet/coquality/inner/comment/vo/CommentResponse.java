@@ -1,7 +1,9 @@
 package com.depromeet.coquality.inner.comment.vo;
 
 import java.time.LocalDateTime;
+import lombok.Getter;
 
+@Getter
 public class CommentResponse {
     private Long id;
     private String contents;
