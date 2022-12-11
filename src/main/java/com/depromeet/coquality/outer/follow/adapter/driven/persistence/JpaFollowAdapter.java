@@ -4,12 +4,10 @@ import com.depromeet.coquality.inner.common.domain.exception.CoQualityDomainExce
 import com.depromeet.coquality.inner.follow.domain.Follow;
 import com.depromeet.coquality.inner.follow.exception.FollowDuplicateException;
 import com.depromeet.coquality.inner.follow.port.driven.FollowPort;
-import com.depromeet.coquality.inner.user.domain.User;
 import com.depromeet.coquality.outer.follow.entity.FollowEntity;
 import com.depromeet.coquality.outer.follow.infrastructure.JpaFollowRepository;
 import com.depromeet.coquality.outer.user.entity.UserEntity;
 import com.depromeet.coquality.outer.user.infrastructure.JpaUserRepository;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -62,13 +60,24 @@ public class JpaFollowAdapter implements FollowPort {
 
     @Override
     public List<UserEntity> fetchFollowers(final Long toUserId) {
-        final List<FollowEntity> findFollowersIds = jpaFollowRepository.findFollowByToUserId(toUserId);
-        final List<Long> followersIdsList = findFollowersIds
+        final List<FollowEntity> findFollowers = jpaFollowRepository.findFollowByToUserId(toUserId);
+        final List<Long> followersIds = findFollowers
                 .stream()
                 .map(FollowEntity::getFromUserId)
                 .collect(Collectors.toList());
 
-        return jpaUserRepository.findAllById(followersIdsList);
+        return jpaUserRepository.findAllById(followersIds);
+    }
+
+    @Override
+    public List<UserEntity> fetchFollowings(final Long fromUserId) {
+        final List<FollowEntity> findFollowings = jpaFollowRepository.findFollowByFromUserId(fromUserId);
+        final List<Long> followingIds = findFollowings
+                .stream()
+                .map(FollowEntity::getToUserId)
+                .collect(Collectors.toList());
+
+        return jpaUserRepository.findAllById(followingIds);
     }
 
 }
