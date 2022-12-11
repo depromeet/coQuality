@@ -32,4 +32,13 @@ public class JpaBookmarkAdapter implements BookmarkPort {
                 .orElseThrow(CoQualityDomainExceptionCode.BOOKMARK_ENTITY_IS_NULL::newInstance);
         jpaBookmarkRepository.delete(findBookmarkEntity);
     }
+
+    @Override
+    public void changeBookmark(final Long bookmarkId, final String description) {
+        final BookmarkEntity findBookmarkEntity = jpaBookmarkRepository.findById(bookmarkId)
+                .orElseThrow(CoQualityDomainExceptionCode.BOOKMARK_ENTITY_IS_NULL::newInstance);
+
+        findBookmarkEntity.changeBookmarkDescription(description);
+        jpaBookmarkRepository.save(findBookmarkEntity);
+    }
 }

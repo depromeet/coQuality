@@ -25,4 +25,8 @@ public class BookmarkEntity extends BaseEntity {
         this.postId = postId;
         this.description = description;
     }
+
+    public void changeBookmarkDescription(final String description){
+        this.description = description;
+    }
 }
