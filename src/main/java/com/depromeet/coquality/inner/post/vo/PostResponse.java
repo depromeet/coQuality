@@ -16,6 +16,7 @@ public record PostResponse(
     @NonNull String summary,
     @NonNull Long views,
     @NonNull Long commentCount,
+    @NonNull Long clapCount,
     @NonNull LocalDateTime createdAt
 ) {
 
@@ -29,6 +30,7 @@ public record PostResponse(
         String summary,
         Long views,
         Long commentCount,
+        Long clapCount,
         LocalDateTime createdAt
     ) {
         return new PostResponse(
@@ -41,6 +43,7 @@ public record PostResponse(
             summary,
             views,
             commentCount,
+            clapCount,
             createdAt
         );
     }

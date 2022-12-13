@@ -19,6 +19,7 @@ public class Post {
     private PostStatusCode postStatusCode;
     private String summary;
     private Long views;
+    private Long clapCount;
 
     @Builder(builderMethodName = "factory", buildMethodName = "newInstance")
     private Post(
@@ -30,7 +31,8 @@ public class Post {
         final PrimaryPostCategoryCode primaryCategory,
         final PostStatusCode postStatusCode,
         final String summary,
-        final Long views
+        final Long views,
+        final Long clapCount
     ) {
         this.id = id;
         this.userId = userId;
@@ -41,6 +43,7 @@ public class Post {
         this.postStatusCode = postStatusCode;
         this.summary = summary;
         this.views = views;
+        this.clapCount = clapCount;
         PostValidationPolicy.validatePost(this);
     }
 
@@ -63,6 +66,7 @@ public class Post {
             primaryCategory,
             postStatusCode,
             summary,
+            0L,
             0L
         );
     }
@@ -76,7 +80,8 @@ public class Post {
         final PrimaryPostCategoryCode primaryCategory,
         final PostStatusCode postStatusCode,
         final String summary,
-        final Long views
+        final Long views,
+        final Long clapCount
     ) {
         return Post.factory()
             .id(id)
@@ -88,6 +93,7 @@ public class Post {
             .postStatusCode(postStatusCode)
             .summary(summary)
             .views(views)
+            .clapCount(clapCount)
             .newInstance();
     }
 
@@ -99,12 +105,14 @@ public class Post {
     }
 
     public Post modifyContents(Long userId, String contents) {
+        PostValidationPolicy.validateUser(this.userId, userId);
         PostValidationPolicy.validateContents(contents);
         this.contents = contents;
         return this;
     }
 
     public Post modifyThumbnail(Long userId, URI thumbnail) {
+        PostValidationPolicy.validateUser(this.userId, userId);
         PostValidationPolicy.validateThumbnail(thumbnail);
         this.thumbnail = thumbnail;
         return this;
@@ -112,6 +120,7 @@ public class Post {
 
     public Post modifyPrimaryCategory(
         Long userId, PrimaryPostCategoryCode primaryCategory) {
+        PostValidationPolicy.validateUser(this.userId, userId);
         PostValidationPolicy.validatePrimaryCategory(primaryCategory);
         this.primaryCategory = primaryCategory;
         return this;
@@ -119,6 +128,7 @@ public class Post {
 
     public Post modifyPostStatusCode(
         Long userId, PostStatusCode postStatusCode) {
+        PostValidationPolicy.validateUser(this.userId, userId);
         PostValidationPolicy.validatePostStatusCodeModification(
             this.postStatusCode,
             postStatusCode
@@ -128,8 +138,14 @@ public class Post {
     }
 
     public Post modifySummary(Long userId, String summary) {
+        PostValidationPolicy.validateUser(this.userId, userId);
         PostValidationPolicy.validateSummary(summary);
         this.summary = summary;
+        return this;
+    }
+
+    public Post increaseClapCount(Long count) {
+        this.clapCount += count;
         return this;
     }
 }

@@ -80,12 +80,15 @@ public class JpaPostAdapter implements PostPort {
             () -> CoQualityOuterExceptionCode.POST_ENTITY_IS_NULL.newInstance(id)
         );
 
-        postEntity.modifyTitle(post.getTitle());
-        postEntity.modifyContents(post.getContents());
-        postEntity.modifyThumbnail(post.getThumbnail());
-        postEntity.modifySummary(post.getSummary());
-        postEntity.changePostStatusCode(post.getPostStatusCode());
-        postEntity.changePrimaryPostCategoryCode(post.getPrimaryCategory());
+        postEntity
+            .modifyTitle(post.getTitle())
+            .modifyContents(post.getContents())
+            .modifyThumbnail(post.getThumbnail())
+            .modifySummary(post.getSummary())
+            .modifyClapCount(post.getClapCount())
+            .changePostStatusCode(post.getPostStatusCode())
+            .changePrimaryPostCategoryCode(post.getPrimaryCategory())
+        ;
 
         jpaPostRepository.save(postEntity);
     }

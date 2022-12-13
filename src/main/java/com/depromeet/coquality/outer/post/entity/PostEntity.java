@@ -32,6 +32,7 @@ public class PostEntity extends BaseEntity {
     private PostStatusCode postStatusCode;
     private String summary;
     private Long views;
+    private Long clapCount;
 
     private Long userId;
 
@@ -44,6 +45,7 @@ public class PostEntity extends BaseEntity {
         @NonNull PostStatusCode postStatusCode,
         @NonNull String summary,
         @NonNull Long views,
+        @NonNull Long clapCount,
         @NonNull Long userId
     ) {
         this.title = title;
@@ -53,6 +55,7 @@ public class PostEntity extends BaseEntity {
         this.postStatusCode = postStatusCode;
         this.summary = summary;
         this.views = views;
+        this.clapCount = clapCount;
         this.userId = userId;
     }
 
@@ -68,6 +71,7 @@ public class PostEntity extends BaseEntity {
             .postStatusCode(post.getPostStatusCode())
             .summary(post.getSummary())
             .views(post.getViews())
+            .clapCount(post.getClapCount())
             .newInstance();
     }
 
@@ -82,6 +86,7 @@ public class PostEntity extends BaseEntity {
             summary,
             views,
             commentCount,
+            clapCount,
             getCreatedAt()
         );
     }
@@ -97,6 +102,7 @@ public class PostEntity extends BaseEntity {
             postStatusCode,
             summary,
             views,
+            clapCount,
             getCreatedAt()
         );
     }
@@ -111,37 +117,50 @@ public class PostEntity extends BaseEntity {
             primaryCategory,
             postStatusCode,
             summary,
-            views
+            views,
+            clapCount
         );
     }
 
-    public void modifyTitle(@NonNull String title) {
+    public PostEntity modifyTitle(@NonNull String title) {
         this.title = title;
+        return this;
     }
 
-    public void modifyContents(@NonNull String contents) {
+    public PostEntity modifyContents(@NonNull String contents) {
         this.contents = contents;
+        return this;
     }
 
-    public void modifyThumbnail(URI thumbnail) {
+    public PostEntity modifyThumbnail(URI thumbnail) {
         this.thumbnail = convertURIToString(thumbnail);
+        return this;
     }
 
-    public void changePrimaryPostCategoryCode(
+    public PostEntity changePrimaryPostCategoryCode(
         @NonNull PrimaryPostCategoryCode primaryCategory) {
         this.primaryCategory = primaryCategory;
+        return this;
     }
 
-    public void changePostStatusCode(@NonNull PostStatusCode postStatusCode) {
+    public PostEntity changePostStatusCode(@NonNull PostStatusCode postStatusCode) {
         this.postStatusCode = postStatusCode;
+        return this;
     }
 
-    public void modifySummary(@NonNull String summary) {
+    public PostEntity modifySummary(@NonNull String summary) {
         this.summary = summary;
+        return this;
     }
 
-    public void increaseViews(Long count) {
+    public PostEntity modifyClapCount(@NonNull Long clapCount) {
+        this.clapCount += clapCount;
+        return this;
+    }
+
+    public PostEntity increaseViews(Long count) {
         views += count;
+        return this;
     }
 
     private static URI convertStringToURI(String str) {

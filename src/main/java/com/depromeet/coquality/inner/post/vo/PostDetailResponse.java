@@ -16,6 +16,7 @@ public record PostDetailResponse(
     @NonNull PostStatusCode postStatusCode,
     @NonNull String summary,
     @NonNull Long views,
+    @NonNull Long clapCount,
     @NonNull LocalDateTime createdAt
 ) {
 
@@ -29,6 +30,7 @@ public record PostDetailResponse(
         PostStatusCode postStatusCode,
         String summary,
         Long views,
+        Long clapCount,
         LocalDateTime createdAt
     ) {
         return new PostDetailResponse(
@@ -41,6 +43,7 @@ public record PostDetailResponse(
             postStatusCode,
             summary,
             views,
+            clapCount,
             createdAt
         );
     }
