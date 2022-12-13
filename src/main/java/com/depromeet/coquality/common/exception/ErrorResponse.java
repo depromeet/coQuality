@@ -1,4 +1,4 @@
-package com.depromeet.coquality.outer.common.exception;
+package com.depromeet.coquality.common.exception;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ErrorResponse {
+
     private int code;
     private String message;
 
