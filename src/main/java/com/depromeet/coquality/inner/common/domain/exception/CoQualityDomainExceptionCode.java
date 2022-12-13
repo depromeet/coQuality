@@ -19,6 +19,7 @@ public enum CoQualityDomainExceptionCode {
     ILLEGAL_POST_STATUS(POST.code + 12, "Post's status should not be status (%s)"),
     POST_MODIFIER_ID_IS_NULL(POST.code + 13, "Post's modifier's id is null"),
     POST_PERMISSION(POST.code + 14, "Do not have permission to edit the post"),
+    POST_ENTITY_IS_NULL(POST.code + 15, "post entity is null" ),
 
     USER(2000, "user"),
     USER_ENTITY_IS_NULL(USER.code + 1, "User Entity is null"),
