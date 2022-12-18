@@ -4,6 +4,7 @@ import com.depromeet.coquality.inner.post.domain.code.PostStatusCode;
 import com.depromeet.coquality.inner.post.domain.code.PrimaryPostCategoryCode;
 import java.net.URI;
 import java.time.LocalDateTime;
+import java.util.Set;
 import lombok.NonNull;
 
 public record PostDetailResponse(
@@ -30,7 +31,7 @@ public record PostDetailResponse(
         PostStatusCode postStatusCode,
         String summary,
         Long views,
-        Long clapCount,
+        Set<String> tags, Long clapCount,
         LocalDateTime createdAt
     ) {
         return new PostDetailResponse(
