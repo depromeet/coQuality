@@ -9,11 +9,14 @@ import com.depromeet.coquality.inner.post.port.driving.ModifyPostUseCase;
 import com.depromeet.coquality.inner.post.port.driving.ReadPostDetailUseCase;
 import com.depromeet.coquality.inner.post.port.driving.ReadPostsUseCase;
 import com.depromeet.coquality.inner.post.vo.PostsReadInfo;
+import com.depromeet.coquality.inner.tag.domain.Tag;
+import com.depromeet.coquality.inner.tag.port.driving.CreateTagsUseCase;
 import com.depromeet.coquality.outer.common.vo.ApiResponse;
 import com.depromeet.coquality.outer.interceptor.Auth;
 import com.depromeet.coquality.outer.post.adapter.driving.web.request.IssuePostRequest;
 import com.depromeet.coquality.outer.post.adapter.driving.web.request.ModifyPostRequest;
 import com.depromeet.coquality.outer.resolver.UserId;
+import java.util.stream.Collectors;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,6 +39,7 @@ public class PostController {
     private final ReadPostsUseCase readPostsUseCase;
     private final ModifyPostUseCase modifyPostUseCase;
     private final DeletePostUseCase deletePostUseCase;
+    private final CreateTagsUseCase createTagsUseCase;
 
     @Auth
     @PostMapping
@@ -45,6 +49,14 @@ public class PostController {
         final var post = issuePostRequest.toPost(userId);
 
         final var newPost = issuePostUseCase.execute(post);
+        if (issuePostRequest.tags() == null) {
+            return ApiResponse.success(newPost);
+        }
+
+        final var tags = issuePostRequest.tags().stream()
+            .map(tagValue -> new Tag(newPost.getId(), userId, tagValue))
+            .collect(Collectors.toSet());
+        createTagsUseCase.execute(tags);
         return ApiResponse.success(newPost);
     }
 
