@@ -6,9 +6,9 @@ import lombok.Getter;
 @Getter
 public class Tag {
 
-    private Long postId;
-    private Long userId;
-    private String tagValue;
+    private final Long postId;
+    private final Long userId;
+    private final String tagValue;
 
     public Tag(Long postId, Long userId, String tagValue) {
         this.postId = postId;
