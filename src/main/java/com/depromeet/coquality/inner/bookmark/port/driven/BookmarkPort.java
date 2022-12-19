@@ -9,4 +9,6 @@ public interface BookmarkPort {
     void delete(Bookmark bookmark);
     void changeBookmark(Long bookmarkId, String description);
     List<BookmarkPostResponse> readBookmarkPosts(Long userId);
+
+    void deleteAll(Long userId);
 }

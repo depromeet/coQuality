@@ -1,23 +1,14 @@
 package com.depromeet.coquality.outer.bookmark.adapter.driving.web;
 
-import com.depromeet.coquality.inner.bookmark.port.driving.CreateBookmarkUseCase;
-import com.depromeet.coquality.inner.bookmark.port.driving.DeleteBookmarkUseCase;
-import com.depromeet.coquality.inner.bookmark.port.driving.ModifyBookmarkUseCase;
-import com.depromeet.coquality.inner.bookmark.port.driving.ReadBookmarkPostsUseCase;
+import com.depromeet.coquality.inner.bookmark.port.driving.*;
 import com.depromeet.coquality.outer.bookmark.adapter.driving.web.request.BookmarkRequest;
 import com.depromeet.coquality.outer.common.vo.ApiResponse;
 import com.depromeet.coquality.outer.interceptor.Auth;
 import com.depromeet.coquality.outer.resolver.UserId;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,6 +19,7 @@ public class BookmarkController {
     private final DeleteBookmarkUseCase deleteBookmarkUseCase;
     private final ModifyBookmarkUseCase modifyBookmarkUseCase;
     private final ReadBookmarkPostsUseCase readBookmarkPostsUseCase;
+    private final DeleteAllBookmarkUseCase deleteAllBookmarkUseCase;
 
     @Auth
     @PostMapping("/{id}")
@@ -50,6 +42,12 @@ public class BookmarkController {
     @GetMapping("/")
     public ApiResponse getBookmarkPosts(@UserId final Long userId){
        return ApiResponse.success(readBookmarkPostsUseCase.execute(userId));
+    }
+
+    @Auth
+    @DeleteMapping("/all")
+    public void deleteAllBookmarks(@UserId final Long userId){
+        deleteAllBookmarkUseCase.execute(userId);
     }
 
 }

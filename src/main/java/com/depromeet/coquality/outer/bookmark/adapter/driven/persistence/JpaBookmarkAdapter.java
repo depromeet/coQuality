@@ -8,15 +8,13 @@ import com.depromeet.coquality.outer.bookmark.entity.BookmarkEntity;
 import com.depromeet.coquality.outer.bookmark.infrastructure.JpaBookmarkRepository;
 import com.depromeet.coquality.outer.post.entity.PostEntity;
 import com.depromeet.coquality.outer.post.infrastructure.JpaPostRepository;
-import com.depromeet.coquality.outer.user.entity.UserEntity;
 import com.depromeet.coquality.outer.user.infrastructure.JpaUserRepository;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -61,6 +59,7 @@ public class JpaBookmarkAdapter implements BookmarkPort {
 
     @Override
     public List<BookmarkPostResponse> readBookmarkPosts(final Long userId) {
+        //TODO post 연관관계 필요함. (post - user)
         final List<BookmarkEntity> findBookmarks = jpaBookmarkRepository.findBookmarkByUserId(userId);
 
         final List<Long> bookmarkPostIds = findBookmarks
@@ -90,5 +89,17 @@ public class JpaBookmarkAdapter implements BookmarkPort {
                     );
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteAll(final Long userId) {
+        List<BookmarkEntity> findBookmarks = jpaBookmarkRepository.findBookmarkByUserId(userId);
+
+        final List<Long> bookmarkPostIds = findBookmarks
+                .stream()
+                .map(BookmarkEntity::getId)
+                .toList();
+
+        jpaBookmarkRepository.deleteAllByBookmarkIds(bookmarkPostIds);
     }
 }
