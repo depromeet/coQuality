@@ -19,6 +19,7 @@ public enum CoQualityDomainExceptionCode {
     ILLEGAL_POST_STATUS(POST.code + 12, "Post's status should not be status (%s)"),
     POST_MODIFIER_ID_IS_NULL(POST.code + 13, "Post's modifier's id is null"),
     POST_PERMISSION(POST.code + 14, "Do not have permission to edit the post"),
+    POST_ENTITY_IS_NULL(POST.code + 15, "post entity is null" ),
 
     USER(2000, "user"),
     USER_ENTITY_IS_NULL(USER.code + 1, "User Entity is null"),
@@ -26,6 +27,7 @@ public enum CoQualityDomainExceptionCode {
     USER_SOCIAL_ID_IS_NULL(USER.code + 3, "User's social id is null"),
     USER_SOCIAL_NICKNAME_IS_NULL(USER.code + 4, "User's social nickname is null"),
     USER_IS_NOT_EXIST(USER.code + 5, "User is not exist"),
+    USER_NICKNAME_IS_EXIST(USER.code + 6, "User Nickname is exist"),
 
     COMMENT(3000, "comment"),
     COMMENT_ENTITY_IS_NULL(COMMENT.code + 1, "Comment Entity is null"),
@@ -33,7 +35,12 @@ public enum CoQualityDomainExceptionCode {
     FOLLOW(4000, "follow"),
     FOLLOW_ENTITY_IS_DUPLICATE(FOLLOW.code + 1, "follow entity is duplicate"),
     FOLLOW_ENTITY_IS_NULL(FOLLOW.code + 2, "follow entity is null" ),
-    FOLLOW_TO_USER_IS_NULL(FOLLOW.code + 3, "follow Target is null")
+    FOLLOW_TO_USER_IS_NULL(FOLLOW.code + 3, "follow Target is null"),
+
+    BOOKMARK(5000, "bookmark"),
+    BOOKMARK_USERID_IS_NULL(BOOKMARK.code + 1, "bookmark userId is null"),
+    BOOKMARK_POSTID_IS_NULL(BOOKMARK.code + 2, "bookmark postId is null"),
+    BOOKMARK_ENTITY_IS_NULL(BOOKMARK.code + 3, "bookmark entity is null" )
     ;
 
     private final int code;

@@ -9,6 +9,8 @@ import com.depromeet.coquality.outer.user.infrastructure.JpaUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 @RequiredArgsConstructor
 public class JpaUserAdapter implements UserPort {
@@ -64,5 +66,11 @@ public class JpaUserAdapter implements UserPort {
                 findUser.getSocialInfo().getSocialId(),
                 findUser.getSocialInfo().getSocialEmail()
         );
+    }
+
+    @Override
+    public boolean existNickname(final String nickname) {
+        Optional<UserEntity> findUser = jpaUserRepository.findByNickname(nickname);
+        return findUser.isEmpty();
     }
 }
