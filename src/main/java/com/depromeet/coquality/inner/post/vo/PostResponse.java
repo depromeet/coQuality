@@ -4,6 +4,7 @@ import com.depromeet.coquality.inner.post.domain.code.PostStatusCode;
 import com.depromeet.coquality.inner.post.domain.code.PrimaryPostCategoryCode;
 import java.net.URI;
 import java.time.LocalDateTime;
+import java.util.Set;
 import lombok.NonNull;
 
 public record PostResponse(
@@ -17,7 +18,8 @@ public record PostResponse(
     @NonNull Long views,
     @NonNull Long commentCount,
     @NonNull Long clapCount,
-    @NonNull LocalDateTime createdAt
+    @NonNull LocalDateTime createdAt,
+    Set<String> tags
 ) {
 
     public static PostResponse of(
@@ -30,6 +32,7 @@ public record PostResponse(
         String summary,
         Long views,
         Long commentCount,
+        Set<String> tags,
         Long clapCount,
         LocalDateTime createdAt
     ) {
@@ -44,7 +47,8 @@ public record PostResponse(
             views,
             commentCount,
             clapCount,
-            createdAt
+            createdAt,
+            tags
         );
     }
 }

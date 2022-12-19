@@ -10,7 +10,10 @@ import com.depromeet.coquality.outer.comment.infrastructure.JpaCommentRepository
 import com.depromeet.coquality.outer.common.exception.CoQualityOuterExceptionCode;
 import com.depromeet.coquality.outer.post.entity.PostEntity;
 import com.depromeet.coquality.outer.post.infrastructure.JpaPostRepository;
+import com.depromeet.coquality.outer.tag.entity.TagEntity;
+import com.depromeet.coquality.outer.tag.infrastructure.JpaTagRepository;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +23,7 @@ public class JpaPostAdapter implements PostPort {
 
     private final JpaPostRepository jpaPostRepository;
     private final JpaCommentRepository jpaCommentRepository;
+    private final JpaTagRepository jpaTagRepository;
 
     @Override
     public Post create(final Post post) {
@@ -40,17 +44,18 @@ public class JpaPostAdapter implements PostPort {
         }
         jpaPostRepository.save(postEntity);
 
-        return postEntity.toPostDetailResponse();
+        final var tags = jpaTagRepository.getByPostId(postEntity.getId())
+            .stream()
+            .map(TagEntity::getTagValue)
+            .collect(Collectors.toSet());
+        return postEntity.toPostDetailResponse(tags);
     }
 
     @Override
     public List<PostResponse> readPosts(PostsReadInfo postsReadInfo) {
         return jpaPostRepository.findByPostsReadInfo(postsReadInfo)
             .stream()
-            .map(postEntity -> {
-                final var commentCount = jpaCommentRepository.countByPostId(postEntity.getId());
-                return postEntity.toPostResponse(commentCount);
-            })
+            .map(this::entityToPostResponse)
             .toList();
     }
 
@@ -91,5 +96,15 @@ public class JpaPostAdapter implements PostPort {
         ;
 
         jpaPostRepository.save(postEntity);
+    }
+
+    private PostResponse entityToPostResponse(PostEntity postEntity) {
+        final var commentCount = jpaCommentRepository.countByPostId(postEntity.getId());
+        final var tags = jpaTagRepository.getByPostId(postEntity.getId())
+            .stream()
+            .map(TagEntity::getTagValue)
+            .collect(Collectors.toSet());
+
+        return postEntity.toPostResponse(commentCount, tags);
     }
 }

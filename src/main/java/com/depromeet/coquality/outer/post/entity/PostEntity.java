@@ -7,6 +7,7 @@ import com.depromeet.coquality.inner.post.vo.PostDetailResponse;
 import com.depromeet.coquality.inner.post.vo.PostResponse;
 import com.depromeet.coquality.outer.common.entity.BaseEntity;
 import java.net.URI;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -75,7 +76,7 @@ public class PostEntity extends BaseEntity {
             .newInstance();
     }
 
-    public PostResponse toPostResponse(Long commentCount) {
+    public PostResponse toPostResponse(Long commentCount, Set<String> tags) {
         return PostResponse.of(
             getId(),
             userId,
@@ -86,12 +87,13 @@ public class PostEntity extends BaseEntity {
             summary,
             views,
             commentCount,
+            tags,
             clapCount,
             getCreatedAt()
         );
     }
 
-    public PostDetailResponse toPostDetailResponse() {
+    public PostDetailResponse toPostDetailResponse(Set<String> tags) {
         return PostDetailResponse.of(
             getId(),
             userId,
@@ -102,6 +104,7 @@ public class PostEntity extends BaseEntity {
             postStatusCode,
             summary,
             views,
+            tags,
             clapCount,
             getCreatedAt()
         );
