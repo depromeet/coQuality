@@ -14,4 +14,6 @@ public interface UserPort {
     void update(final Long userId, final User user);
 
     User fetch(Long userId);
+
+    boolean existNickname(String nickname);
 }
