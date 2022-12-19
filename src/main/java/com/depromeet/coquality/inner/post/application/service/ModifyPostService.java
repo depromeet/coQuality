@@ -19,9 +19,9 @@ public class ModifyPostService implements ModifyPostUseCase {
 
     @Transactional
     @Override
-    public void execute(Long userId, final Long id,
+    public void execute(Long userId, final Long postId,
         final ModifyPostCommand modifyPostCommand) {
-        final var post = postPort.fetchOne(id);
+        final var post = postPort.fetchOne(postId);
         post
             .modifyTitle(userId, modifyPostCommand.title().orElseGet(post::getTitle))
             .modifyContents(userId, modifyPostCommand.contents().orElseGet(post::getContents))
@@ -37,9 +37,9 @@ public class ModifyPostService implements ModifyPostUseCase {
         postPort.update(post);
 
         modifyPostCommand.tags().ifPresent(tagValues -> {
-            tagPort.deleteByPostId(id);
+            tagPort.deleteByPostId(postId);
             final var tags = tagValues.stream()
-                .map(value -> new Tag(id, userId, value))
+                .map(value -> new Tag(postId, userId, value))
                 .collect(Collectors.toSet());
 
             tagPort.createTags(tags);
