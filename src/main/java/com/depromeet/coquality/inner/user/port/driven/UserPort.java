@@ -2,6 +2,7 @@ package com.depromeet.coquality.inner.user.port.driven;
 
 
 import com.depromeet.coquality.inner.user.domain.User;
+import com.depromeet.coquality.inner.user.vo.UserResponse;
 import com.depromeet.coquality.outer.user.entity.UserSocialType;
 
 public interface UserPort {
@@ -13,7 +14,9 @@ public interface UserPort {
 
     void update(final Long userId, final User user);
 
-    User fetch(Long userId);
+    UserResponse fetch(Long userId);
 
     boolean existNickname(String nickname);
+
+    User fetchUser(Long userId);
 }

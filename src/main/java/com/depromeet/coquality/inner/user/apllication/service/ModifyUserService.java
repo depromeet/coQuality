@@ -16,7 +16,7 @@ public class ModifyUserService implements ModifyUserUseCase {
 
     @Override
     public void execute(final Long userId, final UserDto user) {
-        final User findUser = userPort.fetch(userId);
+        final User findUser = userPort.fetchUser(userId);
 
         findUser.updateUserInfo(
                 user.getNickname(),

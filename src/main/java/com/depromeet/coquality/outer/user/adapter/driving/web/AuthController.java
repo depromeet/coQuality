@@ -5,18 +5,19 @@ import com.depromeet.coquality.inner.user.apllication.service.SignInUserProvider
 import com.depromeet.coquality.inner.user.apllication.service.SignUpUserProvider;
 import com.depromeet.coquality.inner.user.port.driving.SignInUserUseCase;
 import com.depromeet.coquality.inner.user.port.driving.SignUpUserUseCase;
+import com.depromeet.coquality.inner.user.vo.LoginResponse;
+import com.depromeet.coquality.inner.user.vo.SignUpResponse;
 import com.depromeet.coquality.outer.common.vo.ApiResponse;
 import com.depromeet.coquality.outer.jwt.JwtService;
 import com.depromeet.coquality.outer.user.adapter.driving.web.dto.reqeust.LoginRequest;
 import com.depromeet.coquality.outer.user.adapter.driving.web.dto.reqeust.SignUpRequest;
-import com.depromeet.coquality.outer.user.adapter.driving.web.dto.response.LoginResponse;
-import com.depromeet.coquality.outer.user.adapter.driving.web.dto.response.SignUpResponse;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor

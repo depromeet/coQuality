@@ -3,6 +3,7 @@ package com.depromeet.coquality.outer.user.adapter.driven.persistance;
 import com.depromeet.coquality.inner.common.domain.exception.CoQualityDomainExceptionCode;
 import com.depromeet.coquality.inner.user.domain.User;
 import com.depromeet.coquality.inner.user.port.driven.UserPort;
+import com.depromeet.coquality.inner.user.vo.UserResponse;
 import com.depromeet.coquality.outer.user.entity.UserEntity;
 import com.depromeet.coquality.outer.user.entity.UserSocialType;
 import com.depromeet.coquality.outer.user.infrastructure.JpaUserRepository;
@@ -57,20 +58,23 @@ public class JpaUserAdapter implements UserPort {
     }
 
     @Override
-    public User fetch(final Long userId) {
+    public UserResponse fetch(final Long userId) {
         final UserEntity findUser = jpaUserRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 유저입니다."));
+                .orElseThrow(CoQualityDomainExceptionCode.USER_ENTITY_IS_NULL::newInstance);
 
-        return User.of(
-                findUser.getNickname(),
-                findUser.getSocialInfo().getSocialId(),
-                findUser.getSocialInfo().getSocialEmail()
-        );
+        return UserResponse.of(findUser.getId(), findUser.getNickname(), findUser.getUserSummary(), findUser.getNickname());
     }
 
     @Override
     public boolean existNickname(final String nickname) {
         Optional<UserEntity> findUser = jpaUserRepository.findByNickname(nickname);
         return findUser.isEmpty();
+    }
+
+    @Override
+    public User fetchUser(final Long userId) {
+        final UserEntity findUser = jpaUserRepository.findById(userId)
+                .orElseThrow(CoQualityDomainExceptionCode.USER_ENTITY_IS_NULL::newInstance);
+        return User.of(findUser.getNickname(), findUser.getSocialInfo().getSocialEmail(), findUser.getUserSummary());
     }
 }
