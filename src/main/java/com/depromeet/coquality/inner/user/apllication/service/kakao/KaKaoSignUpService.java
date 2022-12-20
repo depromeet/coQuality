@@ -6,6 +6,7 @@ import com.depromeet.coquality.inner.user.domain.User;
 import com.depromeet.coquality.inner.user.port.driven.UserPort;
 import com.depromeet.coquality.inner.user.port.driving.SignUpUserUseCase;
 import com.depromeet.coquality.inner.user.port.driving.dto.request.SignUpDto;
+import com.depromeet.coquality.outer.user.entity.UserRank;
 import com.depromeet.coquality.outer.user.entity.UserSocialType;
 import com.depromeet.coquality.outer.user.external.client.kakao.KaKaoAuthApiClient;
 import com.depromeet.coquality.outer.user.external.client.kakao.dto.response.KaKaoProfileResponse;
@@ -27,6 +28,6 @@ public class KaKaoSignUpService implements SignUpUserUseCase {
     public Long execute(final SignUpDto request) {
         final KaKaoProfileResponse response = kakaoAuthApiCaller.getProfileInfo(HttpHeaderUtils.withBearerToken(request.getToken()));
         signUpUserServiceUtils.validateNotExistsUser(response.getId(), socialType);
-        return userPort.insert(User.of(request.getNickname(), response.getId(), request.getEmail()), socialType);
+        return userPort.insert(User.of(request.getNickname(), response.getId(), request.getEmail(), String.valueOf(UserRank.STARTER)), socialType);
     }
 }

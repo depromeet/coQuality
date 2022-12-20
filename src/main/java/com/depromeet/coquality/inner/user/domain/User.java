@@ -19,11 +19,11 @@ public class User {
         UserValidationPolicy.validate(this);
     }
 
-    public static User of(final String nickname, final String socialId, final String socialEmail){
-        return new User(nickname, socialId, socialEmail, null, null, "starter");
-    }
-    public static User of(final String nickname, final String socialEmail, final String profileImageUrl, final String userSummary, final String rank){
-        return new User( nickname,null, socialEmail, profileImageUrl, userSummary, rank);
+    public static User of(final String nickname,
+                          final String socialId,
+                          final String socialEmail,
+                          final String rank) {
+        return new User(nickname, socialId, socialEmail, null, null, rank);
     }
 
     public void updateUserInfo(final String nickname, final String socialEmail, final String userSummary) {

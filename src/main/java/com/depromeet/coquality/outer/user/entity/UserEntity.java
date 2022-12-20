@@ -39,7 +39,7 @@ public class UserEntity extends BaseEntity {
     private SocialInfo socialInfo;
 
 
-    @Column(nullable = false)
+    @Column(name = "user_rank")
     @Enumerated(EnumType.STRING)
     private UserRank rank;
 
@@ -59,7 +59,7 @@ public class UserEntity extends BaseEntity {
         this.nickname = nickname;
     }
     public void advancementUserRank(final UserRank rank){
-
+        this.rank = rank;
     }
 
 }
