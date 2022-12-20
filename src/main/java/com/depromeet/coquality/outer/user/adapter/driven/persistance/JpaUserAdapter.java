@@ -72,9 +72,9 @@ public class JpaUserAdapter implements UserPort {
     }
 
     @Override
-    public User fetchUser(final Long userId) {
-        final UserEntity findUser = jpaUserRepository.findById(userId)
+    public UserEntity fetchUser(final Long userId) {
+        return jpaUserRepository.findById(userId)
                 .orElseThrow(CoQualityDomainExceptionCode.USER_ENTITY_IS_NULL::newInstance);
-        return User.of(findUser.getNickname(), findUser.getSocialInfo().getSocialEmail(), findUser.getUserSummary());
+//        return User.of(findUser.getNickname(), findUser.getSocialInfo().getSocialEmail(), findUser.getUserSummary(), String.valueOf(findUser.getRank()));
     }
 }

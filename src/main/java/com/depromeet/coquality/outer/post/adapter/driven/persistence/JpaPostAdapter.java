@@ -12,10 +12,11 @@ import com.depromeet.coquality.outer.post.entity.PostEntity;
 import com.depromeet.coquality.outer.post.infrastructure.JpaPostRepository;
 import com.depromeet.coquality.outer.tag.entity.TagEntity;
 import com.depromeet.coquality.outer.tag.infrastructure.JpaTagRepository;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -34,7 +35,7 @@ public class JpaPostAdapter implements PostPort {
     }
 
     @Override
-    public PostDetailResponse readOne(Long userId, Long id) {
+    public PostDetailResponse readOne(final Long userId, final Long id) {
         final var postEntity = jpaPostRepository.findByIdAndPostStatusCodeNotLike(id,
                 PostStatusCode.DELETED)
             .orElseThrow(() -> CoQualityOuterExceptionCode.POST_ENTITY_IS_NULL.newInstance(id));
@@ -52,7 +53,7 @@ public class JpaPostAdapter implements PostPort {
     }
 
     @Override
-    public List<PostResponse> readPosts(PostsReadInfo postsReadInfo) {
+    public List<PostResponse> readPosts(final PostsReadInfo postsReadInfo) {
         return jpaPostRepository.findByPostsReadInfo(postsReadInfo)
             .stream()
             .map(this::entityToPostResponse)
@@ -60,7 +61,7 @@ public class JpaPostAdapter implements PostPort {
     }
 
     @Override
-    public Post fetchOne(Long id) {
+    public Post fetchOne(final Long id) {
         final var postEntity = jpaPostRepository.findByIdAndPostStatusCodeNotLike(id,
                 PostStatusCode.DELETED)
             .orElseThrow(() -> CoQualityOuterExceptionCode.POST_ENTITY_IS_NULL.newInstance(id));
@@ -98,7 +99,17 @@ public class JpaPostAdapter implements PostPort {
         jpaPostRepository.save(postEntity);
     }
 
-    private PostResponse entityToPostResponse(PostEntity postEntity) {
+    @Override
+    public Long fetchUserPostCount(final Long userId) {
+        return jpaPostRepository.countByUserId(userId);
+    }
+
+    @Override
+    public Long fetchUserClapCount(final Long userId) {
+        return jpaPostRepository.selectClapCountByUserId(userId);
+    }
+
+    private PostResponse entityToPostResponse(final PostEntity postEntity) {
         final var commentCount = jpaCommentRepository.countByPostId(postEntity.getId());
         final var tags = jpaTagRepository.getByPostId(postEntity.getId())
             .stream()

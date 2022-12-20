@@ -20,4 +20,8 @@ public interface PostPort {
 
     void update(final Post post);
 
+    Long fetchUserPostCount(final Long userId);
+
+    Long fetchUserClapCount(final Long userId);
+
 }
