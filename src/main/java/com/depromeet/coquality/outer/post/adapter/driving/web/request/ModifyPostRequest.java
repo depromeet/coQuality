@@ -5,6 +5,7 @@ import com.depromeet.coquality.inner.post.domain.code.PrimaryPostCategoryCode;
 import com.depromeet.coquality.inner.post.vo.ModifyPostCommand;
 import java.net.URI;
 import java.util.Optional;
+import java.util.Set;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -14,7 +15,8 @@ public record ModifyPostRequest(
     Optional<URI> thumbnail,
     Optional<@NotNull PrimaryPostCategoryCode> primaryPostCategoryCode,
     Optional<@NotNull PostStatusCode> postStatus,
-    Optional<@NotNull String> summary
+    Optional<@NotNull String> summary,
+    Optional<Set<String>> tags
 ) {
 
     public ModifyPostCommand toModifyPostCommand() {
@@ -24,7 +26,8 @@ public record ModifyPostRequest(
             thumbnail,
             primaryPostCategoryCode,
             postStatus,
-            summary
+            summary,
+            tags
         );
     }
 }

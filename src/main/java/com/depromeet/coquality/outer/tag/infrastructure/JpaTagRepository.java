@@ -7,4 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface JpaTagRepository extends JpaRepository<TagEntity, Long> {
 
     List<TagEntity> getByPostId(Long postId);
+
+    void deleteByPostId(Long postId);
+
 }
