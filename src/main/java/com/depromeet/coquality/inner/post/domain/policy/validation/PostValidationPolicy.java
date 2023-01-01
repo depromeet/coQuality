@@ -12,7 +12,7 @@ public final class PostValidationPolicy {
     private static final int TITLE_MIN_LENGTH = 1;
     private static final int TITLE_MAX_LENGTH = 100;
 
-    private static final int CONTENTS_MAX_LENGTH = 2000; // 임의 설정
+    private static final int CONTENTS_MAX_LENGTH = 5000; // 임의 설정
 
     private static final int VIEWS_MIN_SIZE = 0;
 
