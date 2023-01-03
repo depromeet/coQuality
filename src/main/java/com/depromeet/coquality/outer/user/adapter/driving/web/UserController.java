@@ -3,7 +3,7 @@ package com.depromeet.coquality.outer.user.adapter.driving.web;
 import com.depromeet.coquality.inner.user.port.driving.ValidateNicknameUseCase;
 import com.depromeet.coquality.inner.user.domain.User;
 import com.depromeet.coquality.inner.user.port.driving.ModifyUserUseCase;
-import com.depromeet.coquality.inner.user.port.driving.ReadUserUserCase;
+import com.depromeet.coquality.inner.user.port.driving.ReadUserUseCase;
 import com.depromeet.coquality.outer.common.vo.ApiResponse;
 import com.depromeet.coquality.outer.interceptor.Auth;
 import com.depromeet.coquality.outer.resolver.UserId;
@@ -19,14 +19,14 @@ import javax.validation.Valid;
 @RequestMapping("/api/v1/users")
 public class UserController {
 
-    private final ReadUserUserCase readUserUserCase;
+    private final ReadUserUseCase readUserUseCase;
     private final ModifyUserUseCase modifyUserUseCase;
     private final ValidateNicknameUseCase validateNicknameUseCase;
 
     @Auth
     @GetMapping("/read")
     public ApiResponse readMyInfo(@UserId final Long userId) {
-        final User user = readUserUserCase.execute(userId);
+        final User user = readUserUseCase.execute(userId);
         return ApiResponse.success(UserResponse.of(userId, user.getNickname()));
     }
 
