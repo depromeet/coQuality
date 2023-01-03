@@ -12,10 +12,11 @@ import com.depromeet.coquality.outer.post.entity.PostEntity;
 import com.depromeet.coquality.outer.post.infrastructure.JpaPostRepository;
 import com.depromeet.coquality.outer.tag.entity.TagEntity;
 import com.depromeet.coquality.outer.tag.infrastructure.JpaTagRepository;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -44,7 +45,7 @@ public class JpaPostAdapter implements PostPort {
         }
         jpaPostRepository.save(postEntity);
 
-        final var tags = jpaTagRepository.getByPostId(postEntity.getId())
+        final var tags = jpaTagRepository.findByPostId(postEntity.getId())
             .stream()
             .map(TagEntity::getTagValue)
             .collect(Collectors.toSet());
@@ -100,7 +101,7 @@ public class JpaPostAdapter implements PostPort {
 
     private PostResponse entityToPostResponse(PostEntity postEntity) {
         final var commentCount = jpaCommentRepository.countByPostId(postEntity.getId());
-        final var tags = jpaTagRepository.getByPostId(postEntity.getId())
+        final var tags = jpaTagRepository.findByPostId(postEntity.getId())
             .stream()
             .map(TagEntity::getTagValue)
             .collect(Collectors.toSet());
