@@ -23,20 +23,33 @@ public class RankUseCaseService implements RankUseCase {
     private final FollowPort followPort;
 
     @Override
-    public void execute(final Long userId) {
-        final Long postCount = postPort.fetchUserPostCount(userId);
+    public void achieveEditor(Long userId) {
         final UserEntity findUser = userPort.fetchUser(userId);
-        final Long clapCount = postPort.fetchUserClapCount(userId);
-        final Long followCount = followPort.fetchFollowCount(userId);
+        final Long postCount = postPort.fetchUserPostCount(userId);
 
         if (postCount >= EDITOR_RANK_CRITERIA && findUser.getRank() == UserRank.STARTER){
             findUser.advancementUserRank(UserRank.EDITOR);
-            return;
         }
+
+    }
+
+    @Override
+    public void achieveSpecialEditor(Long userId) {
+        final UserEntity findUser = userPort.fetchUser(userId);
+        final Long clapCount = postPort.fetchUserClapCount(userId);
+
         if (clapCount >= SPECIAL_EDITOR_RANK_CRITERIA && findUser.getRank() == UserRank.EDITOR){
             findUser.advancementUserRank(UserRank.SPECIAL_EDITOR);
             return;
         }
+
+    }
+
+    @Override
+    public void achieveProfessionalEditor(Long userId) {
+        final UserEntity findUser = userPort.fetchUser(userId);
+        final Long followCount = followPort.fetchFollowCount(userId);
+
         if (followCount >= PROFESSIONAL_EDITOR_CRITERIA && findUser.getRank() == UserRank.PROFESSIONAL_EDITOR){
             findUser.advancementUserRank(UserRank.PROFESSIONAL_EDITOR);
         }
