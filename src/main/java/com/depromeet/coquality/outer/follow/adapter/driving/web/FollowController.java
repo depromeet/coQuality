@@ -1,10 +1,6 @@
 package com.depromeet.coquality.outer.follow.adapter.driving.web;
 
-import com.depromeet.coquality.inner.follow.port.driving.CreateFollowUseCase;
-import com.depromeet.coquality.inner.follow.port.driving.DeleteFollowUseCase;
-import com.depromeet.coquality.inner.follow.port.driving.GetFollowCountUseCase;
-import com.depromeet.coquality.inner.follow.port.driving.GetFollowersUseCase;
-import com.depromeet.coquality.inner.follow.port.driving.GetFollowingUseCase;
+import com.depromeet.coquality.inner.follow.port.driving.*;
 import com.depromeet.coquality.outer.common.vo.ApiResponse;
 import com.depromeet.coquality.outer.interceptor.Auth;
 import com.depromeet.coquality.outer.resolver.UserId;
@@ -28,6 +24,7 @@ public class FollowController {
     private final GetFollowersUseCase getFollowersUseCase;
     private final GetFollowingUseCase getFollowingUseCase;
 
+    private final GetMyFollowCountUseCase getMyFollowCountUseCase;
     @ApiOperation("[인증] 팔로우 하기 기능")
     @PostMapping("/{id}")
     @Auth
@@ -40,6 +37,13 @@ public class FollowController {
     @Auth
     public void deleteFollow(@UserId final Long fromUserId, @PathVariable("id") final Long toUserId){
         deleteFollowUseCase.execute(fromUserId, toUserId);
+    }
+
+    @ApiOperation("나의 팔로잉 팔로우 수를 조회합니다.")
+    @GetMapping("")
+    @Auth
+    public ApiResponse getMyFollow(@UserId final Long userId){
+        return ApiResponse.success(getMyFollowCountUseCase.execute(userId));
     }
 
     @ApiOperation("특정 유저의 팔로우 수 조회")
