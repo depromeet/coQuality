@@ -12,11 +12,14 @@ public record PostDetailResponse(
     @NonNull Long userId,
     @NonNull String title,
     @NonNull String contents,
+    String userName,
     URI thumbnail,
     @NonNull PrimaryPostCategoryCode primaryCategory,
     @NonNull PostStatusCode postStatusCode,
     @NonNull String summary,
     @NonNull Long views,
+    Long commentCount,
+    Set<String> tags,
     @NonNull Long clapCount,
     @NonNull LocalDateTime createdAt
 ) {
@@ -26,12 +29,15 @@ public record PostDetailResponse(
         Long userId,
         String title,
         String contents,
+        String userName,
         URI thumbnail,
         PrimaryPostCategoryCode primaryCategory,
         PostStatusCode postStatusCode,
         String summary,
         Long views,
-        Set<String> tags, Long clapCount,
+        Long commentCount,
+        Set<String> tags,
+        Long clapCount,
         LocalDateTime createdAt
     ) {
         return new PostDetailResponse(
@@ -39,11 +45,14 @@ public record PostDetailResponse(
             userId,
             title,
             contents,
+            userName,
             thumbnail,
             primaryCategory,
             postStatusCode,
             summary,
             views,
+            commentCount,
+            tags,
             clapCount,
             createdAt
         );
