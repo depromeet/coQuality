@@ -12,11 +12,11 @@ import com.depromeet.coquality.outer.post.entity.PostEntity;
 import com.depromeet.coquality.outer.post.infrastructure.JpaPostRepository;
 import com.depromeet.coquality.outer.tag.entity.TagEntity;
 import com.depromeet.coquality.outer.tag.infrastructure.JpaTagRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-
+import com.depromeet.coquality.outer.user.infrastructure.JpaUserRepository;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
@@ -25,6 +25,7 @@ public class JpaPostAdapter implements PostPort {
     private final JpaPostRepository jpaPostRepository;
     private final JpaCommentRepository jpaCommentRepository;
     private final JpaTagRepository jpaTagRepository;
+    private final JpaUserRepository jpaUserRepository;
 
     @Override
     public Post create(final Post post) {
@@ -40,6 +41,10 @@ public class JpaPostAdapter implements PostPort {
                 PostStatusCode.DELETED)
             .orElseThrow(() -> CoQualityOuterExceptionCode.POST_ENTITY_IS_NULL.newInstance(id));
 
+        final var commentCount = jpaCommentRepository.countByPostId(postEntity.getId());
+        final var userName = jpaUserRepository.findById(postEntity.getUserId())
+            .orElseThrow()
+            .getNickname();
         if (!postEntity.getUserId().equals(userId)) {
             postEntity.increaseViews(1L);
         }
@@ -49,7 +54,7 @@ public class JpaPostAdapter implements PostPort {
             .stream()
             .map(TagEntity::getTagValue)
             .collect(Collectors.toSet());
-        return postEntity.toPostDetailResponse(tags);
+        return postEntity.toPostDetailResponse(tags, userName, commentCount);
     }
 
     @Override

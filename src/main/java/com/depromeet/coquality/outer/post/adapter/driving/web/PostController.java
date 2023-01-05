@@ -1,6 +1,7 @@
 package com.depromeet.coquality.outer.post.adapter.driving.web;
 
 import com.depromeet.coquality.inner.post.application.code.PostSortCode;
+import com.depromeet.coquality.inner.post.domain.Post;
 import com.depromeet.coquality.inner.post.domain.code.PostStatusCode;
 import com.depromeet.coquality.inner.post.domain.code.PrimaryPostCategoryCode;
 import com.depromeet.coquality.inner.post.port.driving.DeletePostUseCase;
@@ -8,6 +9,8 @@ import com.depromeet.coquality.inner.post.port.driving.IssuePostUseCase;
 import com.depromeet.coquality.inner.post.port.driving.ModifyPostUseCase;
 import com.depromeet.coquality.inner.post.port.driving.ReadPostDetailUseCase;
 import com.depromeet.coquality.inner.post.port.driving.ReadPostsUseCase;
+import com.depromeet.coquality.inner.post.vo.PostDetailResponse;
+import com.depromeet.coquality.inner.post.vo.PostResponse;
 import com.depromeet.coquality.inner.post.vo.PostsReadInfo;
 import com.depromeet.coquality.inner.tag.domain.Tag;
 import com.depromeet.coquality.inner.tag.port.driving.CreateTagsUseCase;
@@ -16,6 +19,7 @@ import com.depromeet.coquality.outer.interceptor.Auth;
 import com.depromeet.coquality.outer.post.adapter.driving.web.request.IssuePostRequest;
 import com.depromeet.coquality.outer.post.adapter.driving.web.request.ModifyPostRequest;
 import com.depromeet.coquality.outer.resolver.UserId;
+import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +47,7 @@ public class PostController {
 
     @Auth
     @PostMapping
-    public ApiResponse issuePost(
+    public ApiResponse<Post> issuePost(
         @UserId Long userId,
         @Valid @RequestBody final IssuePostRequest issuePostRequest) {
         final var post = issuePostRequest.toPost(userId);
@@ -62,7 +66,7 @@ public class PostController {
 
     @Auth
     @GetMapping("/{id}")
-    public ApiResponse readPostDetail(
+    public ApiResponse<PostDetailResponse> readPostDetail(
         @UserId final Long userId,
         @PathVariable final Long id) {
         final var post = readPostDetailUseCase.execute(userId, id);
@@ -70,7 +74,7 @@ public class PostController {
     }
 
     @GetMapping
-    public ApiResponse readPosts(
+    public ApiResponse<List<PostResponse>> readPosts(
         @RequestParam PostSortCode sort,
         @RequestParam(required = false) PrimaryPostCategoryCode primaryCategory
     ) {
@@ -86,7 +90,7 @@ public class PostController {
 
     @Auth
     @GetMapping("/users/my")
-    public ApiResponse readMyPosts(
+    public ApiResponse<List<PostResponse>> readMyPosts(
         @UserId Long userId,
         @RequestParam PostSortCode sort
     ) {

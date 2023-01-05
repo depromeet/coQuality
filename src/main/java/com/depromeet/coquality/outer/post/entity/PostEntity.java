@@ -93,17 +93,20 @@ public class PostEntity extends BaseEntity {
         );
     }
 
-    public PostDetailResponse toPostDetailResponse(Set<String> tags) {
+    public PostDetailResponse toPostDetailResponse(Set<String> tags, String userName,
+        Long commentCount) {
         return PostDetailResponse.of(
             getId(),
             userId,
             title,
             contents,
+            userName,
             convertStringToURI(thumbnail),
             primaryCategory,
             postStatusCode,
             summary,
             views,
+            commentCount,
             tags,
             clapCount,
             getCreatedAt()
