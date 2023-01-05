@@ -5,9 +5,12 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,11 +38,17 @@ public class UserEntity extends BaseEntity {
     @Embedded
     private SocialInfo socialInfo;
 
+
+    @Column(name = "user_rank")
+    @Enumerated(EnumType.STRING)
+    private UserRank rank;
+
     @Builder(builderMethodName = "factory", buildMethodName = "newInstance")
     private UserEntity(final String nickname, final String socialId,
         final UserSocialType socialType, final String socialEmail) {
         this.nickname = nickname;
         this.socialInfo = SocialInfo.of(socialId, socialEmail, socialType);
+        this.rank = UserRank.STARTER;
     }
 
     public void modifyUserSummary(final String userSummary) {
@@ -48,6 +57,9 @@ public class UserEntity extends BaseEntity {
 
     public void modifyNickname(final String nickname) {
         this.nickname = nickname;
+    }
+    public void advancementUserRank(final UserRank rank){
+        this.rank = rank;
     }
 
 }

@@ -1,16 +1,19 @@
 package com.depromeet.coquality.outer.user.adapter.driving.web;
 
-import com.depromeet.coquality.inner.user.port.driving.ValidateNicknameUseCase;
-import com.depromeet.coquality.inner.user.domain.User;
 import com.depromeet.coquality.inner.user.port.driving.ModifyUserUseCase;
 import com.depromeet.coquality.inner.user.port.driving.ReadUserUseCase;
+import com.depromeet.coquality.inner.user.port.driving.ValidateNicknameUseCase;
 import com.depromeet.coquality.outer.common.vo.ApiResponse;
 import com.depromeet.coquality.outer.interceptor.Auth;
 import com.depromeet.coquality.outer.resolver.UserId;
 import com.depromeet.coquality.outer.user.adapter.driving.web.dto.reqeust.ModifyUserRequest;
-import com.depromeet.coquality.outer.user.adapter.driving.web.dto.response.UserResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
@@ -26,8 +29,7 @@ public class UserController {
     @Auth
     @GetMapping("/read")
     public ApiResponse readMyInfo(@UserId final Long userId) {
-        final User user = readUserUseCase.execute(userId);
-        return ApiResponse.success(UserResponse.of(userId, user.getNickname()));
+        return ApiResponse.success(readUserUseCase.execute(userId));
     }
 
     @Auth

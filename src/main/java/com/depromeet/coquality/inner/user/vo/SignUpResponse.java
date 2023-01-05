@@ -1,4 +1,4 @@
-package com.depromeet.coquality.outer.user.adapter.driving.web.dto.response;
+package com.depromeet.coquality.inner.user.vo;
 
 import lombok.Getter;
 

@@ -10,19 +10,20 @@ public class User {
     private String socialEmail;
     private String profileImageUrl;
     private String userSummary;
+    private String rank;
 
-    private User(final String nickname, final String socialId, final String socialEmail, final String profileImageUrl, final String userSummary) {
+    private User(final String nickname, final String socialId, final String socialEmail, final String profileImageUrl, final String userSummary, final String rank) {
         this.nickname = nickname;
         this.socialId = socialId;
         this.socialEmail = socialEmail;
         UserValidationPolicy.validate(this);
     }
 
-    public static User of(final String nickname, final String socialId, final String socialEmail){
-        return new User(nickname, socialId, socialEmail, null, null);
-    }
-    public static User of(final String nickname, final String socialEmail, final String profileImageUrl, final String userSummary){
-        return new User( nickname,null, socialEmail, profileImageUrl, userSummary);
+    public static User of(final String nickname,
+                          final String socialId,
+                          final String socialEmail,
+                          final String rank) {
+        return new User(nickname, socialId, socialEmail, null, null, rank);
     }
 
     public void updateUserInfo(final String nickname, final String socialEmail, final String userSummary) {
