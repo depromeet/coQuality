@@ -6,4 +6,6 @@ import java.util.Set;
 public interface TagPort {
 
     void createTags(Set<Tag> tags);
+
+    void deleteByPostId(Long postId);
 }

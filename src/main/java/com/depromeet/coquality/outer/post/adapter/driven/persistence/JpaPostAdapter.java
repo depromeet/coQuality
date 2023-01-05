@@ -45,7 +45,7 @@ public class JpaPostAdapter implements PostPort {
         }
         jpaPostRepository.save(postEntity);
 
-        final var tags = jpaTagRepository.getByPostId(postEntity.getId())
+        final var tags = jpaTagRepository.findByPostId(postEntity.getId())
             .stream()
             .map(TagEntity::getTagValue)
             .collect(Collectors.toSet());
@@ -111,7 +111,7 @@ public class JpaPostAdapter implements PostPort {
 
     private PostResponse entityToPostResponse(final PostEntity postEntity) {
         final var commentCount = jpaCommentRepository.countByPostId(postEntity.getId());
-        final var tags = jpaTagRepository.getByPostId(postEntity.getId())
+        final var tags = jpaTagRepository.findByPostId(postEntity.getId())
             .stream()
             .map(TagEntity::getTagValue)
             .collect(Collectors.toSet());

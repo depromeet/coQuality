@@ -22,4 +22,9 @@ public class JpaTagAdapter implements TagPort {
 
         jpaTagRepository.saveAll(tagEntities);
     }
+
+    @Override
+    public void deleteByPostId(Long postId) {
+        jpaTagRepository.deleteByPostId(postId);
+    }
 }

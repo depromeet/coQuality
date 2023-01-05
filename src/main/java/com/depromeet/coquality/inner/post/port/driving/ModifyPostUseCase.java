@@ -4,5 +4,5 @@ import com.depromeet.coquality.inner.post.vo.ModifyPostCommand;
 
 public interface ModifyPostUseCase {
 
-    void execute(Long userId, Long id, ModifyPostCommand post);
+    void execute(Long userId, Long postId, ModifyPostCommand post);
 }
