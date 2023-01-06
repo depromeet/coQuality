@@ -49,7 +49,7 @@
 ---
 <br>
 
-# 5. :department_store: 프로젝트 구조
+# 5. :department_store: 배포 파이프라인
 <p align="center"><img src="image/coquality-pipline.png"></p>
 
 
