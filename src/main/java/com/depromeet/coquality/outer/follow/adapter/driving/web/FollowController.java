@@ -46,9 +46,10 @@ public class FollowController {
         return ApiResponse.success(getMyFollowCountUseCase.execute(userId));
     }
 
-    @ApiOperation("특정 유저의 팔로우 수 조회")
-    @GetMapping("/users/{id}")
-    public ApiResponse getFollowCount(@PathVariable("id") final Long userId){
+    @ApiOperation("특정유저의 팔로잉 팔로우 수를 조회합니다.")
+    @GetMapping("/{id}")
+    @Auth
+    public ApiResponse getUserFollow(@PathVariable("id") final Long userId){
         return ApiResponse.success(getFollowCountUseCase.execute(userId));
     }
 
