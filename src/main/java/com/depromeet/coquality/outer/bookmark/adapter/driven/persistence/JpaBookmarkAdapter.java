@@ -2,6 +2,7 @@ package com.depromeet.coquality.outer.bookmark.adapter.driven.persistence;
 
 import com.depromeet.coquality.inner.bookmark.domain.Bookmark;
 import com.depromeet.coquality.inner.bookmark.port.driven.BookmarkPort;
+import com.depromeet.coquality.inner.bookmark.vo.BookmarkConditionResponse;
 import com.depromeet.coquality.inner.bookmark.vo.BookmarkPostResponse;
 import com.depromeet.coquality.inner.common.domain.exception.CoQualityDomainExceptionCode;
 import com.depromeet.coquality.outer.bookmark.entity.BookmarkEntity;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -93,7 +95,7 @@ public class JpaBookmarkAdapter implements BookmarkPort {
 
     @Override
     public void deleteAll(final Long userId) {
-        List<BookmarkEntity> findBookmarks = jpaBookmarkRepository.findBookmarkByUserId(userId);
+        final List<BookmarkEntity> findBookmarks = jpaBookmarkRepository.findBookmarkByUserId(userId);
 
         final List<Long> bookmarkPostIds = findBookmarks
                 .stream()
@@ -101,5 +103,15 @@ public class JpaBookmarkAdapter implements BookmarkPort {
                 .toList();
 
         jpaBookmarkRepository.deleteAllByBookmarkIds(bookmarkPostIds);
+    }
+
+    @Override
+    public BookmarkConditionResponse fetchBookmarkByUserIdAndPostId(final Long userId, final Long postId) {
+        final Optional<BookmarkEntity> findBookmark = jpaBookmarkRepository.findBookmarkByUserIdAndPostId(userId, postId);
+
+        if (findBookmark.isEmpty()){
+            return BookmarkConditionResponse.of(false);
+        }
+        return BookmarkConditionResponse.of(true);
     }
 }

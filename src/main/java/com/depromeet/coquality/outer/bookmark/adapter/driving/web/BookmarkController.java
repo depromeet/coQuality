@@ -1,5 +1,6 @@
 package com.depromeet.coquality.outer.bookmark.adapter.driving.web;
 
+import com.depromeet.coquality.inner.bookmark.port.driving.CheckBookmarkUseCase;
 import com.depromeet.coquality.inner.bookmark.port.driving.*;
 import com.depromeet.coquality.outer.bookmark.adapter.driving.web.request.BookmarkRequest;
 import com.depromeet.coquality.outer.common.vo.ApiResponse;
@@ -20,11 +21,18 @@ public class BookmarkController {
     private final ModifyBookmarkUseCase modifyBookmarkUseCase;
     private final ReadBookmarkPostsUseCase readBookmarkPostsUseCase;
     private final DeleteAllBookmarkUseCase deleteAllBookmarkUseCase;
+    private final CheckBookmarkUseCase checkBookmarkUseCase;
 
     @Auth
     @PostMapping("/{id}")
     public ApiResponse createBookmark(@UserId final Long userId, @PathVariable("id") final Long postId){
         return ApiResponse.success(createBookmarkUseCase.execute(userId, postId));
+    }
+
+    @Auth
+    @GetMapping("/{id}/check")
+    public ApiResponse checkBookmark(@UserId final Long userId, @PathVariable("id") final Long postId){
+        return ApiResponse.success(checkBookmarkUseCase.execute(userId, postId));
     }
 
     @Auth
