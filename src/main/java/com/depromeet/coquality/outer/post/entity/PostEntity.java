@@ -76,10 +76,12 @@ public class PostEntity extends BaseEntity {
             .newInstance();
     }
 
-    public PostResponse toPostResponse(Long commentCount, Set<String> tags) {
+    public PostResponse toPostResponse(String userName, Long commentCount,
+        Set<String> tags) {
         return PostResponse.of(
             getId(),
             userId,
+            userName,
             title,
             convertStringToURI(thumbnail),
             primaryCategory,
@@ -94,7 +96,7 @@ public class PostEntity extends BaseEntity {
     }
 
     public PostDetailResponse toPostDetailResponse(Set<String> tags, String userName,
-        Long commentCount) {
+        Long commentCount, boolean bookmarkYn) {
         return PostDetailResponse.of(
             getId(),
             userId,
@@ -109,6 +111,7 @@ public class PostEntity extends BaseEntity {
             commentCount,
             tags,
             clapCount,
+            bookmarkYn,
             getCreatedAt()
         );
     }

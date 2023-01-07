@@ -10,6 +10,7 @@ import lombok.NonNull;
 public record PostResponse(
     @NonNull Long id,
     @NonNull Long userId,
+    @NonNull String userName,
     @NonNull String title,
     URI thumbnail,
     @NonNull PrimaryPostCategoryCode primaryCategory,
@@ -25,6 +26,7 @@ public record PostResponse(
     public static PostResponse of(
         Long id,
         Long userId,
+        String userName,
         String title,
         URI thumbnail,
         PrimaryPostCategoryCode primaryCategory,
@@ -39,6 +41,7 @@ public record PostResponse(
         return new PostResponse(
             id,
             userId,
+            userName,
             title,
             thumbnail,
             primaryCategory,

@@ -21,6 +21,7 @@ public record PostDetailResponse(
     Long commentCount,
     Set<String> tags,
     @NonNull Long clapCount,
+    boolean bookmarkYn,
     @NonNull LocalDateTime createdAt
 ) {
 
@@ -38,6 +39,7 @@ public record PostDetailResponse(
         Long commentCount,
         Set<String> tags,
         Long clapCount,
+        boolean bookmarkYn,
         LocalDateTime createdAt
     ) {
         return new PostDetailResponse(
@@ -54,6 +56,7 @@ public record PostDetailResponse(
             commentCount,
             tags,
             clapCount,
+            bookmarkYn,
             createdAt
         );
     }
