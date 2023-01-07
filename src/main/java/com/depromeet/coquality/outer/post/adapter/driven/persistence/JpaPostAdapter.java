@@ -6,6 +6,7 @@ import com.depromeet.coquality.inner.post.port.driven.PostPort;
 import com.depromeet.coquality.inner.post.vo.PostDetailResponse;
 import com.depromeet.coquality.inner.post.vo.PostResponse;
 import com.depromeet.coquality.inner.post.vo.PostsReadInfo;
+import com.depromeet.coquality.outer.bookmark.adapter.driven.persistence.JpaBookmarkAdapter;
 import com.depromeet.coquality.outer.comment.infrastructure.JpaCommentRepository;
 import com.depromeet.coquality.outer.common.exception.CoQualityOuterExceptionCode;
 import com.depromeet.coquality.outer.post.entity.PostEntity;
@@ -26,6 +27,7 @@ public class JpaPostAdapter implements PostPort {
     private final JpaCommentRepository jpaCommentRepository;
     private final JpaTagRepository jpaTagRepository;
     private final JpaUserRepository jpaUserRepository;
+    private final JpaBookmarkAdapter jpaBookmarkAdapter;
 
     @Override
     public Post create(final Post post) {
@@ -45,6 +47,8 @@ public class JpaPostAdapter implements PostPort {
         final var userName = jpaUserRepository.findById(postEntity.getUserId())
             .orElseThrow()
             .getNickname();
+        final var bookmarkYn = jpaBookmarkAdapter.fetchBookmarkByUserIdAndPostId(
+            postEntity.getUserId(), postEntity.getId()).isBookmarkYn();
         if (!postEntity.getUserId().equals(userId)) {
             postEntity.increaseViews(1L);
         }
@@ -54,7 +58,7 @@ public class JpaPostAdapter implements PostPort {
             .stream()
             .map(TagEntity::getTagValue)
             .collect(Collectors.toSet());
-        return postEntity.toPostDetailResponse(tags, userName, commentCount);
+        return postEntity.toPostDetailResponse(tags, userName, commentCount, bookmarkYn);
     }
 
     @Override
@@ -116,11 +120,13 @@ public class JpaPostAdapter implements PostPort {
 
     private PostResponse entityToPostResponse(final PostEntity postEntity) {
         final var commentCount = jpaCommentRepository.countByPostId(postEntity.getId());
+        final var userName = jpaUserRepository.findById(postEntity.getUserId()).orElseThrow()
+            .getNickname();
         final var tags = jpaTagRepository.findByPostId(postEntity.getId())
             .stream()
             .map(TagEntity::getTagValue)
             .collect(Collectors.toSet());
 
-        return postEntity.toPostResponse(commentCount, tags);
+        return postEntity.toPostResponse(userName, commentCount, tags);
     }
 }
