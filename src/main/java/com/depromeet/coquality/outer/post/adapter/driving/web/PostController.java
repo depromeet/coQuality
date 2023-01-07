@@ -89,7 +89,19 @@ public class PostController {
     }
 
     @Auth
-    @GetMapping("/users/my")
+    @GetMapping("/users/{userId}")
+    public ApiResponse<List<PostResponse>> readUsersPost(
+        @PathVariable Long userId,
+        @RequestParam PostSortCode sort
+    ) {
+        final var postsReadInfo = PostsReadInfo.of(userId, sort, PostStatusCode.POST_ISSUED);
+        final var postResponses = readPostsUseCase.execute(postsReadInfo);
+
+        return ApiResponse.success(postResponses);
+    }
+
+    @Auth
+    @GetMapping("/my")
     public ApiResponse<List<PostResponse>> readMyPosts(
         @UserId Long userId,
         @RequestParam PostSortCode sort
