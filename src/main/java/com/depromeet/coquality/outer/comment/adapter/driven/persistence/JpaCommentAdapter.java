@@ -11,10 +11,10 @@ import com.depromeet.coquality.outer.common.exception.CoQualityOuterExceptionCod
 import com.depromeet.coquality.outer.post.infrastructure.JpaPostRepository;
 import com.depromeet.coquality.outer.user.entity.UserEntity;
 import com.depromeet.coquality.outer.user.infrastructure.JpaUserRepository;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 import static java.text.MessageFormat.format;
@@ -76,9 +76,21 @@ public class JpaCommentAdapter implements CommentPort {
         jpaPostRepository.findById(postId)
                 .orElseThrow(CoQualityOuterExceptionCode.POST_ENTITY_IS_NULL::newInstance);
 
-        List<CommentEntity> comments = jpaCommentRepository.findAllByPostId(postId);
+        final List<CommentEntity> comments = jpaCommentRepository.findAllByPostId(postId);
+
         return comments.stream()
-                .map(CommentEntity::toCommentResponse)
+                .map(p -> {
+                    final var findUserEntity = jpaUserRepository.findById(p.getUserId())
+                            .orElseThrow(CoQualityDomainExceptionCode.USER_ENTITY_IS_NULL::newInstance);
+                    return CommentResponse.of(
+                            p.getId(),
+                            p.getContents(),
+                            findUserEntity.getNickname(),
+                            p.getUserId(),
+                            p.getPostId(),
+                            p.getCreatedAt()
+                    );
+                })
                 .toList();
     }
 }
