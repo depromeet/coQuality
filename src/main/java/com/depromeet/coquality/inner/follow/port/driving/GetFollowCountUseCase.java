@@ -1,5 +1,7 @@
 package com.depromeet.coquality.inner.follow.port.driving;
 
+import com.depromeet.coquality.inner.follow.vo.FollowCountResponse;
+
 public interface GetFollowCountUseCase {
-    Long execute(Long userId);
+    FollowCountResponse execute(Long userId);
 }

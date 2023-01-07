@@ -1,6 +1,7 @@
 package com.depromeet.coquality.inner.bookmark.port.driven;
 
 import com.depromeet.coquality.inner.bookmark.domain.Bookmark;
+import com.depromeet.coquality.inner.bookmark.vo.BookmarkConditionResponse;
 import com.depromeet.coquality.inner.bookmark.vo.BookmarkPostResponse;
 import java.util.List;
 
@@ -11,4 +12,6 @@ public interface BookmarkPort {
     List<BookmarkPostResponse> readBookmarkPosts(Long userId);
 
     void deleteAll(Long userId);
+
+    BookmarkConditionResponse fetchBookmarkByUserIdAndPostId(Long userId, Long postId);
 }

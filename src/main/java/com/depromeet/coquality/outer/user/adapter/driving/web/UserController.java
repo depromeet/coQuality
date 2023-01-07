@@ -1,6 +1,7 @@
 package com.depromeet.coquality.outer.user.adapter.driving.web;
 
 import com.depromeet.coquality.inner.user.port.driving.ModifyUserUseCase;
+import com.depromeet.coquality.inner.user.port.driving.ReadMyUseCase;
 import com.depromeet.coquality.inner.user.port.driving.ReadUserUseCase;
 import com.depromeet.coquality.inner.user.port.driving.ValidateNicknameUseCase;
 import com.depromeet.coquality.outer.common.vo.ApiResponse;
@@ -22,14 +23,16 @@ import javax.validation.Valid;
 @RequestMapping("/api/v1/users")
 public class UserController {
 
-    private final ReadUserUseCase readUserUseCase;
+    private final ReadMyUseCase readMyUseCase;
     private final ModifyUserUseCase modifyUserUseCase;
     private final ValidateNicknameUseCase validateNicknameUseCase;
+    private final ReadUserUseCase readUserUseCase;
+
 
     @Auth
     @GetMapping("/read")
     public ApiResponse readMyInfo(@UserId final Long userId) {
-        return ApiResponse.success(readUserUseCase.execute(userId));
+        return ApiResponse.success(readMyUseCase.execute(userId));
     }
 
     @Auth
@@ -41,5 +44,9 @@ public class UserController {
     @GetMapping("/exist")
     public ApiResponse existNickname(final @RequestParam String nickname){
         return ApiResponse.success(validateNicknameUseCase.execute(nickname));
+    }
+    @GetMapping("/{id}/read")
+    public ApiResponse readUserInfo(final Long userId) {
+        return ApiResponse.success(readUserUseCase.execute(userId));
     }
 }
