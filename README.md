@@ -49,14 +49,21 @@
 ---
 <br>
 
-# 5. :department_store: 배포 파이프라인
+# 5. 🔧 아키텍처
+
+![디프만 아키텍처](https://user-images.githubusercontent.com/81547780/211260646-c36861da-abd9-43d0-aece-38f1311aead4.PNG)
+
+---
+<br>
+
+# 6. :department_store: 배포 파이프라인
 <p align="center"><img src="image/coquality-pipline.png"></p>
 
 
 ---
 <br>
 
-# 6. :open_file_folder: 업데이트 내역
+# 7. :open_file_folder: 업데이트 내역
 * 0.0.1
     * 개발 환경 구축
     * 글, 유저 도메인 구현
