@@ -40,7 +40,6 @@ public class RankUseCaseService implements RankUseCase {
 
         if (clapCount >= SPECIAL_EDITOR_RANK_CRITERIA && findUser.getRank() == UserRank.EDITOR){
             findUser.advancementUserRank(UserRank.SPECIAL_EDITOR);
-            return;
         }
 
     }
