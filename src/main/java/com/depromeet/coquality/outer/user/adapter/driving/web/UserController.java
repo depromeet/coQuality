@@ -9,12 +9,7 @@ import com.depromeet.coquality.outer.interceptor.Auth;
 import com.depromeet.coquality.outer.resolver.UserId;
 import com.depromeet.coquality.outer.user.adapter.driving.web.dto.reqeust.ModifyUserRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -46,7 +41,7 @@ public class UserController {
         return ApiResponse.success(validateNicknameUseCase.execute(nickname));
     }
     @GetMapping("/{id}/read")
-    public ApiResponse readUserInfo(final Long userId) {
+    public ApiResponse readUserInfo(@PathVariable("id") final Long userId) {
         return ApiResponse.success(readUserUseCase.execute(userId));
     }
 }
