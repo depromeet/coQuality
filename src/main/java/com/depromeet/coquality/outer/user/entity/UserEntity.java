@@ -62,4 +62,7 @@ public class UserEntity extends BaseEntity {
         this.rank = rank;
     }
 
+    public void modifyProfileImageUrl(final String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
+    }
 }

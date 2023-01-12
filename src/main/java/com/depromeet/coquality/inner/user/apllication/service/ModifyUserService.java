@@ -21,6 +21,7 @@ public class ModifyUserService implements ModifyUserUseCase {
         findUser.modifyNickname(user.getNickname());
         findUser.modifyUserSummary(user.getUserSummary());
         findUser.getSocialInfo().modifySocialEmail(user.getSocialEmail());
+        findUser.modifyProfileImageUrl(user.getProfileImageUrl());
 
     }
 }

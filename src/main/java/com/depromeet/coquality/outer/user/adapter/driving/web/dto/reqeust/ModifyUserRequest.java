@@ -1,6 +1,5 @@
 package com.depromeet.coquality.outer.user.adapter.driving.web.dto.reqeust;
 
-import com.depromeet.coquality.inner.comment.port.driving.dto.CommentDto;
 import com.depromeet.coquality.inner.user.port.driving.dto.request.UserDto;
 import lombok.Getter;
 
@@ -14,9 +13,10 @@ public class ModifyUserRequest {
     @Valid
     private String nickname;
     private String userSummary;
+    private String profileImageUrl;
 
 
     public UserDto toUserDto() {
-        return UserDto.of(nickname, email, userSummary);
+        return UserDto.of(nickname, email, userSummary, profileImageUrl);
     }
 }
