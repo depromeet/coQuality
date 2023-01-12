@@ -1,7 +1,11 @@
 package com.depromeet.coquality.outer.bookmark.adapter.driving.web;
 
 import com.depromeet.coquality.inner.bookmark.port.driving.CheckBookmarkUseCase;
-import com.depromeet.coquality.inner.bookmark.port.driving.*;
+import com.depromeet.coquality.inner.bookmark.port.driving.CreateBookmarkUseCase;
+import com.depromeet.coquality.inner.bookmark.port.driving.DeleteAllBookmarkUseCase;
+import com.depromeet.coquality.inner.bookmark.port.driving.DeleteBookmarkUseCase;
+import com.depromeet.coquality.inner.bookmark.port.driving.ModifyBookmarkUseCase;
+import com.depromeet.coquality.inner.bookmark.port.driving.ReadBookmarkPostsUseCase;
 import com.depromeet.coquality.outer.bookmark.adapter.driving.web.request.BookmarkRequest;
 import com.depromeet.coquality.outer.common.vo.ApiResponse;
 import com.depromeet.coquality.outer.interceptor.Auth;
