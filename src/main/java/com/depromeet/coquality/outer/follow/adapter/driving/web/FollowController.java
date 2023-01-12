@@ -1,6 +1,11 @@
 package com.depromeet.coquality.outer.follow.adapter.driving.web;
 
-import com.depromeet.coquality.inner.follow.port.driving.*;
+import com.depromeet.coquality.inner.follow.port.driving.CreateFollowUseCase;
+import com.depromeet.coquality.inner.follow.port.driving.DeleteFollowUseCase;
+import com.depromeet.coquality.inner.follow.port.driving.GetFollowCountUseCase;
+import com.depromeet.coquality.inner.follow.port.driving.GetFollowersUseCase;
+import com.depromeet.coquality.inner.follow.port.driving.GetFollowingUseCase;
+import com.depromeet.coquality.inner.follow.port.driving.GetMyFollowCountUseCase;
 import com.depromeet.coquality.outer.common.vo.ApiResponse;
 import com.depromeet.coquality.outer.interceptor.Auth;
 import com.depromeet.coquality.outer.resolver.UserId;
