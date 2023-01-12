@@ -62,7 +62,7 @@ public class JpaUserAdapter implements UserPort {
         final UserEntity findUser = jpaUserRepository.findById(userId)
                 .orElseThrow(CoQualityDomainExceptionCode.USER_ENTITY_IS_NULL::newInstance);
 
-        return UserResponse.of(findUser.getId(), findUser.getNickname(), findUser.getProfileImageUrl(), findUser.getUserSummary(), String.valueOf(findUser.getRank()));
+        return UserResponse.of(findUser.getId(), findUser.getNickname(), findUser.getProfileImageUrl(), findUser.getSocialInfo().getSocialEmail(), findUser.getUserSummary(), String.valueOf(findUser.getRank()));
     }
 
     @Override
