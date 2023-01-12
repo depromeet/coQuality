@@ -163,7 +163,7 @@ public class PostEntity extends BaseEntity {
     }
 
     public PostEntity modifyClapCount(@NonNull Long clapCount) {
-        this.clapCount += clapCount;
+        this.clapCount = clapCount;
         return this;
     }
 
