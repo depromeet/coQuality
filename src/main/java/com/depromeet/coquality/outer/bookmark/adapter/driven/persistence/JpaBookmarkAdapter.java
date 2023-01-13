@@ -32,6 +32,11 @@ public class JpaBookmarkAdapter implements BookmarkPort {
         jpaPostRepository.findById(bookmark.getPostId())
                 .orElseThrow(CoQualityDomainExceptionCode.POST_ENTITY_IS_NULL::newInstance);
 
+        final Optional<BookmarkEntity> foundBookmarkEntity = jpaBookmarkRepository.findBookmarkByUserIdAndPostId(bookmark.getUserId(), bookmark.getPostId());
+        if (foundBookmarkEntity.isPresent()){
+            throw new IllegalArgumentException(CoQualityDomainExceptionCode.BOOKMARK_ENTITY_IS_NULL.newInstance());
+        }
+
         final BookmarkEntity saveBookmarkEntity = BookmarkEntity.factory()
                 .userId(bookmark.getUserId())
                 .postId(bookmark.getPostId())
@@ -77,7 +82,7 @@ public class JpaBookmarkAdapter implements BookmarkPort {
                     final var findUserEntity = jpaUserRepository.findById(p.getUserId())
                             .orElseThrow(CoQualityDomainExceptionCode.USER_ENTITY_IS_NULL::newInstance);
                     final var findBookmarkEntity = jpaBookmarkRepository.findBookmarkByUserIdAndPostId(
-                                    findUserEntity.getId(),
+                                    userId,
                                     p.getId())
                             .orElseThrow(CoQualityDomainExceptionCode.POST_ENTITY_IS_NULL::newInstance);
 

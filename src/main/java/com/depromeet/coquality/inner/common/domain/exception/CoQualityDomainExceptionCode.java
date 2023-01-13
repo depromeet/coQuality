@@ -41,6 +41,7 @@ public enum CoQualityDomainExceptionCode {
     BOOKMARK_USERID_IS_NULL(BOOKMARK.code + 1, "bookmark userId is null"),
     BOOKMARK_POSTID_IS_NULL(BOOKMARK.code + 2, "bookmark postId is null"),
     BOOKMARK_ENTITY_IS_NULL(BOOKMARK.code + 3, "bookmark entity is null"),
+    BOOKMARK_ENTITY_IS_PRESENT(BOOKMARK.code  + 4, "bookmark entity is duplicate"),
 
     IMAGE(6000, "image %s"),
     IMAGE_IS_NULL(IMAGE.code + 1, "image is null");
