@@ -18,5 +18,5 @@ public interface JpaPostRepository extends JpaRepository<PostEntity, Long>,
     Long countByUserId(final Long userId);
 
     @Query(value = "select sum(p.clap_count) from posts p where p.user_id = :userId", nativeQuery = true)
-    Long selectClapCountByUserId(@Param("userId") Long userId);
+    Optional<Long> selectClapCountByUserId(@Param("userId") Long userId);
 }

@@ -14,10 +14,12 @@ import com.depromeet.coquality.outer.post.infrastructure.JpaPostRepository;
 import com.depromeet.coquality.outer.tag.entity.TagEntity;
 import com.depromeet.coquality.outer.tag.infrastructure.JpaTagRepository;
 import com.depromeet.coquality.outer.user.infrastructure.JpaUserRepository;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -115,7 +117,11 @@ public class JpaPostAdapter implements PostPort {
 
     @Override
     public Long fetchUserClapCount(final Long userId) {
-        return jpaPostRepository.selectClapCountByUserId(userId);
+        Optional<Long> clapCount = jpaPostRepository.selectClapCountByUserId(userId);
+        if (clapCount.isPresent()){
+            return clapCount.get();
+        }
+        return 0L;
     }
 
     private PostResponse entityToPostResponse(final PostEntity postEntity) {
