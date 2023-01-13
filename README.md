@@ -1,4 +1,4 @@
-#  🌐 coquality
+#  🌐 [coquality](https://www.co-quality.online/)
 
 <div align="center" style="display:flex;">
     <img src="./image/coquality-logo.png" width="450" alt="logo"/>
@@ -79,3 +79,6 @@
     * 북마크 도메인 구현 및 저장 이유를 쓰는 기능 추가
     * 글의 하위 도메인 테그 구현
     * 마이페이지 기능 구현
+* 0.0.4
+    * 박수 치기 기능 수정
+    * 내가 저장한글 기능 수정
