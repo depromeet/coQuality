@@ -1,4 +1,4 @@
-#  🌐 [coquality](https://api.co-quality.online/swagger-ui/index.html#/)
+#  🌐 coquality
 
 <div align="center" style="display:flex;">
     <img src="./image/coquality-logo.png" width="450" alt="logo"/>
